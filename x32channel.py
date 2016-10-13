@@ -1,10 +1,11 @@
 class MixerChannel(object):
 
-    def __init__(self):
+    def __init__(self, channelnumber):
         print "New channel instance created"
         self.mute_button = None
         self.mute_fader = None
         self.mutestatus = None
+        self.channelnumber = channelnumber
 
     def setfaderlevel(self, fadermsg):
         self.faderlevel = fadermsg
@@ -34,7 +35,7 @@ class MixerChannel(object):
 
         # Activate a change in GPIO only if the mutestatus has actually changed
         if self.mutestatus != mutestatus:
-            print "reference to GPIO class here, should probably be a function"
+            print "Set mutestatus to", mutestatus, "for channel", self.channelnumber
 
         self.mutestatus = mutestatus
 
