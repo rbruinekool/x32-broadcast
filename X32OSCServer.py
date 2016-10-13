@@ -15,11 +15,13 @@ ChannelSubscribeList = [Caster1Channel, Caster2Channel]
 SubscribeFactor = 0
 
 CastersDCA = 8
+DCASubscribelist = [CastersDCA]
 
 Caster1LedChannel = 7
 Caster2LedChannel = 11
 
 C1 = MixerChannel(Caster1Channel)
+C2 = MixerChannel(Caster2Channel)
 #############################################
 
 class PiException(Exception):
@@ -45,22 +47,36 @@ s.addDefaultHandlers()
 def X32Renewed(addr, tags, stuff, source):
     dummy = 1
 
-def ChannelMute(addr, tags, stuff, source):
-    # ChannelNumber = eval(''.join(re.findall('[0-9]', addr)))
+def C1ChannelMute(addr, tags, stuff, source):
     C1.setmutebutton(stuff[0])
 
+def C2ChannelMute(addr, tags, stuff, source):
+    C2.setmutebutton(stuff[0])
 
-def FaderMute(addr, tags, stuff, source):
-    # ChannelNumber = eval(''.join(re.findall('[0-9]', addr)))
+def C1FaderMute(addr, tags, stuff, source):
     C1.setfaderlevel(stuff[0])
+
+def C2FaderMute(addr, tags, stuff, source):
+    C2.setfaderlevel(stuff[0])
+
+def CasterDCAMute(addr, tags, stuff, source):
+    C1.setdcamutebutton(stuff[0])
+    C2.setdcamutebutton(stuff[0])
+
+def CasterDCAFaderMute(addr, tags, stuff, source):
+    C1.setdcafaderlevel(stuff[0])
+    C2.setdcafaderlevel(stuff[0])
 
 
 # adding OSC handles
 s.addMsgHandler("/renew", X32Renewed)
-s.addMsgHandler("/ch/%02d/mix/on" %Caster1Channel , ChannelMute)
-s.addMsgHandler("/ch/%02d/mix/on" %Caster2Channel , X32Renewed)
-s.addMsgHandler("/ch/%02d/mix/fader" %Caster1Channel , FaderMute)
-s.addMsgHandler("/ch/%02d/mix/fader" %Caster2Channel , X32Renewed)
+s.addMsgHandler("/ch/%02d/mix/on" %Caster1Channel , C1ChannelMute)
+s.addMsgHandler("/ch/%02d/mix/on" %Caster2Channel , C2ChannelMute)
+s.addMsgHandler("/ch/%02d/mix/fader" %Caster1Channel , C1FaderMute)
+s.addMsgHandler("/ch/%02d/mix/fader" %Caster2Channel , C2FaderMute)
+s.addMsgHandler("/dca/%d/on" %CastersDCA , CasterDCAMute)
+s.addMsgHandler("/dca/%d/fader" %CastersDCA , CasterDCAFaderMute)
+
 
 
 # just checking which handlers we have added
@@ -89,6 +105,22 @@ try:
 
             msg.setAddress("/subscribe")
             msg.append("/ch/%02d/mix/fader" % ChannelSubscribeList[i])
+            msg.append(SubscribeFactor)
+            c.sendto(msg, send_address)
+            # print "Sent message:", msg
+            msg.clear()
+
+        for j in range(0, len(DCASubscribelist)):
+
+            msg.setAddress("/subscribe")
+            msg.append("/dca/%d/on" % DCASubscribelist[j])
+            msg.append(SubscribeFactor)
+            c.sendto(msg, send_address)
+            # print "Sent message:", msg
+            msg.clear()
+
+            msg.setAddress("/subscribe")
+            msg.append("/dca/%d/fader" % DCASubscribelist[j])
             msg.append(SubscribeFactor)
             c.sendto(msg, send_address)
             # print "Sent message:", msg

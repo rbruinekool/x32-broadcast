@@ -4,6 +4,8 @@ class MixerChannel(object):
         print "New channel instance created"
         self.mute_button = None
         self.mute_fader = None
+        self.mute_dcafader = None
+        self.mute_dcabutton = None
         self.mutestatus = None
         self.channelnumber = channelnumber
 
@@ -29,9 +31,30 @@ class MixerChannel(object):
 
         self.check_mute_status()
 
+    def setdcafaderlevel(self, dcafadermsg):
+        self.DCAfader = dcafadermsg
+
+        # Set the mute_dcafader property to True if the DCA fader is below 10%
+        if dcafadermsg <= 0.1:
+            self.mute_dcafader = True
+        else:
+            self.mute_dcafader = False
+
+        self.check_mute_status()
+
+    def setdcamutebutton(self, dcabuttonmsg):
+        self.dcaon = dcabuttonmsg
+
+        if dcabuttonmsg == 0:
+            self.mute_dcabutton = True
+        else:
+            self.mute_dcabutton = False
+
+        self.check_mute_status()
+
     def check_mute_status(self):
 
-        mutestatus = self.mute_button or self.mute_fader
+        mutestatus = self.mute_button or self.mute_fader or self.mute_dcabutton or self.mute_dcafader
 
         # Activate a change in GPIO only if the mutestatus has actually changed
         if self.mutestatus != mutestatus:
