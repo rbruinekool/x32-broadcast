@@ -1,13 +1,13 @@
 class MixerChannel(object):
 
     def __init__(self, channelnumber):
-        print "New channel instance created"
         self.mute_button = None
         self.mute_fader = None
         self.mute_dcafader = None
         self.mute_dcabutton = None
         self.mutestatus = None
         self.channelnumber = channelnumber
+        self.subscribefactor = 0  # Sets how fast the X32 will send subscribe messages (0 is fastest)
 
     def setfaderlevel(self, fadermsg):
         self.faderlevel = fadermsg
@@ -63,3 +63,46 @@ class MixerChannel(object):
         self.mutestatus = mutestatus
 
         return self.mutestatus
+
+    def OSCChannelSubscribeMSG(self):
+        import OSC
+
+        # Format the OSC message to subscribe to the channel mute button
+        mutemsg = OSC.OSCMessage()
+        mutemsg.setAddress("/subscribe")
+        mutemsg.append("/ch/%02d/mix/on" % self.channelnumber)
+        mutemsg.append(self.subscribefactor)
+
+        # Format the OSC message to subscribe to the channel fader
+        fadermsg = OSC.OSCMessage()
+        fadermsg.setAddress("/subscribe")
+        fadermsg.append("/ch/%02d/mix/fader" % self.channelnumber)
+        fadermsg.append(self.subscribefactor)
+        return [mutemsg, fadermsg]
+
+# Almost certainly the X32Subscribe class will be removed soon
+class X32Subscribe(object):
+
+    def __init__(self):
+        self.channellist = [None]
+        self.DCAlist = [None]
+        self.FullOSCList = [None]
+        # This is the frequency at which the X32 will send messages, higher numbers mean lower message frequencies
+        self.frequency = 0
+
+    def addchannel(self, channelnumber):
+        # Adds a channel to the list of channels to which the OSCServer will subscribe.
+        # Channel numbers must be formatted as a whole integer
+        if self.channellist[0] is None:
+            self.channellist[0] = channelnumber
+        else:
+            self.channellist.append(channelnumber)
+
+    def adddca(self, DCAnumber):
+        # Adds a DCA group to the list to which the OSCServer will subscribe.
+        # DCA numbers must be formatted as a whole integer
+        if self.DCAlist[0] is None:
+            self.DCAlist[0] = DCAnumber
+        else:
+            self.DCAlist.append(DCAnumber)
+
