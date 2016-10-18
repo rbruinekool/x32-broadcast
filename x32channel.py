@@ -29,7 +29,8 @@ class MixerChannel(object):
 
         self.check_mute_status()
 
-    def setmutebutton(self, buttonmsg):
+    def setmutebutton(self, addr, tags, msg, source):
+        buttonmsg = msg[0]
         self.channel_on = buttonmsg
 
         # Set the mute_button property True if the channel is muted by the mute button
@@ -109,30 +110,6 @@ class MixerChannel(object):
 
             return [mutemsg, fadermsg]
 
-
-# Almost certainly the X32Subscribe class will be removed soon
-class X32Subscribe(object):
-
-    def __init__(self):
-        self.channellist = [None]
-        self.DCAlist = [None]
-        self.FullOSCList = [None]
-        # This is the frequency at which the X32 will send messages, higher numbers mean lower message frequencies
-        self.frequency = 0
-
-    def addchannel(self, channelnumber):
-        # Adds a channel to the list of channels to which the OSCServer will subscribe.
-        # Channel numbers must be formatted as a whole integer
-        if self.channellist[0] is None:
-            self.channellist[0] = channelnumber
-        else:
-            self.channellist.append(channelnumber)
-
-    def adddca(self, DCAnumber):
-        # Adds a DCA group to the list to which the OSCServer will subscribe.
-        # DCA numbers must be formatted as a whole integer
-        if self.DCAlist[0] is None:
-            self.DCAlist[0] = DCAnumber
-        else:
-            self.DCAlist.append(DCAnumber)
-
+    def tempcall(self, addr, tags, msg, source):
+        oscvalue = msg[0]
+        print "crazy stuff, it works, msg =", oscvalue
