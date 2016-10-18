@@ -18,7 +18,8 @@ class MixerChannel(object):
         self.dcagroup = dcagroup
         self.subscribefactor = 0  # Sets how fast the X32 will send subscribe messages (0 is fastest)
 
-    def setfaderlevel(self, fadermsg):
+    def setfaderlevel(self, addr, tags, msg, source):
+        fadermsg = msg[0]
         self.faderlevel = fadermsg
 
         # Set the mute_button property if the channel fader is below 10%
@@ -41,7 +42,8 @@ class MixerChannel(object):
 
         self.check_mute_status()
 
-    def setdcafaderlevel(self, dcafadermsg):
+    def setdcafaderlevel(self, addr, tags, msg, source):
+        dcafadermsg = msg[0]
         self.DCAfader = dcafadermsg
 
         # Set the mute_dcafader property to True if the DCA fader is below 10%
@@ -52,7 +54,8 @@ class MixerChannel(object):
 
         self.check_mute_status()
 
-    def setdcamutebutton(self, dcabuttonmsg):
+    def setdcamutebutton(self, addr, tags, msg, source):
+        dcabuttonmsg = msg[0]
         self.dcaon = dcabuttonmsg
 
         if dcabuttonmsg == 0:

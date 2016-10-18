@@ -74,29 +74,30 @@ def X32Renewed(addr, tags, msg, source):
 # def C2ChannelMute(addr, tags, msg, source):
 #     C2.setmutebutton(msg[0])
 
-def C1FaderMute(addr, tags, msg, source):
-    C1.setfaderlevel(msg[0])
-
-def C2FaderMute(addr, tags, msg, source):
-    C2.setfaderlevel(msg[0])
-
-def CasterDCAMute(addr, tags, msg, source):
-    C1.setdcamutebutton(msg[0])
-    C2.setdcamutebutton(msg[0])
-
-def CasterDCAFaderMute(addr, tags, msg, source):
-    C1.setdcafaderlevel(msg[0])
-    C2.setdcafaderlevel(msg[0])
+# def C1FaderMute(addr, tags, msg, source):
+#     C1.setfaderlevel(msg[0])
+#
+# def C2FaderMute(addr, tags, msg, source):
+#     C2.setfaderlevel(msg[0])
+#
+# def CasterDCAMute(addr, tags, msg, source):
+#     C1.setdcamutebutton(msg[0])
+#     C2.setdcamutebutton(msg[0])
+#
+# def CasterDCAFaderMute(addr, tags, msg, source):
+#     C1.setdcafaderlevel(msg[0])
+#     C2.setdcafaderlevel(msg[0])
 
 
 # adding OSC handles
 s.addMsgHandler("/renew", X32Renewed)
 s.addMsgHandler("/ch/%02d/mix/on" %Caster1Channel , C1.setmutebutton)
 s.addMsgHandler("/ch/%02d/mix/on" %Caster2Channel , C2.setmutebutton)
-s.addMsgHandler("/ch/%02d/mix/fader" %Caster1Channel , C1FaderMute)
-s.addMsgHandler("/ch/%02d/mix/fader" %Caster2Channel , C2FaderMute)
-s.addMsgHandler("/dca/%d/on" %CasterDCAGroup , CasterDCAMute)
-s.addMsgHandler("/dca/%d/fader" %CasterDCAGroup , CasterDCAFaderMute)
+s.addMsgHandler("/ch/%02d/mix/fader" %Caster1Channel , C1.setfaderlevel)
+s.addMsgHandler("/ch/%02d/mix/fader" %Caster2Channel , C2.setfaderlevel)
+#TODO find a way to get both channels to be affected by a single DCA
+s.addMsgHandler("/dca/%d/on" %CasterDCAGroup , C1.setdcamutebutton)
+s.addMsgHandler("/dca/%d/fader" %CasterDCAGroup , C1.setdcafaderlevel)
 
 
 # just checking which handlers we have added
