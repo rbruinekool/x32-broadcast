@@ -1,11 +1,12 @@
-import OSC
 import threading
 import time
 
+import OSC
+
 from x32channel import MixerChannel
 
-receive_address = '127.0.0.1', 50006   # Local Address
-send_address = '127.0.0.1', 10023  # Remote Address
+receive_address = '10.75.255.74', 50006   # Local Address
+send_address = '10.75.255.75', 10023  # Remote Address
 
 #############################################
 
@@ -22,19 +23,21 @@ class PiException(Exception):
 
 Caster1Channel = 9
 Caster2Channel = 10
+CasterDCAGroup = 1
 
-C1 = MixerChannel(Caster1Channel)
-C2 = MixerChannel(Caster2Channel)
+C1 = MixerChannel(Caster1Channel, CasterDCAGroup)
+C2 = MixerChannel(Caster2Channel, CasterDCAGroup)
+
+
+NrofChannelInstances = (MixerChannel._ids).next()
+print "Number of channel instances created =", NrofChannelInstances
 
 #  These objects below are the subscribe messages that are sent periodically to the X32
-SubscribemsgC1 = C1.OSCChannelSubscribeMSG()
-SubscribemsgC2 = C2.OSCChannelSubscribeMSG()
+C1MessageList = C1.OSCChannelSubscribeMSG()
+C2MessageList = C2.OSCChannelSubscribeMSG()
 
 ChannelSubscribeList = [Caster1Channel, Caster2Channel]
 SubscribeFactor = 0
-
-CastersDCA = 8
-DCASubscribelist = [CastersDCA]
 
 Caster1LedChannel = 7
 Caster2LedChannel = 11
@@ -83,8 +86,8 @@ s.addMsgHandler("/ch/%02d/mix/on" %Caster1Channel , C1ChannelMute)
 s.addMsgHandler("/ch/%02d/mix/on" %Caster2Channel , C2ChannelMute)
 s.addMsgHandler("/ch/%02d/mix/fader" %Caster1Channel , C1FaderMute)
 s.addMsgHandler("/ch/%02d/mix/fader" %Caster2Channel , C2FaderMute)
-s.addMsgHandler("/dca/%d/on" %CastersDCA , CasterDCAMute)
-s.addMsgHandler("/dca/%d/fader" %CastersDCA , CasterDCAFaderMute)
+s.addMsgHandler("/dca/%d/on" %CasterDCAGroup , CasterDCAMute)
+s.addMsgHandler("/dca/%d/fader" %CasterDCAGroup , CasterDCAFaderMute)
 
 
 
@@ -100,33 +103,13 @@ st.start()
 
 
 # Loop while threads are running.
+# TODO: Find some way to make a good name or list for 'C1Messagelist' as it is too specific
 try:
     while 1:
-        msg = OSC.OSCMessage()
-
-        c.sendto(SubscribemsgC1, send_address)
-        c.sendto(SubscribemsgC2, send_address)
-
-        # for i in range(0, len(ChannelSubscribeList)):
-        #     msg.setAddress("/subscribe")
-        #     msg.append("/ch/%02d/mix/fader" % ChannelSubscribeList[i])
-        #     msg.append(SubscribeFactor)
-        #     c.sendto(msg, send_address)
-        #     msg.clear()
-        #
-        # for j in range(0, len(DCASubscribelist)):
-        #
-        #     msg.setAddress("/subscribe")
-        #     msg.append("/dca/%d/on" % DCASubscribelist[j])
-        #     msg.append(SubscribeFactor)
-        #     c.sendto(msg, send_address)
-        #     msg.clear()
-        #
-        #     msg.setAddress("/subscribe")
-        #     msg.append("/dca/%d/fader" % DCASubscribelist[j])
-        #     msg.append(SubscribeFactor)
-        #     c.sendto(msg, send_address)
-        #     msg.clear()
+        for i in range(0, NrofChannelInstances):
+            CurrentChannel = ("C%dMessageList[j]" % (i+1))
+            for j in range(0, len(C1MessageList)):
+                c.sendto(eval(CurrentChannel), send_address)
 
         time.sleep(8)
 

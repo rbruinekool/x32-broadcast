@@ -1,12 +1,21 @@
-class MixerChannel(object):
+from itertools import count
 
-    def __init__(self, channelnumber):
+import OSC
+
+
+class MixerChannel(object):
+    _ids = count(0)
+
+    def __init__(self, channelnumber, dcagroup = None):
+        self.id = self._ids.next()  #id number to keep track of the amount of instances made in a script
+
         self.mute_button = None
         self.mute_fader = None
         self.mute_dcafader = None
         self.mute_dcabutton = None
         self.mutestatus = None
         self.channelnumber = channelnumber
+        self.dcagroup = dcagroup
         self.subscribefactor = 0  # Sets how fast the X32 will send subscribe messages (0 is fastest)
 
     def setfaderlevel(self, fadermsg):
@@ -65,7 +74,6 @@ class MixerChannel(object):
         return self.mutestatus
 
     def OSCChannelSubscribeMSG(self):
-        import OSC
 
         # Format the OSC message to subscribe to the channel mute button
         mutemsg = OSC.OSCMessage()
@@ -78,7 +86,29 @@ class MixerChannel(object):
         fadermsg.setAddress("/subscribe")
         fadermsg.append("/ch/%02d/mix/fader" % self.channelnumber)
         fadermsg.append(self.subscribefactor)
-        return [mutemsg, fadermsg]
+
+        # The DCA group is an optional integer property, so we only want to formate these osc messages if it was
+        # actually assigned in creation of the instance
+        if type(self.dcagroup) is int:
+            # Format the OSC message to subscribe to the DCA mute
+            dcamutemsg = OSC.OSCMessage()
+            dcamutemsg.setAddress("/subscribe")
+            dcamutemsg.append("/dca/%d/on" % self.dcagroup)
+            dcamutemsg.append(self.subscribefactor)
+
+            # Format the OSC message to subscribe to the DCA fader
+            dcafadermsg = OSC.OSCMessage()
+            dcafadermsg.setAddress("/subscribe")
+            dcafadermsg.append("/dca/%d/fader" % self.dcagroup)
+            dcafadermsg.append(self.subscribefactor)
+
+            return [mutemsg, fadermsg, dcamutemsg, dcafadermsg]
+        else:
+            #TODO change this print into an actual proper way of reporting an exception
+            print "Warning: non integer DCA group has been assigned"
+
+            return [mutemsg, fadermsg]
+
 
 # Almost certainly the X32Subscribe class will be removed soon
 class X32Subscribe(object):
