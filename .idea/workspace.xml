@@ -350,7 +350,14 @@
       <option name="project" value="LOCAL" />
       <updated>1476825120773</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Started writing the OSC callback functions into the MixerChannel object - at this commit it works for Channel Mutes">
+      <created>1476825206264</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1476825206264</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
