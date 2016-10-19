@@ -1,7 +1,8 @@
+import OSC
 import threading
 import time
 
-import OSC
+from prettytable import PrettyTable
 
 from x32channel import MixerChannel
 
@@ -21,36 +22,41 @@ class PiException(Exception):
 # Channel Variables
 ##########################
 
-Caster1Channel = 5
-Caster2Channel = 6
-HostChannel = 1
+SubscribeFactor = 0
 
-CasterDCAGroup = 2
-PanelDCAGroup = 1
+ChannelDict = {
+    "label": ["Caster 1", "Caster 2", "Host"],
+    "Channel": ["1", "2", "3"],
+    "DCA Group": ["1", "1", "2"],
+}
 
-C1 = MixerChannel(Caster1Channel, CasterDCAGroup)
-C2 = MixerChannel(Caster2Channel, CasterDCAGroup)
-# C3 = MixerChannel(HostChannel, PanelDCAGroup)
+ChannelLabels = ChannelDict["Channel"]
+DCALabels = ChannelDict["DCA Group"]
+
+ObjectList = [None] * len(ChannelLabels)
+for i in range(0, len(ChannelLabels)):
+    ObjectList[i] = MixerChannel(eval(ChannelLabels[i]), eval(DCALabels[i]))
+del i
 
 NrofChannelInstances = MixerChannel._ids.next()
 print "Number of channel instances created =", NrofChannelInstances
 
-OSCMessagelist = [None] * NrofChannelInstances  # Pre-allocation
-
 #  These objects below are the subscribe messages that are sent periodically to the X32
+OSCMessagelist = [None] * NrofChannelInstances  # Pre-allocation
 for i in range(0, NrofChannelInstances):
-    CurrentChannelMethod = "C%d.OSCChannelSubscribeMSG()" % (i + 1)
-    OSCMessagelist[i] = eval(CurrentChannelMethod)
-
+    OSCMessagelist[i] = ObjectList[i].OSCChannelSubscribeMSG()
 del i
 
-ChannelSubscribeList = [Caster1Channel, Caster2Channel]
-SubscribeFactor = 0
+###########################################################
+# Reporting of the subscribed OSC handles in a pretty way #
+###########################################################
+ChannelReport = PrettyTable()
+ChannelReport.add_column("Name", ChannelDict["label"])
+ChannelReport.add_column("Channel #", ChannelDict["Channel"])
+ChannelReport.add_column("DCA Group", ChannelDict["DCA Group"])
 
-Caster1LedChannel = 7
-Caster2LedChannel = 11
-
-
+print "Reporting to subscribe and receive OSC messages from the following channels:"
+print ChannelReport
 ##########################
 # OSC
 ##########################
@@ -90,14 +96,21 @@ def X32Renewed(addr, tags, msg, source):
 
 
 # adding OSC handles
-s.addMsgHandler("/renew", X32Renewed)
-s.addMsgHandler("/ch/%02d/mix/on" %Caster1Channel , C1.setmutebutton)
-s.addMsgHandler("/ch/%02d/mix/on" %Caster2Channel , C2.setmutebutton)
-s.addMsgHandler("/ch/%02d/mix/fader" %Caster1Channel , C1.setfaderlevel)
-s.addMsgHandler("/ch/%02d/mix/fader" %Caster2Channel , C2.setfaderlevel)
-#TODO find a way to get both channels to be affected by a single DCA
-s.addMsgHandler("/dca/%d/on" %CasterDCAGroup , C1.setdcamutebutton)
-s.addMsgHandler("/dca/%d/fader" %CasterDCAGroup , C1.setdcafaderlevel)
+
+for i in range(0, NrofChannelInstances):
+    CurrentInstance = ObjectList[i]
+    s.addMsgHandler(CurrentInstance.mutepath, CurrentInstance.setmutebutton)
+    s.addMsgHandler(CurrentInstance.faderpath, CurrentInstance.setfaderlevel)
+    s.addMsgHandler(CurrentInstance.dcamutepath, CurrentInstance.setdcamutebutton)
+    s.addMsgHandler(CurrentInstance.dcafaderpath, CurrentInstance.setdcafaderlevel)
+# s.addMsgHandler("/renew", X32Renewed)
+# s.addMsgHandler("/ch/%02d/mix/on" %Caster1Channel , C1.setmutebutton)
+# s.addMsgHandler("/ch/%02d/mix/on" %Caster2Channel , C2.setmutebutton)
+# s.addMsgHandler("/ch/%02d/mix/fader" %Caster1Channel , C1.setfaderlevel)
+# s.addMsgHandler("/ch/%02d/mix/fader" %Caster2Channel , C2.setfaderlevel)
+# #TODO find a way to get both channels to be affected by a single DCA
+# s.addMsgHandler("/dca/%d/on" %CasterDCAGroup , C1.setdcamutebutton)s
+# s.addMsgHandler("/dca/%d/fader" %CasterDCAGroup , C1.setdcafaderlevel)
 
 
 # just checking which handlers we have added
@@ -113,7 +126,7 @@ st.start()
 
 # Loop while threads are running.
 # OSCMessageList is a list in which each entry is another list that contains all the OSC Messages to which the Server
-# will subscribe. For example OSCMessageList could look like this:
+# will subscribe. For example the string parts of OSCMessageList could look like this:
 # [ ["/ch/01/mix/on" , "/ch/01/mix/fader"] , ["/ch/02/mix/on" , "/ch/02/mix/fader"]]
 # I.e. the first index of the list points to a specific instance of the MixerChannel object
 # The second index points to a specific OSC message that is a part of that MixerChannel object

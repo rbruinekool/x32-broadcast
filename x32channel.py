@@ -16,6 +16,12 @@ class MixerChannel(object):
         self.mutestatus = None
         self.channelnumber = channelnumber
         self.dcagroup = dcagroup
+        self.mutepath = "/ch/%02d/mix/on" % channelnumber
+        self.faderpath = "/ch/%02d/mix/fader" % channelnumber
+        if type(self.dcagroup) is int:
+            self.dcamutepath = "/dca/%d/on" % dcagroup
+            self.dcafaderpath = "/dca/%d/fader" % dcagroup
+
         self.subscribefactor = 0  # Sets how fast the X32 will send subscribe messages (0 is fastest)
 
     def setfaderlevel(self, addr, tags, msg, source):
@@ -113,6 +119,10 @@ class MixerChannel(object):
 
             return [mutemsg, fadermsg]
 
-    def tempcall(self, addr, tags, msg, source):
-        oscvalue = msg[0]
-        print "crazy stuff, it works, msg =", oscvalue
+def list_duplicates(seq):
+    seen = set()
+    seen_add = seen.add
+    # adds all elements it doesn't know yet to seen and all other to seen_twice
+    seen_twice = set( x for x in seq if x in seen or seen_add(x) )
+    # turn the set into a list (as requested)
+    return list( seen_twice )
