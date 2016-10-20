@@ -48,7 +48,7 @@ class MixerChannel(object):
 
         self.check_mute_status()
 
-    def setdcafaderlevel(self, addr, tags, msg, source):
+    def setdcafaderlevel(self, msg):
         dcafadermsg = msg[0]
         self.DCAfader = dcafadermsg
 
@@ -60,7 +60,7 @@ class MixerChannel(object):
 
         self.check_mute_status()
 
-    def setdcamutebutton(self, addr, tags, msg, source):
+    def setdcamutebutton(self, msg):
         dcabuttonmsg = msg[0]
         self.dcaon = dcabuttonmsg
 
@@ -118,6 +118,24 @@ class MixerChannel(object):
             print "Warning: non integer DCA group has been assigned"
 
             return [mutemsg, fadermsg]
+
+class DCAGroup(object):
+
+    def __init__(self):
+        self.channellist = [None]
+        self.channelindex = [None]
+
+    def addchannel(self, channel):
+        if type(channel) is int:
+            if self.channellist[0] is None:
+                self.channellist[0] = channel
+            else:
+                self.channellist.append(channel)
+        if type(channel) is list:
+            if self.channellist[0] is None:
+                self.channellist = channel
+            else:
+                self.channellist = self.channellist + channel
 
 def list_duplicates(seq):
     seen = set()

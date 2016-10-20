@@ -1,10 +1,10 @@
-import OSC
 import threading
 import time
 
+import OSC
 from prettytable import PrettyTable
 
-from x32channel import MixerChannel
+from x32channel import MixerChannel, DCAGroup
 
 receive_address = '10.75.255.74', 50006   # Local Address
 send_address = '10.75.255.75', 10023  # Remote Address
@@ -26,9 +26,15 @@ SubscribeFactor = 0
 
 ChannelDict = {
     "label": ["Caster 1", "Caster 2", "Host"],
-    "Channel": ["1", "2", "3"],
-    "DCA Group": ["1", "1", "2"],
+    "Channel": ["5", "6", "1"],
+    "DCA Group": ["2", "2", "1"],
 }
+DCA1 = DCAGroup()
+DCA2 = DCAGroup()
+
+DCAObjectList = [DCA1, DCA2]
+DCA1.channelindex = [2]
+DCA2.channelindex = [0, 1]
 
 ChannelLabels = ChannelDict["Channel"]
 DCALabels = ChannelDict["DCA Group"]
@@ -86,14 +92,17 @@ def X32Renewed(addr, tags, msg, source):
 # def C2FaderMute(addr, tags, msg, source):
 #     C2.setfaderlevel(msg[0])
 #
-# def CasterDCAMute(addr, tags, msg, source):
-#     C1.setdcamutebutton(msg[0])
-#     C2.setdcamutebutton(msg[0])
-#
-# def CasterDCAFaderMute(addr, tags, msg, source):
-#     C1.setdcafaderlevel(msg[0])
-#     C2.setdcafaderlevel(msg[0])
+def DCAMute(addr, tags, msg, source):
+        CurrentDCA = DCAObjectList[eval(addr[5])-1]
+        for j in range(0, len(CurrentDCA.channelindex)):
+            CurrentChannel = ObjectList[CurrentDCA.channelindex[j]]
+            CurrentChannel.setdcamutebutton(msg)
 
+def DCAFader(addr, tags, msg, source):
+    CurrentDCA = DCAObjectList[eval(addr[5]) - 1]
+    for j in range(0, len(CurrentDCA.channelindex)):
+        CurrentChannel = ObjectList[CurrentDCA.channelindex[j]]
+        CurrentChannel.setdcafaderlevel(msg)
 
 # adding OSC handles
 
@@ -101,16 +110,13 @@ for i in range(0, NrofChannelInstances):
     CurrentInstance = ObjectList[i]
     s.addMsgHandler(CurrentInstance.mutepath, CurrentInstance.setmutebutton)
     s.addMsgHandler(CurrentInstance.faderpath, CurrentInstance.setfaderlevel)
-    s.addMsgHandler(CurrentInstance.dcamutepath, CurrentInstance.setdcamutebutton)
-    s.addMsgHandler(CurrentInstance.dcafaderpath, CurrentInstance.setdcafaderlevel)
-# s.addMsgHandler("/renew", X32Renewed)
-# s.addMsgHandler("/ch/%02d/mix/on" %Caster1Channel , C1.setmutebutton)
-# s.addMsgHandler("/ch/%02d/mix/on" %Caster2Channel , C2.setmutebutton)
-# s.addMsgHandler("/ch/%02d/mix/fader" %Caster1Channel , C1.setfaderlevel)
-# s.addMsgHandler("/ch/%02d/mix/fader" %Caster2Channel , C2.setfaderlevel)
-# #TODO find a way to get both channels to be affected by a single DCA
-# s.addMsgHandler("/dca/%d/on" %CasterDCAGroup , C1.setdcamutebutton)s
-# s.addMsgHandler("/dca/%d/fader" %CasterDCAGroup , C1.setdcafaderlevel)
+    # s.addMsgHandler(CurrentInstance.dcamutepath, CurrentInstance.setdcamutebutton)
+    # s.addMsgHandler(CurrentInstance.dcafaderpath, CurrentInstance.setdcafaderlevel)
+
+s.addMsgHandler("/dca/2/on", DCAMute)
+s.addMsgHandler("/dca/2/fader", DCAFader)
+s.addMsgHandler("/dca/1/on", DCAMute)
+s.addMsgHandler("/dca/1/fader",DCAFader)
 
 
 # just checking which handlers we have added
