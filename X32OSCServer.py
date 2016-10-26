@@ -79,19 +79,6 @@ s.addDefaultHandlers()
 def X32Renewed(addr, tags, msg, source):
     dummy = 1
 
-# Callback functions are being integrated into the MixerChannel object, so these will be removed soon
-# def C1ChannelMute(addr, tags, msg, source):
-#     C1.setmutebutton(msg[0])
-
-# def C2ChannelMute(addr, tags, msg, source):
-#     C2.setmutebutton(msg[0])
-
-# def C1FaderMute(addr, tags, msg, source):
-#     C1.setfaderlevel(msg[0])
-#
-# def C2FaderMute(addr, tags, msg, source):
-#     C2.setfaderlevel(msg[0])
-#
 def DCAMute(addr, tags, msg, source):
         CurrentDCA = DCAObjectList[eval(addr[5])-1]
         for j in range(0, len(CurrentDCA.channelindex)):
