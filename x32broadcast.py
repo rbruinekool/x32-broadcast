@@ -1,7 +1,5 @@
 from itertools import count
 
-import OSC
-
 
 class MixerChannel(object):
     _ids = count(0)

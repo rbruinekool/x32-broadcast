@@ -4,7 +4,7 @@ import time
 import OSC
 from prettytable import PrettyTable
 
-from x32channel import MixerChannel, DCAGroup
+from x32broadcast import MixerChannel, DCAGroup
 
 receive_address = '10.75.255.74', 50006   # Local Address
 send_address = '10.75.255.75', 10023  # Remote Address
