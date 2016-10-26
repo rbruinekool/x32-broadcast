@@ -6,7 +6,7 @@ from prettytable import PrettyTable
 
 from x32broadcast import MixerChannel, DCAGroup
 
-receive_address = '10.75.255.246', 50006   # Local Address
+receive_address = '10.75.255.74', 50006   # Local Address
 send_address = '10.75.255.75', 10023  # Remote Address
 
 #############################################
@@ -30,16 +30,16 @@ ChannelDict = {
     "DCA Group": ["2", "2", "1", "1"],
 }
 
-DCAObjectList = [None]*8  #Preallocation
+ChannelNames = ChannelDict["label"]
+ChannelLabels = ChannelDict["Channel"]
+DCALabels = ChannelDict["DCA Group"]
+
+DCAObjectList = [None]*8  # Preallocation
 for i in range(0, 8):
     DCAObjectList[i] = DCAGroup()
 
 DCAObjectList[0].channelindex = [2, 3]
 DCAObjectList[1].channelindex = [0, 1]
-
-ChannelNames = ChannelDict["label"]
-ChannelLabels = ChannelDict["Channel"]
-DCALabels = ChannelDict["DCA Group"]
 
 ObjectList = [None] * len(ChannelLabels)
 for i in range(0, len(ChannelLabels)):
