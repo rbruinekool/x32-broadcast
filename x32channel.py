@@ -144,3 +144,202 @@ def list_duplicates(seq):
     seen_twice = set( x for x in seq if x in seen or seen_add(x) )
     # turn the set into a list (as requested)
     return list( seen_twice )
+
+#For easy programming of the osc messages all the messages will be compiled with these functions
+#to import them use the import function (e.g. 'from X32OSCFunctions import MuteChannel2Bus')
+
+# Set up the osc adress
+import OSC
+
+def SendOscList(path,message,ipadress,port):
+    """
+    This function sends the value 'message' to the OSC path 'path' at the
+    ip adress 'ipadress' to port 'port'.
+    Path and Message can be lists of indefinite length. The function will
+    send an osc message for every index of the lists. Do note that the path
+    and message lists must be the same length in this case
+
+    Path must be a string (e.g. '/ch/01/mix/on'
+    message can be an integer, floating point or string
+    ipadress must be a string (e.g. '10.75.255.74)
+    port must be an integer (e.g. 10023)
+    """
+
+    if len(path) != len(message):
+        print('''Error :Path and Message are not the same length
+                (the function will still send osc messages, but only for the
+                 length of the path list''')
+
+    send_adress = ipadress , port
+
+    c = OSC.OSCClient()
+    c.connect(send_adress)
+    msg = OSC.OSCMessage()
+
+##    msg.setAddress(path)
+##    msg.append(message)
+##    c.send(msg)
+
+    for i in range(len(path)):
+        msg.setAddress(path[i])
+        msg.append(message[i])
+        c.send(msg)
+        del msg[-1]
+    return
+    
+
+#This function mutes or unmutes a variable channel to a variable bus
+def MuteChannel2Bus(ChannelNumber,BusNumber,state,adress,port):
+    """
+    This function is valid for the X32 or the M32 sound desk
+    This function mutes or unmutes a variable channel to a variable bus
+
+    ChannelNumber - This is the channel that you want to be (un)muted [1..32]
+    BusNumber - This is the destination bus that you want the channel to be (un)muted to [1..16]
+    Fill in ChannelNumber and Busnumber as integer values without padded 0's (e.g 1 or 14)
+
+    state - a list of mutes or unmutes, choose 1 for unmuting and 0 for muting
+    """
+    NrOfMessages = len(ChannelNumber)
+    OSCPath = [None]*NrOfMessages
+    
+    for i in range(NrOfMessages):
+        OSCPath[i] = "/ch/%02d/mix/%02d/on" %(ChannelNumber[i],BusNumber)
+
+    SendOscList(OSCPath,state,adress,port)
+
+    return
+
+def SetLevel2Bus(ChannelList,BusNumber,FaderValue,adress,port):
+    """
+    This function is valid for the X32 or the M32 sound desk
+    This function changes the send level of a list of channels to a variable bus
+
+    ChannelList - This is the channel list of integer values that you want to change send levels for [1..32]
+    BusNumber - This is the destination bus that you want the channels to be changed for [1..16]
+    Fill in ChannelNumber and Busnumber as integer values without padded 0's (e.g 1 or 14)
+
+    state - choose 1 for unmuting and 0 for muting
+    """
+    NrOfMessages = len(ChannelList)
+    OSCPath = [None]*NrOfMessages
+    value = [None]*NrOfMessages
+    
+    for i in range(NrOfMessages):
+        OSCPath[i] = "/ch/%02d/mix/%02d/level" %(ChannelList[i],BusNumber)
+        value[i] = FaderValue
+
+    SendOscList(OSCPath,value,adress,port)
+
+    return
+
+def SetBusLevel(BusNumber,FaderValue,adress,port):
+    """
+    This function is valid for the X32 or the M32 sound desk
+    This function changes the send level of a mixbus
+
+    BusNumber - This is list of busnumbers you want to change the level for [1..16]
+    Fill in Busnumber as integer values without padded 0's (e.g 1 or 14)
+
+    """
+    NrOfMessages = len(BusNumber)
+    OSCPath = [None]*NrOfMessages
+    value = [None]*NrOfMessages
+    
+    for i in range(NrOfMessages):
+        OSCPath[i] = "/bus/%02d/mix/fader" %(BusNumber[i])
+        value[i] = FaderValue
+
+    SendOscList(OSCPath,value,adress,port)
+
+    return
+
+def MuteBus(BusNumber,state,adress,port):
+    """
+    This function is valid for the X32 or the M32 sound desk
+    This function mutes or unmutes a mixbus
+
+    BusNumber - This is list of busnumbers you want to mute/unmute [1..16]
+    Fill in Busnumber as integer values without padded 0's (e.g 1 or 14)
+    Fill in state as a list of integer values (0 is mute, 1 is unmute)
+
+    """
+    NrOfMessages = len(BusNumber)
+    OSCPath = [None]*NrOfMessages
+    
+    for i in range(NrOfMessages):
+        OSCPath[i] = "/bus/%02d/mix/on" %(BusNumber[i])
+
+    SendOscList(OSCPath,state,adress,port)
+
+    return
+
+def Talk2Busses(BusList,adress,port):
+    """
+    This function is valid for the X32 or the M32 sound desk
+    This function routes the talkback input to the list of busses given in BusList
+
+    BusList - This is list of busnumbers you want to route Talkback to [1..16]
+    Fill in Busnumber as a list of integer values without padded 0's (e.g 1 or 14)
+
+    """
+    NrOfBusses = len(BusList)
+    destmap = 0
+
+    OSCPath = ["/config/talk/A/destmap"]
+    for i in range(NrOfBusses):
+        destmap = destmap + 2**(BusList[i]-1)
+
+    destmap = [destmap]
+    SendOscList(OSCPath,destmap,adress,port)
+
+    return
+
+def ConvBusNumber2DestMap(BusList):
+    NrOfBusses = len(BusList)
+    destmap = 0
+
+    for i in range(NrOfBusses):
+        destmap = destmap + 2**(BusList[i]-1)
+
+    return destmap
+
+def SendDestMap(DestMap,adress,port):
+    """
+    """
+
+    OSCPath = ["/config/talk/A/destmap"]
+
+    SendOscList(OSCPath,[DestMap],adress,port)
+
+    return
+
+def SetTalkLevelA(FaderValue,adress,port):
+    """
+    This function is valid for the X32 or the M32 sound desk
+    This function sets the level of talkback A
+
+    FaderValue should be entered as a float
+    adress is the ip adress where the osc message is sent
+    port is the port number at which osc message will be directed
+
+    """
+    OSCPath = ["/config/talk/A/level"]
+    SendOscList(OSCPath,[FaderValue],adress,port)
+
+    return
+
+def SendOscMessage(path, message, ipadress, port):
+
+    send_adress = ipadress , port
+
+    c = OSC.OSCClient()
+    c.connect(send_adress)
+    msg = OSC.OSCMessage()
+
+    msg.setAddress(path)
+    msg.append(message)
+    c.send(msg)
+
+    return
+
