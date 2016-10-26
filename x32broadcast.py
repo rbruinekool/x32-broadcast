@@ -16,6 +16,7 @@ class MixerChannel(object):
         self.dcagroup = dcagroup
         self.mutepath = "/ch/%02d/mix/on" % channelnumber
         self.faderpath = "/ch/%02d/mix/fader" % channelnumber
+        self.channelname = "No channel name assigned, use self.channelname"
         if type(self.dcagroup) is int:
             self.dcamutepath = "/dca/%d/on" % dcagroup
             self.dcafaderpath = "/dca/%d/fader" % dcagroup
@@ -75,7 +76,7 @@ class MixerChannel(object):
 
         # Activate a change in GPIO only if the mutestatus has actually changed
         if self.mutestatus != mutestatus:
-            print "Set mutestatus to", mutestatus, "for channel", self.channelnumber
+            print "Set mutestatus to", mutestatus, "for", self.channelname , "(channel", self.channelnumber, ")"
 
         self.mutestatus = mutestatus
 

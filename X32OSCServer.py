@@ -6,7 +6,7 @@ from prettytable import PrettyTable
 
 from x32broadcast import MixerChannel, DCAGroup
 
-receive_address = '10.75.255.74', 50006   # Local Address
+receive_address = '10.75.255.246', 50006   # Local Address
 send_address = '10.75.255.75', 10023  # Remote Address
 
 #############################################
@@ -25,23 +25,26 @@ class PiException(Exception):
 SubscribeFactor = 0
 
 ChannelDict = {
-    "label": ["Caster 1", "Caster 2", "Host"],
-    "Channel": ["5", "6", "1"],
-    "DCA Group": ["2", "2", "1"],
+    "label": ["Caster 1", "Caster 2", "Host", "Panel1"],
+    "Channel": ["5", "6", "1", "2"],
+    "DCA Group": ["2", "2", "1", "1"],
 }
-DCA1 = DCAGroup()
-DCA2 = DCAGroup()
 
-DCAObjectList = [DCA1, DCA2]
-DCA1.channelindex = [2]
-DCA2.channelindex = [0, 1]
+DCAObjectList = [None]*8  #Preallocation
+for i in range(0, 8):
+    DCAObjectList[i] = DCAGroup()
 
+DCAObjectList[0].channelindex = [2, 3]
+DCAObjectList[1].channelindex = [0, 1]
+
+ChannelNames = ChannelDict["label"]
 ChannelLabels = ChannelDict["Channel"]
 DCALabels = ChannelDict["DCA Group"]
 
 ObjectList = [None] * len(ChannelLabels)
 for i in range(0, len(ChannelLabels)):
     ObjectList[i] = MixerChannel(eval(ChannelLabels[i]), eval(DCALabels[i]))
+    ObjectList[i].channelname = ChannelNames[i]
 del i
 
 NrofChannelInstances = MixerChannel._ids.next()
@@ -100,10 +103,10 @@ for i in range(0, NrofChannelInstances):
     # s.addMsgHandler(CurrentInstance.dcamutepath, CurrentInstance.setdcamutebutton)
     # s.addMsgHandler(CurrentInstance.dcafaderpath, CurrentInstance.setdcafaderlevel)
 
-s.addMsgHandler("/dca/2/on", DCAMute)
-s.addMsgHandler("/dca/2/fader", DCAFader)
 s.addMsgHandler("/dca/1/on", DCAMute)
 s.addMsgHandler("/dca/1/fader",DCAFader)
+s.addMsgHandler("/dca/2/on", DCAMute)
+s.addMsgHandler("/dca/2/fader", DCAFader)
 
 
 # just checking which handlers we have added
