@@ -1,4 +1,8 @@
 from itertools import count
+try:
+    import RPi.GPIO as GPIO
+except:
+    print "WARNING: No GPIO functionality found on this device"
 
 
 class MixerChannel(object):
@@ -185,7 +189,7 @@ def SendOscList(path,message,ipadress,port):
         c.send(msg)
         del msg[-1]
     return
-    
+
 
 #This function mutes or unmutes a variable channel to a variable bus
 def MuteChannel2Bus(ChannelNumber,BusNumber,state,adress,port):
@@ -201,7 +205,7 @@ def MuteChannel2Bus(ChannelNumber,BusNumber,state,adress,port):
     """
     NrOfMessages = len(ChannelNumber)
     OSCPath = [None]*NrOfMessages
-    
+
     for i in range(NrOfMessages):
         OSCPath[i] = "/ch/%02d/mix/%02d/on" %(ChannelNumber[i],BusNumber)
 
@@ -223,7 +227,7 @@ def SetLevel2Bus(ChannelList,BusNumber,FaderValue,adress,port):
     NrOfMessages = len(ChannelList)
     OSCPath = [None]*NrOfMessages
     value = [None]*NrOfMessages
-    
+
     for i in range(NrOfMessages):
         OSCPath[i] = "/ch/%02d/mix/%02d/level" %(ChannelList[i],BusNumber)
         value[i] = FaderValue
@@ -244,7 +248,7 @@ def SetBusLevel(BusNumber,FaderValue,adress,port):
     NrOfMessages = len(BusNumber)
     OSCPath = [None]*NrOfMessages
     value = [None]*NrOfMessages
-    
+
     for i in range(NrOfMessages):
         OSCPath[i] = "/bus/%02d/mix/fader" %(BusNumber[i])
         value[i] = FaderValue
@@ -265,7 +269,7 @@ def MuteBus(BusNumber,state,adress,port):
     """
     NrOfMessages = len(BusNumber)
     OSCPath = [None]*NrOfMessages
-    
+
     for i in range(NrOfMessages):
         OSCPath[i] = "/bus/%02d/mix/on" %(BusNumber[i])
 
