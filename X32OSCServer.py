@@ -1,13 +1,23 @@
 import threading
 import time
 
-import OSC
-from prettytable import PrettyTable
+try:
+    import OSC
+except ImportError:
+    print "pyOSC is not installed"
 
-from x32broadcast import MixerChannel, DCAGroup
+try:
+    from prettytable import PrettyTable
+except ImportError:
+    print "prettytable module not installed"
 
-receive_address = '10.75.255.246', 50006   # Local Address
-send_address = '10.75.255.75', 10023  # Remote Address
+try:
+    from x32broadcast import MixerChannel, DCAGroup
+except ImportError:
+    print "x32broadcast module is missing or not installed"
+
+receive_address = '127.0.0.1', 50006   # Local Address
+send_address = '127.0.0.1', 10023  # Remote Address
 
 #############################################
 
@@ -25,29 +35,38 @@ class PiException(Exception):
 SubscribeFactor = 0
 
 ChannelDict = {
-    "label": ["Caster 1", "Caster 2", "Host", "Panel1"],
-    "Channel": ["5", "6", "1", "2"],
-    "DCA Group": ["2", "2", "1", "1"],
-    "LED Channels": [7, 11, 13, 15],
+    "label": ["Caster 1", "Caster 2", "Host", "Panel 1", "Panel 2"],
+    "Channel": [5, 6, 1, 2, 3],
+    "DCA Group": [2, 2, 1, 1, 1],
+    "LED Channels": [7, 11, 13, 15, 17],
 }
 
-DCAObjectList = [None]*8  #Preallocation
+DCAObjectList = [None] * 8  # Preallocation
 for i in range(0, 8):
     DCAObjectList[i] = DCAGroup()
-
-DCAObjectList[0].channelindex = [2, 3]
-DCAObjectList[1].channelindex = [0, 1]
 
 ChannelNames = ChannelDict["label"]
 ChannelLabels = ChannelDict["Channel"]
 DCALabels = ChannelDict["DCA Group"]
 LEDChannels = ChannelDict["LED Channels"]
 
+# Generating a list of indexes that point to which channel falls under each DCA. This list is formatted
+# as follows: dcaindexlist[dca group number][indexes in ChannelDict which point to channel numbers that
+# are a part of this dca group number]
+dcaindexlist = [[], [], [], [], [], [], [], []]
+for index, dca_group in enumerate(DCALabels):
+    for dca_number in range(0,8):
+        if dca_group == dca_number + 1:
+            dcaindexlist[dca_number].append(index)
+
+for i in range(0, 8):
+    if dcaindexlist[i]:
+        DCAObjectList[i].channelindex = dcaindexlist[i]
+
 ObjectList = [None] * len(ChannelLabels)
 for i in range(0, len(ChannelLabels)):
-    ObjectList[i] = MixerChannel(eval(ChannelLabels[i]), eval(DCALabels[i]), LEDChannels[i])
+    ObjectList[i] = MixerChannel(ChannelLabels[i], DCALabels[i], LEDChannels[i])
     ObjectList[i].channelname = ChannelNames[i]
-del i
 
 NrofChannelInstances = MixerChannel._ids.next()
 print "Number of channel instances created =", NrofChannelInstances
@@ -56,7 +75,6 @@ print "Number of channel instances created =", NrofChannelInstances
 OSCMessagelist = [None] * NrofChannelInstances  # Pre-allocation
 for i in range(0, NrofChannelInstances):
     OSCMessagelist[i] = ObjectList[i].OSCChannelSubscribeMSG()
-del i
 
 ###########################################################
 # Reporting of the subscribed OSC handles in a pretty way #
@@ -65,6 +83,7 @@ ChannelReport = PrettyTable()
 ChannelReport.add_column("Name", ChannelDict["label"])
 ChannelReport.add_column("Channel #", ChannelDict["Channel"])
 ChannelReport.add_column("DCA Group", ChannelDict["DCA Group"])
+ChannelReport.add_column("GPIO LED Channel", ChannelDict["LED Channels"])
 
 print "Reporting to subscribe and receive OSC messages from the following channels:"
 print ChannelReport
@@ -85,10 +104,10 @@ def X32Renewed(addr, tags, msg, source):
     dummy = 1
 
 def DCAMute(addr, tags, msg, source):
-        CurrentDCA = DCAObjectList[eval(addr[5])-1]
-        for j in range(0, len(CurrentDCA.channelindex)):
-            CurrentChannel = ObjectList[CurrentDCA.channelindex[j]]
-            CurrentChannel.setdcamutebutton(msg)
+    CurrentDCA = DCAObjectList[eval(addr[5])-1]
+    for j in range(0, len(CurrentDCA.channelindex)):
+        CurrentChannel = ObjectList[CurrentDCA.channelindex[j]]
+        CurrentChannel.setdcamutebutton(msg)
 
 def DCAFader(addr, tags, msg, source):
     CurrentDCA = DCAObjectList[eval(addr[5]) - 1]
@@ -96,24 +115,21 @@ def DCAFader(addr, tags, msg, source):
         CurrentChannel = ObjectList[CurrentDCA.channelindex[j]]
         CurrentChannel.setdcafaderlevel(msg)
 
-# adding OSC handles
-
+# adding OSC handles which make the server perform certain callback functions
+# These handles are for all the channel faders and mutes that are defined in Channeldict
 for i in range(0, NrofChannelInstances):
     CurrentInstance = ObjectList[i]
     s.addMsgHandler(CurrentInstance.mutepath, CurrentInstance.setmutebutton)
     s.addMsgHandler(CurrentInstance.faderpath, CurrentInstance.setfaderlevel)
-    # s.addMsgHandler(CurrentInstance.dcamutepath, CurrentInstance.setdcamutebutton)
-    # s.addMsgHandler(CurrentInstance.dcafaderpath, CurrentInstance.setdcafaderlevel)
 
-s.addMsgHandler("/dca/1/on", DCAMute)
-s.addMsgHandler("/dca/1/fader",DCAFader)
-s.addMsgHandler("/dca/2/on", DCAMute)
-s.addMsgHandler("/dca/2/fader", DCAFader)
-
+# These handles are for all DCA faders and mutes (all are added regardless if they are in use or not)
+for i in range(1,9):
+    s.addMsgHandler("/dca/%d/on" % i, DCAMute)
+    s.addMsgHandler("/dca/%d/fader" % i,DCAFader)
 
 # just checking which handlers we have added
 print "Registered Callback-functions are :"
-for addr in s.getOSCAddressSpace():
+for addr in sorted(s.getOSCAddressSpace()):
     print addr
 
 # Start OSCServer

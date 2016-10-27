@@ -7,6 +7,8 @@ try:
     print "GPIO set to Board-Mode"
 except:
     print "WARNING: No GPIO functionality found on this device"
+    global GPIOActive
+    GPIOActive = False
 
 
 class MixerChannel(object):
