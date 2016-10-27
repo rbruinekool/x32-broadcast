@@ -6,7 +6,7 @@ from prettytable import PrettyTable
 
 from x32broadcast import MixerChannel, DCAGroup
 
-receive_address = '10.75.255.74', 50006   # Local Address
+receive_address = '10.75.255.246', 50006   # Local Address
 send_address = '10.75.255.75', 10023  # Remote Address
 
 #############################################
@@ -28,22 +28,24 @@ ChannelDict = {
     "label": ["Caster 1", "Caster 2", "Host", "Panel1"],
     "Channel": ["5", "6", "1", "2"],
     "DCA Group": ["2", "2", "1", "1"],
+    "LED Channels": [7, 11, 13, 15],
 }
 
-ChannelNames = ChannelDict["label"]
-ChannelLabels = ChannelDict["Channel"]
-DCALabels = ChannelDict["DCA Group"]
-
-DCAObjectList = [None]*8  # Preallocation
+DCAObjectList = [None]*8  #Preallocation
 for i in range(0, 8):
     DCAObjectList[i] = DCAGroup()
 
 DCAObjectList[0].channelindex = [2, 3]
 DCAObjectList[1].channelindex = [0, 1]
 
+ChannelNames = ChannelDict["label"]
+ChannelLabels = ChannelDict["Channel"]
+DCALabels = ChannelDict["DCA Group"]
+LEDChannels = ChannelDict["LED Channels"]
+
 ObjectList = [None] * len(ChannelLabels)
 for i in range(0, len(ChannelLabels)):
-    ObjectList[i] = MixerChannel(eval(ChannelLabels[i]), eval(DCALabels[i]))
+    ObjectList[i] = MixerChannel(eval(ChannelLabels[i]), eval(DCALabels[i]), LEDChannels[i])
     ObjectList[i].channelname = ChannelNames[i]
 del i
 

@@ -1,6 +1,10 @@
 from itertools import count
 try:
     import RPi.GPIO as GPIO
+    GPIO.setmode(GPIO.BOARD)
+    global GPIOActive
+    GPIOActive = True
+    print "GPIO set to Board-Mode"
 except:
     print "WARNING: No GPIO functionality found on this device"
 
@@ -8,7 +12,7 @@ except:
 class MixerChannel(object):
     _ids = count(0)
 
-    def __init__(self, channelnumber, dcagroup = None):
+    def __init__(self, channelnumber, dcagroup = None, gpo_channel = None):
         self.id = self._ids.next()  #id number to keep track of the amount of instances made in a script
 
         self.mute_button = None
@@ -25,7 +29,13 @@ class MixerChannel(object):
             self.dcamutepath = "/dca/%d/on" % dcagroup
             self.dcafaderpath = "/dca/%d/fader" % dcagroup
 
-        self.subscribefactor = 0  # Sets how fast the X32 will send subscribe messages (0 is fastest)
+        # Sets how fast the X32 will send subscribe messages (0 is fastest)
+        self.subscribefactor = 0
+
+        # GPIO Related attributes are assigned here
+        self.gpo_channel = gpo_channel
+        if GPIOActive and self.gpo_channel is not None:
+            GPIO.setup(self.gpo_channel, GPIO.OUT)
 
     def setfaderlevel(self, addr, tags, msg, source):
         fadermsg = msg[0]
@@ -81,6 +91,9 @@ class MixerChannel(object):
         # Activate a change in GPIO only if the mutestatus has actually changed
         if self.mutestatus != mutestatus:
             print "Set mutestatus to", mutestatus, "for", self.channelname , "(channel", self.channelnumber, ")"
+
+            if GPIOActive:
+                GPIO.output(self.gpo_channel, not(mutestatus))
 
         self.mutestatus = mutestatus
 
@@ -140,13 +153,6 @@ class DCAGroup(object):
             else:
                 self.channellist = self.channellist + channel
 
-def list_duplicates(seq):
-    seen = set()
-    seen_add = seen.add
-    # adds all elements it doesn't know yet to seen and all other to seen_twice
-    seen_twice = set( x for x in seq if x in seen or seen_add(x) )
-    # turn the set into a list (as requested)
-    return list( seen_twice )
 
 #For easy programming of the osc messages all the messages will be compiled with these functions
 #to import them use the import function (e.g. 'from X32OSCFunctions import MuteChannel2Bus')
