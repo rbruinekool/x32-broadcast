@@ -1,4 +1,5 @@
 from itertools import count
+import OSC
 try:
     import RPi.GPIO as GPIO
     GPIO.setmode(GPIO.BOARD)
@@ -14,8 +15,9 @@ except:
 class MixerChannel(object):
     _ids = count(0)
 
-    def __init__(self, channelnumber, dcagroup = None, gpo_channel = None):
-        self.id = self._ids.next()  #id number to keep track of the amount of instances made in a script
+    def __init__(self, channelnumber, dcagroup = None, gpo_channel = None,
+                 x32ipaddress = "127.0.0.1"):
+        self.id = self._ids.next()  # id number to keep track of the amount of instances made in a script
 
         self.mute_button = None
         self.mute_fader = None
@@ -31,6 +33,13 @@ class MixerChannel(object):
             self.dcamutepath = "/dca/%d/on" % dcagroup
             self.dcafaderpath = "/dca/%d/fader" % dcagroup
 
+        # connecting to x32 and creating an OSCMessage instance to prevent
+        # having to do this repeatedly inside a loop
+        self.x32address = (x32ipaddress, 10023)
+        self.x32 = OSC.OSCClient()
+        self.x32.connect(self.x32address)
+        self.msg = OSC.OSCMessage()
+
         # Sets how fast the X32 will send subscribe messages (0 is fastest)
         self.subscribefactor = 0
 
@@ -38,6 +47,11 @@ class MixerChannel(object):
         self.gpo_channel = gpo_channel
         if GPIOActive and self.gpo_channel is not None:
             GPIO.setup(self.gpo_channel, GPIO.OUT)
+
+    #########################################################################
+    # Methods that involve registering the actual state of M/X32 channels   #
+    # into the MixerChannel instances are here                              #
+    #########################################################################
 
     def setfaderlevel(self, addr, tags, msg, source):
         fadermsg = msg[0]
@@ -92,10 +106,9 @@ class MixerChannel(object):
 
         # Activate a change in GPIO only if the mutestatus has actually changed
         if self.mutestatus != mutestatus:
-            print "Set mutestatus to", mutestatus, "for", self.channelname , "(channel", self.channelnumber, ")"
-
             if GPIOActive:
                 GPIO.output(self.gpo_channel, not(mutestatus))
+            #print "Set mutestatus to", mutestatus, "for", self.channelname , "(channel", self.channelnumber,")"
 
         self.mutestatus = mutestatus
 
@@ -136,6 +149,24 @@ class MixerChannel(object):
             print "Warning: non integer DCA group has been assigned"
 
             return [mutemsg, fadermsg]
+
+    #########################################################################
+    # Methods that involve setting the state of M/X32 channels go here      #
+    # (e.g. methods that use OSC to mute a channel on an actual X32 when    #
+    #########################################################################
+
+    def set_mute(self, mute):
+        self.msg.clear(self.mutepath)
+        self.msg.append(mute)
+        self.send_osc()
+
+    def set_fader(self, fader):
+        self.msg.clear(self.faderpath)
+        self.msg.append(fader)
+        self.send_osc()
+
+    def send_osc(self):
+        self.x32.send(self.msg)
 
 class DCAGroup(object):
 

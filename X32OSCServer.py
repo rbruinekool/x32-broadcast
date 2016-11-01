@@ -1,5 +1,5 @@
-import threading
-import time
+import threading, time
+import RPi.GPIO as GPIO
 
 try:
     import OSC
@@ -16,8 +16,8 @@ try:
 except ImportError:
     print "x32broadcast module is missing or not installed"
 
-receive_address = '127.0.0.1', 50006   # Local Address
-send_address = '127.0.0.1', 10023  # Remote Address
+receive_address = '10.75.255.246 ', 50006   # Local Address
+send_address = '10.75.255.75', 10023  # Remote Address
 
 #############################################
 
@@ -38,7 +38,7 @@ ChannelDict = {
     "label": ["Caster 1", "Caster 2", "Host", "Panel 1", "Panel 2"],
     "Channel": [5, 6, 1, 2, 3],
     "DCA Group": [2, 2, 1, 1, 1],
-    "LED Channels": [7, 11, 13, 15, 17],
+    "LED Channels": [7, 11, 13, 15, 15],
 }
 
 DCAObjectList = [None] * 8  # Preallocation
@@ -155,6 +155,7 @@ try:
 
 except KeyboardInterrupt:
     print "\nClosing OSCServer."
+    GPIO.cleanup()  #clears the used GPIO channels
     s.close()
     print "Waiting for Server-thread to finish"
     st.join()
