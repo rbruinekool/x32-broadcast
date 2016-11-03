@@ -20,8 +20,8 @@ ChannelNames = ChannelDict["label"]
 ChannelLabels = ChannelDict["Channel"]
 DCALabels = ChannelDict["DCA Group"]
 
-caster1 = MixerChannel(4, 2, None, x32ipaddress)
-caster2 = MixerChannel(5, 2, None, x32ipaddress)
+caster1 = MixerChannel(9, 5, None, x32ipaddress)
+caster2 = MixerChannel(10, 5, None, x32ipaddress)
 
 """
 MIDI Stuff
@@ -56,12 +56,23 @@ try:
             velocity = MIDIeventlist[0][0][2]
 
             #print MIDIeventlist
-            if verbose:
-                print "Status Byte= %d" % status_byte
-                print "Note Number= %d" % note_number
-                print "Velocity= %d" % velocity
+            #if verbose:
+                #print "Status Byte= %d" % status_byte
+                #print "Note Number= %d" % note_number
+                #print "Velocity= %d" % velocity
+
+            if status_byte == 144:
+                if note_number == 36:
+                    caster2.set_mute(0)
+                elif note_number == 39:
+                    caster1.set_mute(0)
+
+            elif status_byte == 128:
+                if note_number == 36:
+                    caster2.set_mute(1)
+                elif note_number == 39:
+                    caster1.set_mute(1)
 
 except KeyboardInterrupt:
     print "\nClosing MIDI Listening Loop."
-    print "Waiting for Server-thread to finish"
     print "Done"

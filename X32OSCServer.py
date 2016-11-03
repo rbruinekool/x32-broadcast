@@ -35,10 +35,10 @@ class PiException(Exception):
 SubscribeFactor = 0
 
 ChannelDict = {
-    "label": ["Caster 1", "Caster 2", "Host", "Panel 1", "Panel 2"],
-    "Channel": [5, 6, 1, 2, 3],
-    "DCA Group": [2, 2, 1, 1, 1],
-    "LED Channels": [7, 11, 13, 15, 15],
+    "label": ["Caster 1", "Caster 2", "Host", "Panel 1", "Panel 2", "stagehost", "reporter"],
+    "Channel": [9, 10, 1, 2, 3, 7, 8],
+    "DCA Group": [5, 5, 1, 1, 1, 3, 3],
+    "LED Channels": [7, 11, 13, 15, 15, 29, 31],
 }
 
 DCAObjectList = [None] * 8  # Preallocation
