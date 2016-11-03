@@ -1,5 +1,10 @@
 import threading, time
-import RPi.GPIO as GPIO
+
+try:
+    import RPi.GPIO as GPIO
+    GPIO.cleanup()
+except ImportError:
+    print "RPi.GPIO module note installed"
 
 try:
     import OSC
@@ -16,9 +21,6 @@ try:
 except ImportError:
     print "x32broadcast module is missing or not installed"
 
-receive_address = '10.75.255.246 ', 50006   # Local Address
-send_address = '10.75.255.75', 10023  # Remote Address
-
 #############################################
 
 class PiException(Exception):
@@ -33,6 +35,9 @@ class PiException(Exception):
 ##########################
 
 SubscribeFactor = 0
+
+receive_address = '10.75.255.246 ', 50006   # Local Address
+send_address = '10.75.255.75', 10023  # Remote Address
 
 ChannelDict = {
     "label": ["Caster 1", "Caster 2", "Host", "Panel 1", "Panel 2", "stagehost", "reporter"],
@@ -55,7 +60,7 @@ LEDChannels = ChannelDict["LED Channels"]
 # are a part of this dca group number]
 dcaindexlist = [[], [], [], [], [], [], [], []]
 for index, dca_group in enumerate(DCALabels):
-    for dca_number in range(0,8):
+    for dca_number in range(0, 8):
         if dca_group == dca_number + 1:
             dcaindexlist[dca_number].append(index)
 
@@ -123,9 +128,9 @@ for i in range(0, NrofChannelInstances):
     s.addMsgHandler(CurrentInstance.faderpath, CurrentInstance.setfaderlevel)
 
 # These handles are for all DCA faders and mutes (all are added regardless if they are in use or not)
-for i in range(1,9):
+for i in range(1, 9):
     s.addMsgHandler("/dca/%d/on" % i, DCAMute)
-    s.addMsgHandler("/dca/%d/fader" % i,DCAFader)
+    s.addMsgHandler("/dca/%d/fader" % i, DCAFader)
 
 # just checking which handlers we have added
 print "Registered Callback-functions are :"
@@ -155,7 +160,7 @@ try:
 
 except KeyboardInterrupt:
     print "\nClosing OSCServer."
-    GPIO.cleanup()  #clears the used GPIO channels
+    GPIO.cleanup()  # clears the used GPIO channels
     s.close()
     print "Waiting for Server-thread to finish"
     st.join()

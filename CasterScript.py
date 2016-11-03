@@ -1,9 +1,9 @@
 """
 This script is to be run at the caster desk.
-It enables the on-air LEDS and talkback buttons
+It enables the on-air LEDS and mute/talkback buttons
 """
 
-import pygame, pygame.midi, OSC
+import pygame, pygame.midi
 from x32broadcast import MixerChannel
 
 # OSC Declarations
@@ -26,12 +26,12 @@ caster2 = MixerChannel(10, 5, None, x32ipaddress)
 """
 MIDI Stuff
 """
-verbose = True # Verbose being true allows you to see what MIDI messages are being registered
+verbose = False  # Verbose being true allows you to see what MIDI messages are being registered
 pygame.init()
 pygame.midi.init()
 
 # list all midi devices
-for x in range( 0, pygame.midi.get_count() ):
+for x in range(0, pygame.midi.get_count()):
     print pygame.midi.get_device_info(x)
 
 # open a specific midi device
@@ -55,22 +55,34 @@ try:
 
             velocity = MIDIeventlist[0][0][2]
 
-            #print MIDIeventlist
-            #if verbose:
-                #print "Status Byte= %d" % status_byte
-                #print "Note Number= %d" % note_number
-                #print "Velocity= %d" % velocity
+            print MIDIeventlist
+            if verbose:
+                print "Status Byte= %d" % status_byte
+                print "Note Number= %d" % note_number
+                print "Velocity= %d" % velocity
 
-            if status_byte == 144:
+            if status_byte == 144:  # CC Note ON
                 if note_number == 36:
+                    caster2.set_mute(0)
+                elif note_number == 37:
+                    caster2.open_communications(6)
                     caster2.set_mute(0)
                 elif note_number == 39:
                     caster1.set_mute(0)
+                elif note_number == 38:
+                    caster1.open_communications(6)
+                    caster1.set_mute(0)
 
-            elif status_byte == 128:
+            elif status_byte == 128:  # CC Note OFF
                 if note_number == 36:
                     caster2.set_mute(1)
+                elif note_number == 37:
+                    caster2.close_communications(6)
+                    caster2.set_mute(1)
                 elif note_number == 39:
+                    caster1.set_mute(1)
+                elif note_number == 38:
+                    caster1.close_communications(6)
                     caster1.set_mute(1)
 
 except KeyboardInterrupt:

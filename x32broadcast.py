@@ -155,6 +155,18 @@ class MixerChannel(object):
     # (e.g. methods that use OSC to mute a channel on an actual X32 when    #
     #########################################################################
 
+    def open_communications(self, mixbus):
+        self.talkpath = "/ch/%02d/mix/%02d/on" % (self.channelnumber, mixbus)
+        self.msg.clear(self.talkpath)
+        self.msg.append(1)
+        self.send_osc()
+
+    def close_communications(self, mixbus):
+        self.talkpath = "/ch/%02d/mix/%02d/on" % (self.channelnumber, mixbus)
+        self.msg.clear(self.talkpath)
+        self.msg.append(0)
+        self.send_osc()
+
     def set_mute(self, mute):
         self.msg.clear(self.mutepath)
         self.msg.append(mute)
