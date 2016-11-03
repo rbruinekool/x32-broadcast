@@ -1,10 +1,11 @@
-import threading, time
+import threading
+import time
 
 try:
     import RPi.GPIO as GPIO
     GPIO.cleanup()
 except ImportError:
-    print "RPi.GPIO module note installed"
+    print "RPi.GPIO module not installed"
 
 try:
     import OSC
@@ -17,7 +18,7 @@ except ImportError:
     print "prettytable module not installed"
 
 try:
-    from x32broadcast import MixerChannel, DCAGroup
+    from x32broadcast import MixerChannel, DCAGroup, read_variables_from_csv
 except ImportError:
     print "x32broadcast module is missing or not installed"
 
@@ -36,21 +37,22 @@ class PiException(Exception):
 
 SubscribeFactor = 0
 
-receive_address = '10.75.255.246 ', 50006   # Local Address
+receive_address = '10.75.255.74', 50006   # Local Address
 send_address = '10.75.255.75', 10023  # Remote Address
 
-ChannelDict = {
-    "label": ["Caster 1", "Caster 2", "Host", "Panel 1", "Panel 2", "stagehost", "reporter"],
-    "Channel": [9, 10, 1, 2, 3, 7, 8],
-    "DCA Group": [5, 5, 1, 1, 1, 3, 3],
-    "LED Channels": [7, 11, 13, 15, 15, 29, 31],
-}
+ChannelDict = read_variables_from_csv("x32CSGO.csv")
+# ChannelDict = {
+#     "Label": ["Caster 1", "Caster 2", "Host", "Panel 1", "Panel 2", "stagehost", "reporter"],
+#     "Channel": [9, 10, 1, 2, 3, 7, 8],
+#     "DCA Group": [5, 5, 1, 1, 1, '', ''],
+#     "LED Channels": [7, 11, 13, 15, 15, '', ''],
+# }
 
 DCAObjectList = [None] * 8  # Preallocation
 for i in range(0, 8):
     DCAObjectList[i] = DCAGroup()
 
-ChannelNames = ChannelDict["label"]
+ChannelNames = ChannelDict["Label"]
 ChannelLabels = ChannelDict["Channel"]
 DCALabels = ChannelDict["DCA Group"]
 LEDChannels = ChannelDict["LED Channels"]
@@ -85,7 +87,7 @@ for i in range(0, NrofChannelInstances):
 # Reporting of the subscribed OSC handles in a pretty way #
 ###########################################################
 ChannelReport = PrettyTable()
-ChannelReport.add_column("Name", ChannelDict["label"])
+ChannelReport.add_column("Name", ChannelDict["Label"])
 ChannelReport.add_column("Channel #", ChannelDict["Channel"])
 ChannelReport.add_column("DCA Group", ChannelDict["DCA Group"])
 ChannelReport.add_column("GPIO LED Channel", ChannelDict["LED Channels"])
@@ -132,7 +134,7 @@ for i in range(1, 9):
     s.addMsgHandler("/dca/%d/on" % i, DCAMute)
     s.addMsgHandler("/dca/%d/fader" % i, DCAFader)
 
-# just checking which handlers we have added
+# just checking which handlers we have addedD
 print "Registered Callback-functions are :"
 for addr in sorted(s.getOSCAddressSpace()):
     print addr
