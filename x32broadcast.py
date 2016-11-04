@@ -24,8 +24,8 @@ class MixerChannel(object):
 
         self.mute_button = None
         self.mute_fader = None
-        self.mute_dcafader = None
-        self.mute_dcabutton = None
+        self.mute_dcafader = False
+        self.mute_dcabutton = False
         self.mutestatus = None
         self.channelnumber = channelnumber
         self.dcagroup = dcagroup
