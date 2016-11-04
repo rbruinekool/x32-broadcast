@@ -4,24 +4,25 @@ It enables the on-air LEDS and mute/talkback buttons
 """
 
 import pygame, pygame.midi
-from x32broadcast import MixerChannel
+from x32broadcast import MixerChannel, read_variables_from_csv
 
 # OSC Declarations
 x32ipaddress = "10.75.255.75"
 
 # Channel Declarations
-ChannelDict = {
-    "label": ["Host", "Panel 1", "Panel 2", "Panel 3" "Caster 1", "Caster 2", "Stagehost"],
-    "Channel": [1, 2, 3, 4, 5, 6, 7],
-    "DCA Group": [1, 1, 1, 1, 2, 2, 3],
-}
+ChannelDict = read_variables_from_csv("x32CSGO.csv")
+# ChannelDict = {
+#    "label": ["Host", "Panel 1", "Panel 2", "Panel 3" "Caster 1", "Caster 2", "Stagehost"],
+#    "Channel": [1, 2, 3, 4, 5, 6, 7],
+#    "DCA Group": [1, 1, 1, 1, 2, 2, 3],
+#}
 
-ChannelNames = ChannelDict["label"]
+ChannelNames = ChannelDict["Label"]
 ChannelLabels = ChannelDict["Channel"]
 DCALabels = ChannelDict["DCA Group"]
 
-caster1 = MixerChannel(9, 5, None, x32ipaddress)
-caster2 = MixerChannel(10, 5, None, x32ipaddress)
+caster1 = MixerChannel(5, 5, None, x32ipaddress)
+caster2 = MixerChannel(6, 5, None, x32ipaddress)
 
 """
 MIDI Stuff

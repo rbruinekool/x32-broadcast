@@ -3,16 +3,16 @@ from itertools import count
 
 import OSC
 
+global GPIOActive
+GPIOActive = False
+
 try:
     import RPi.GPIO as GPIO
     GPIO.setmode(GPIO.BOARD)
-    global GPIOActive
     GPIOActive = True
     print "GPIO set to Board-Mode"
 except:
     print "WARNING: No GPIO functionality found on this device"
-    global GPIOActive
-    GPIOActive = False
 
 
 class MixerChannel(object):
@@ -48,8 +48,9 @@ class MixerChannel(object):
 
         # GPIO Related attributes are assigned here
         self.gpo_channel = gpo_channel
-        if GPIOActive and self.gpo_channel is not '':
+        if GPIOActive and type(self.gpo_channel) is int:
             GPIO.setup(self.gpo_channel, GPIO.OUT)
+            print "GPIO %d for channel %d set to OUT mode" % (self.gpo_channel, self.channelnumber)
 
     #########################################################################
     # Methods that involve registering the actual state of M/X32 channels   #
@@ -109,9 +110,9 @@ class MixerChannel(object):
 
         # Activate a change in GPIO only if the mutestatus has actually changed
         if self.mutestatus != mutestatus:
-            if GPIOActive:
+            if GPIOActive and type(self.gpo_channel) is int:
                 GPIO.output(self.gpo_channel, not(mutestatus))
-            print "Set mutestatus to", mutestatus, "for", self.channelname , "(channel %d)" % self.channelnumber
+            # print "Set mutestatus to", mutestatus, "for", self.channelname , "(channel %d)" % self.channelnumber
 
         self.mutestatus = mutestatus
 

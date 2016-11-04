@@ -36,16 +36,16 @@ class PiException(Exception):
 
 SubscribeFactor = 0
 
-receive_address = '10.75.255.74', 50006   # Local Address
+receive_address = '10.75.255.246', 50006   # Local Address
 send_address = '10.75.255.75', 10023  # Remote Address
 
-# ChannelDict = read_variables_from_csv("x32CSGO.csv")
-ChannelDict = {
-     "Label": ["Caster 1", "Caster 2", "Host", "Panel 1", "Panel 2", "stagehost", "reporter"],
-     "Channel": [9, 10, 1, 2, 3, 7, 8],
-     "DCA Group": [5, 5, 1, 1, 1, '', ''],
-     "LED Channels": [7, 11, 13, 15, 15, '', ''],
- }
+ChannelDict = read_variables_from_csv("x32CSGO.csv")
+#ChannelDict = {
+#     "Label": ["Caster 1", "Caster 2", "Host", "Panel 1", "Panel 2", "stagehost", "reporter"],
+#     "Channel": [9, 10, 1, 2, 3, 7, 8],
+#     "DCA Group": [5, 5, 1, 1, 1, '', ''],
+#     "LED Channels": [7, 11, 13, 15, 22, 29, None],
+# }
 
 DCAObjectList = [None] * 8  # Preallocation
 for i in range(0, 8):
@@ -75,24 +75,13 @@ for i in range(0, len(ChannelLabels)):
     ObjectList[i].channelname = ChannelNames[i]
 
 NrofChannelInstances = MixerChannel._ids.next()
-print "Number of channel instances created =", NrofChannelInstances
+print "\nNumber of channel instances created =", NrofChannelInstances
 
 #  These objects below are the subscribe messages that are sent periodically to the X32
 OSCMessagelist = [None] * NrofChannelInstances  # Pre-allocation
 for i in range(0, NrofChannelInstances):
     OSCMessagelist[i] = ObjectList[i].OSCChannelSubscribeMSG()
 
-###########################################################
-# Reporting of the subscribed OSC handles in a pretty way #
-###########################################################
-ChannelReport = PrettyTable()
-ChannelReport.add_column("Name", ChannelDict["Label"])
-ChannelReport.add_column("Channel #", ChannelDict["Channel"])
-ChannelReport.add_column("DCA Group", ChannelDict["DCA Group"])
-ChannelReport.add_column("GPIO LED Channel", ChannelDict["LED Channels"])
-
-print "Reporting to subscribe and receive OSC messages from the following channels:"
-print ChannelReport
 ##########################
 # OSC
 ##########################
@@ -134,9 +123,21 @@ for i in range(1, 9):
     s.addMsgHandler("/dca/%d/fader" % i, DCAFader)
 
 # just checking which handlers we have addedD
-print "Registered Callback-functions are :"
+print "\nRegistered Callback-functions are :"
 for addr in sorted(s.getOSCAddressSpace()):
     print addr
+
+###########################################################
+# Reporting of the subscribed OSC handles in a pretty way #
+###########################################################
+ChannelReport = PrettyTable()
+ChannelReport.add_column("Name", ChannelDict["Label"])
+ChannelReport.add_column("Channel #", ChannelDict["Channel"])
+ChannelReport.add_column("DCA Group", ChannelDict["DCA Group"])
+ChannelReport.add_column("GPIO LED Channel", ChannelDict["LED Channels"])
+
+print "\nReporting to subscribe and receive OSC messages from the following channels:"
+print ChannelReport
 
 # Start OSCServer
 print "\nStarting OSCServer. Use ctrl-C to quit."
@@ -157,7 +158,7 @@ try:
             CurrentChannel = ("OSCMessagelist[%d][j]" % (i))
             for j in range(0, len(OSCMessagelist[i])):
                 c.sendto(eval(CurrentChannel), send_address)
-        time.sleep(8)
+        time.sleep(5)
 
 except KeyboardInterrupt:
     print "\nClosing OSCServer."
