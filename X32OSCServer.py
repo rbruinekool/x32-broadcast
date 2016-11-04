@@ -3,7 +3,6 @@ import time
 
 try:
     import RPi.GPIO as GPIO
-    GPIO.cleanup()
 except ImportError:
     print "RPi.GPIO module not installed"
 
@@ -37,16 +36,16 @@ class PiException(Exception):
 
 SubscribeFactor = 0
 
-receive_address = '10.75.255.74', 50006   # Local Address
+receive_address = '10.75.255.246', 50006   # Local Address
 send_address = '10.75.255.75', 10023  # Remote Address
 
-ChannelDict = read_variables_from_csv("x32CSGO.csv")
-# ChannelDict = {
-#     "Label": ["Caster 1", "Caster 2", "Host", "Panel 1", "Panel 2", "stagehost", "reporter"],
-#     "Channel": [9, 10, 1, 2, 3, 7, 8],
-#     "DCA Group": [5, 5, 1, 1, 1, '', ''],
-#     "LED Channels": [7, 11, 13, 15, 15, '', ''],
-# }
+# ChannelDict = read_variables_from_csv("x32CSGO.csv")
+ChannelDict = {
+     "Label": ["Caster 1", "Caster 2", "Host", "Panel 1", "Panel 2", "stagehost", "reporter"],
+     "Channel": [9, 10, 1, 2, 3, 7, 8],
+     "DCA Group": [5, 5, 1, 1, 1, 2, ''],
+     "LED Channels": [7, 11, 13, 15, 15, '', ''],
+ }
 
 DCAObjectList = [None] * 8  # Preallocation
 for i in range(0, 8):

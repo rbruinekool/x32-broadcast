@@ -18,7 +18,7 @@ except:
 class MixerChannel(object):
     _ids = count(0)
 
-    def __init__(self, channelnumber, dcagroup = None, gpo_channel = None,
+    def __init__(self, channelnumber, dcagroup = None, gpo_channel = '',
                  x32ipaddress = "127.0.0.1"):
         self.id = self._ids.next()  # id number to keep track of the amount of instances made in a script
 
@@ -48,7 +48,7 @@ class MixerChannel(object):
 
         # GPIO Related attributes are assigned here
         self.gpo_channel = gpo_channel
-        if GPIOActive and self.gpo_channel is not None:
+        if GPIOActive and self.gpo_channel is not '':
             GPIO.setup(self.gpo_channel, GPIO.OUT)
 
     #########################################################################
