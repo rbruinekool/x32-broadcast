@@ -1,0 +1,6 @@
+Requirements:
+
+pyOSC
+prettytable
+RPi GPIO
+pygame, pygame.MIDI
