@@ -36,16 +36,10 @@ class PiException(Exception):
 
 SubscribeFactor = 0
 
-receive_address = '10.75.255.246', 50006   # Local Address
-send_address = '10.75.255.75', 10023  # Remote Address
-
 ChannelDict = read_variables_from_csv("x32CSGO.csv")
-#ChannelDict = {
-#     "Label": ["Caster 1", "Caster 2", "Host", "Panel 1", "Panel 2", "stagehost", "reporter"],
-#     "Channel": [9, 10, 1, 2, 3, 7, 8],
-#     "DCA Group": [5, 5, 1, 1, 1, '', ''],
-#     "LED Channels": [7, 11, 13, 15, 22, 29, None],
-# }
+
+receive_address = ChannelDict["LOCAL IP"][0], 50006   # Local Address
+send_address = ChannelDict["X32 IP"][0], 10023  # Remote Address
 
 DCAObjectList = [None] * 8  # Preallocation
 for i in range(0, 8):
@@ -132,12 +126,13 @@ for addr in sorted(s.getOSCAddressSpace()):
 ###########################################################
 ChannelReport = PrettyTable()
 ChannelReport.add_column("Name", ChannelDict["Label"])
-ChannelReport.add_column("Channel #", ChannelDict["Channel"])
+ChannelReport.add_column("Channel", ChannelDict["Channel"])
 ChannelReport.add_column("DCA Group", ChannelDict["DCA Group"])
-ChannelReport.add_column("GPIO LED Channel", ChannelDict["LED Channels"])
+ChannelReport.add_column("GPIO Channel", ChannelDict["LED Channels"])
 
-print "\nReporting to subscribe and receive OSC messages from the following channels:"
+print "\nOverview of selected channels which are being subscribed to"
 print ChannelReport
+print "Communicating with x32 at %s:%d" % (send_address[0], send_address[1])
 
 # Start OSCServer
 print "\nStarting OSCServer. Use ctrl-C to quit."
