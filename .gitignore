@@ -4,6 +4,9 @@ __pycache__/
 *$py.class
 *.pyc
 
+# CSV files used to read variables
+*.csv
+
 # C extensions
 *.so
 

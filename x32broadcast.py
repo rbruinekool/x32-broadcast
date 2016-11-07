@@ -137,7 +137,7 @@ class MixerChannel(object):
         if self.mutestatus != mutestatus:
             if GPIOActive and type(self.gpo_channel) is int:
                 GPIO.output(self.gpo_channel, not(mutestatus))
-            print "Set mutestatus to", mutestatus, "for", self.channelname , "(channel %d)" % self.channelnumber
+            # print "Set mutestatus to", mutestatus, "for", self.channelname , "(channel %d)" % self.channelnumber
 
         self.mutestatus = mutestatus
         return self.mutestatus
