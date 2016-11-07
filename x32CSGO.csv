@@ -1,6 +1,0 @@
-Label,Host,Panel 1,Panel 2,Panel 3,Caster 1,Caster 2,Stagehost,Reporter
-Channel,1,2,3,4,5,6,7,8
-DCA Group,1,1,1,1,2,2,3,3
-LED Channels,,,,,7,11,,
-X32 IP,10.75.255.75,,,,,,,
-LOCAL IP,10.75.255.246,,,,,,,
