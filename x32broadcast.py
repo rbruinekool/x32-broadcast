@@ -18,7 +18,7 @@ except:
 class MixerChannel(object):
     _ids = count(0)
 
-    def __init__(self, channelnumber, x32ipaddress = "127.0.0.1"):
+    def __init__(self, channelnumber):
         self.id = self._ids.next()  # id number to keep track of the amount of instances made in a script
 
         self.mute_button = None
@@ -28,25 +28,21 @@ class MixerChannel(object):
         self.mutestatus = None
         self.channelnumber = channelnumber
         self.dcagroup = None
+        self.dcamutepath = None
+        self.dcafaderpath = None
         self.mutepath = "/ch/%02d/mix/on" % channelnumber
         self.faderpath = "/ch/%02d/mix/fader" % channelnumber
         self.channelname = "No channel name assigned, use self.channelname"
-        if type(self.dcagroup) is int:
-            self.dcamutepath = "/dca/%d/on" % dcagroup
-            self.dcafaderpath = "/dca/%d/fader" % dcagroup
 
-        # connecting to x32 and creating an OSCMessage instance to prevent
+        # Creating an OSCMessage instance to prevent
         # having to do this repeatedly inside a loop
-        self.x32address = (x32ipaddress, 10023)
-        self.x32 = OSC.OSCClient()
-        self.x32.connect(self.x32address)
         self.msg = OSC.OSCMessage()
 
         # Sets how fast the X32 will send subscribe messages (0 is fastest)
         self.subscribefactor = 0
 
         # GPIO Related attributes are assigned here
-        self.gpo_channel = ''
+        self.gpo_channel = ''  # an empty string '' is needed to filter the instances that have no GPIO functionality
 
     #########################################################################
     # Methods that initialize the object in certain ways go here            #
@@ -57,6 +53,8 @@ class MixerChannel(object):
         Sets the dcagroup for a MixerChannel instance
         """
         self.dcagroup = dcagroup
+        self.dcamutepath = "/dca/%d/on" % dcagroup
+        self.dcafaderpath = "/dca/%d/fader" % dcagroup
 
     def setledoutput(self, gpo_channel):
         self.gpo_channel = gpo_channel
@@ -67,6 +65,17 @@ class MixerChannel(object):
             print "Warning: No GPIO can be assigned because RPi GPIO is not available"
         except ValueError:
             pass
+
+    def setx32address(self, x32address):
+        """
+        Connects a MixerChannel instance to an X32 in the network, this must be done if the MixerChannel is to send
+        messags to an X32 (e.g. setting mutes using the below set_mute method)
+        :param x32address: The network adress of the x32 as a tuple, e.g. ('10.75.10.75', 10023)
+        :return: Nothing
+        """
+        self.x32address = x32address
+        self.x32 = OSC.OSCClient()
+        self.x32.connect(self.x32address)
 
     #########################################################################
     # Methods that involve registering the actual state of M/X32 channels   #
@@ -131,7 +140,6 @@ class MixerChannel(object):
             print "Set mutestatus to", mutestatus, "for", self.channelname , "(channel %d)" % self.channelnumber
 
         self.mutestatus = mutestatus
-
         return self.mutestatus
 
     def OSCChannelSubscribeMSG(self):

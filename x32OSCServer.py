@@ -3,7 +3,9 @@ import time
 
 try:
     import RPi.GPIO as GPIO
+    GPIOActive = True
 except ImportError:
+    GPIOActive = False
     print "RPi.GPIO module not installed"
 
 try:
@@ -69,6 +71,7 @@ for i in range(0, len(ChannelLabels)):
     ObjectList[i].channelname = ChannelNames[i]
     ObjectList[i].setdcagroup(DCALabels[i])
     ObjectList[i].setledoutput(LEDChannels[i])
+    ObjectList[i].setx32address(send_address)
 
 NrofChannelInstances = MixerChannel._ids.next()
 print "\nNumber of channel instances created =", NrofChannelInstances
@@ -159,7 +162,8 @@ try:
 
 except KeyboardInterrupt:
     print "\nClosing OSCServer."
-    GPIO.cleanup()  # clears the used GPIO channels
+    if GPIOActive:
+        GPIO.cleanup()  # clears the used GPIO channels
     s.close()
     print "Waiting for Server-thread to finish"
     st.join()
