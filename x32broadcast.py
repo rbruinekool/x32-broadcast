@@ -64,7 +64,9 @@ class MixerChannel(object):
             GPIO.setup(self.gpo_channel, GPIO.OUT)
             print "GPIO %d for channel %d set to OUT mode" % (self.gpo_channel, self.channelnumber)
         except NameError:
-            print "Warning: No GPIO can be assigned, possibly RPi GPIO is not available"
+            print "Warning: No GPIO can be assigned because RPi GPIO is not available"
+        except ValueError:
+            pass
 
     #########################################################################
     # Methods that involve registering the actual state of M/X32 channels   #
