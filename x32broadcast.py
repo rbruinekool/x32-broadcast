@@ -18,8 +18,7 @@ except:
 class MixerChannel(object):
     _ids = count(0)
 
-    def __init__(self, channelnumber, dcagroup = None, gpo_channel = '',
-                 x32ipaddress = "127.0.0.1"):
+    def __init__(self, channelnumber, x32ipaddress = "127.0.0.1"):
         self.id = self._ids.next()  # id number to keep track of the amount of instances made in a script
 
         self.mute_button = None
@@ -28,7 +27,7 @@ class MixerChannel(object):
         self.mute_dcabutton = False
         self.mutestatus = None
         self.channelnumber = channelnumber
-        self.dcagroup = dcagroup
+        self.dcagroup = None
         self.mutepath = "/ch/%02d/mix/on" % channelnumber
         self.faderpath = "/ch/%02d/mix/fader" % channelnumber
         self.channelname = "No channel name assigned, use self.channelname"
@@ -47,10 +46,25 @@ class MixerChannel(object):
         self.subscribefactor = 0
 
         # GPIO Related attributes are assigned here
+        self.gpo_channel = ''
+
+    #########################################################################
+    # Methods that initialize the object in certain ways go here            #
+    #########################################################################
+
+    def setdcagroup(self, dcagroup):
+        """
+        Sets the dcagroup for a MixerChannel instance
+        """
+        self.dcagroup = dcagroup
+
+    def setledoutput(self, gpo_channel):
         self.gpo_channel = gpo_channel
-        if GPIOActive and type(self.gpo_channel) is int:
+        try:
             GPIO.setup(self.gpo_channel, GPIO.OUT)
             print "GPIO %d for channel %d set to OUT mode" % (self.gpo_channel, self.channelnumber)
+        except NameError:
+            print "Warning: No GPIO can be assigned, possibly RPi GPIO is not available"
 
     #########################################################################
     # Methods that involve registering the actual state of M/X32 channels   #
@@ -112,7 +126,7 @@ class MixerChannel(object):
         if self.mutestatus != mutestatus:
             if GPIOActive and type(self.gpo_channel) is int:
                 GPIO.output(self.gpo_channel, not(mutestatus))
-            # print "Set mutestatus to", mutestatus, "for", self.channelname , "(channel %d)" % self.channelnumber
+            print "Set mutestatus to", mutestatus, "for", self.channelname , "(channel %d)" % self.channelnumber
 
         self.mutestatus = mutestatus
 

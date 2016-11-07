@@ -65,8 +65,10 @@ for i in range(0, 8):
 
 ObjectList = [None] * len(ChannelLabels)
 for i in range(0, len(ChannelLabels)):
-    ObjectList[i] = MixerChannel(ChannelLabels[i], DCALabels[i], LEDChannels[i])
+    ObjectList[i] = MixerChannel(ChannelLabels[i])
     ObjectList[i].channelname = ChannelNames[i]
+    ObjectList[i].setdcagroup(DCALabels[i])
+    ObjectList[i].setledoutput(LEDChannels[i])
 
 NrofChannelInstances = MixerChannel._ids.next()
 print "\nNumber of channel instances created =", NrofChannelInstances
