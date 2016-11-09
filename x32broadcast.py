@@ -53,8 +53,9 @@ class MixerChannel(object):
         Sets the dcagroup for a MixerChannel instance
         """
         self.dcagroup = dcagroup
-        self.dcamutepath = "/dca/%d/on" % dcagroup
-        self.dcafaderpath = "/dca/%d/fader" % dcagroup
+        if type(self.dcagroup) is int:
+            self.dcamutepath = "/dca/%d/on" % dcagroup
+            self.dcafaderpath = "/dca/%d/fader" % dcagroup
 
     def setledoutput(self, gpo_channel):
         self.gpo_channel = gpo_channel
