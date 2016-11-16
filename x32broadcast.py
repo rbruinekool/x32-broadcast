@@ -227,6 +227,45 @@ class DCAGroup(object):
             else:
                 self.channellist = self.channellist + channel
 
+class PhysicalButton(object):
+
+    def __init__(self):
+        self.gpichannel = ''
+        self.mutemsglist = []
+        self.oscmsg = OSC.OSCMessage()
+
+    def setx32address(self, x32address):
+        """
+        Connects a MixerChannel instance to an X32 in the network, this must be done if the MixerChannel is to send
+        messags to an X32 (e.g. setting mutes using the below set_mute method)
+        :param x32address: The network adress of the x32 as a tuple, e.g. ('10.75.10.75', 10023)
+        :return: Nothing
+        """
+        self.x32address = x32address
+        self.x32 = OSC.OSCClient()
+        self.x32.connect(self.x32address)
+
+    def setgpichannel(self, gpichannel):
+        self.gpichannel = gpichannel
+
+    def addmutemsg(self, sourcechannel, **kwargs):
+
+        if destbus is '':
+            mutemsg = "/ch/%02d/mix/on" % sourcechannel
+        else:
+            mutemsg = "/ch/%02d/mix/%02d/on" % (sourcechannel, destbus)
+
+        self.mutemsglist.append(mutemsg)
+
+    def sendoscmessages(self, buttonstate):
+        mutestatus = int(not(buttonstate))
+
+        for i in range(0, len(self.mutemsglist)):
+            self.oscmsg.clear()
+            self.oscmsg.setAddress(self.mutemsglist[i])
+            self.oscmsg.append(mutestatus)
+            self.x32.send(self.oscmsg)
+
 
 #########################################################################
 #                   Random other functions go here                      #
