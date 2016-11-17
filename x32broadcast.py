@@ -232,6 +232,7 @@ class PhysicalButton(object):
     def __init__(self):
         self.gpichannel = ''
         self.mutemsglist = []
+        self.mutemsgmodelist = []
         self.oscmsg = OSC.OSCMessage()
 
     def setx32address(self, x32address):
@@ -248,7 +249,13 @@ class PhysicalButton(object):
     def setgpichannel(self, gpichannel):
         self.gpichannel = gpichannel
 
-    def addmutemsg(self, sourcechannel, **kwargs):
+    def addmutemsg(self, sourcechannel, mutemode='mute_on_press', **kwargs):
+
+        try:
+            destbus = kwargs['destinationbus']
+        except KeyError:
+            destbus = ''
+
 
         if destbus is '':
             mutemsg = "/ch/%02d/mix/on" % sourcechannel
@@ -257,13 +264,25 @@ class PhysicalButton(object):
 
         self.mutemsglist.append(mutemsg)
 
+        if mutemode is 'mute_on_press':
+            self.mutemsgmodelist.append(0)
+        elif mutemode is 'mute_on_release':
+            self.mutemsgmodelist.append(1)
+        else:
+            raise NameError("mutemode must be either 'mute_on_press' or 'mute_on_release'")
+
     def sendoscmessages(self, buttonstate):
-        mutestatus = int(not(buttonstate))
+
+        mutestatus = []
+        if buttonstate is 1:
+            mutestatus = self.mutemsgmodelist
+        elif buttonstate is 0:
+            mutestatus = [not i for i in self.mutemsgmodelist]
 
         for i in range(0, len(self.mutemsglist)):
             self.oscmsg.clear()
             self.oscmsg.setAddress(self.mutemsglist[i])
-            self.oscmsg.append(mutestatus)
+            self.oscmsg.append(int(mutestatus[i]))
             self.x32.send(self.oscmsg)
 
 
