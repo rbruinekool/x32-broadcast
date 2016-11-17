@@ -256,7 +256,6 @@ class PhysicalButton(object):
         except KeyError:
             destbus = ''
 
-
         if destbus is '':
             mutemsg = "/ch/%02d/mix/on" % sourcechannel
         else:
