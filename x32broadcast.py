@@ -233,6 +233,8 @@ class PhysicalButton(object):
         self.gpichannel = ''
         self.mutemsglist = []
         self.mutemsgmodelist = []
+        self.talk2buslist = []
+        self.talk2destmap = 0
         self.oscmsg = OSC.OSCMessage()
 
     def setx32address(self, x32address):
@@ -250,7 +252,6 @@ class PhysicalButton(object):
         self.gpichannel = gpichannel
 
     def addmutemsg(self, sourcechannel, mutemode='mute_on_press', **kwargs):
-
         try:
             destbus = kwargs['destinationbus']
         except KeyError:
@@ -270,8 +271,16 @@ class PhysicalButton(object):
         else:
             raise NameError("mutemode must be either 'mute_on_press' or 'mute_on_release'")
 
+    def addtalk2bus(self, busnumber):
+        self.talk2buslist.append(busnumber)
+        self.talk2destmap = self.talk2destmap + 2**(busnumber - 1)
+
+    def removetalk2bus(self, busnumber):
+        self.talk2destmap = self.talk2destmap - 2 ** (busnumber - 1)
+
     def sendoscmessages(self, buttonstate):
 
+        # Mutemessages will be sent here
         mutestatus = []
         if buttonstate is 1:
             mutestatus = self.mutemsgmodelist
@@ -282,6 +291,18 @@ class PhysicalButton(object):
             self.oscmsg.clear()
             self.oscmsg.setAddress(self.mutemsglist[i])
             self.oscmsg.append(int(mutestatus[i]))
+            self.x32.send(self.oscmsg)
+
+        # Talk2bus messages will be sent here
+        if buttonstate is 1:
+            self.oscmsg.clear()
+            self.oscmsg.setAddress("/config/talk/A/destmap")
+            self.oscmsg.append(self.talk2destmap)
+            self.x32.send(self.oscmsg)
+        elif buttonstate is 0:
+            self.oscmsg.clear()
+            self.oscmsg.setAddress("/config/talk/A/destmap")
+            self.oscmsg.append(0)
             self.x32.send(self.oscmsg)
 
 
