@@ -6,7 +6,7 @@ It enables the on-air LEDS and mute/talkback buttons
 """
 import pygame, pygame.midi
 import RPi.GPIO as GPIO
-from x32broadcast import MixerChannel, read_variables_from_csv
+from x32broadcast import MixerChannel, PhysicalButton, read_variables_from_csv
 
 ButtonMode = "GPI" # Fill in "MIDI" if a MIDI pad is used and "GPI" if GPI's are used
 
@@ -20,7 +20,7 @@ except ImportError:
 # Make sure that the correct CSV file is pointed to below #
 ###########################################################
 
-ChannelDict = read_variables_from_csv("x32CSGO.csv")
+ChannelDict = read_variables_from_csv("x32ChannelSheet.csv")
 
 ChannelNames = ChannelDict["Label"]
 ChannelLabels = ChannelDict["Channel"]
@@ -33,20 +33,31 @@ x32address = (x32ipaddress, 10023)
 if x32ipaddress is '':
     print "ip adress field in csv is empty make sure the ip adress is located in the right spot"
 try:
+    host_index = ChannelNames.index("Host")
     caster1_index = ChannelNames.index("Caster 1")
     caster2_index = ChannelNames.index("Caster 2")
 except ValueError:
-    print "The channelnames are not in the correct format. Use Caster 1 and Caster 2"
+    print "The channelnames are not in the correct format. Use Host, Caster 1 and Caster 2"
 
-# Here the caster MixerChannel objects are created. These objects have methods that allow the script
-# to change paramaters of the channel (e.g. mute them) based on incoming MIDI messages
-caster1 = MixerChannel(ChannelLabels[caster1_index])
-caster1.setdcagroup(DCALabels[caster1_index])
-caster1.setx32address(x32address)
+#### PhysicalButton stuff
 
-caster2 = MixerChannel(ChannelLabels[caster2_index])
-caster2.setdcagroup(DCALabels[caster2_index])
-caster2.setx32address(x32address)
+producerHB = 6
+
+hostchannel = ChannelLabels[host_index]
+
+hostmutebutton = PhysicalButton()
+hosttalkbutton = PhysicalButton()
+
+hostmutebutton.setgpichannel(38)
+hosttalkbutton.setgpichannel(40)
+
+hostmutebutton.setx32address(x32address)
+hosttalkbutton.setx32address(x32address)
+
+hostmutebutton.addmutemsg(hostchannel)
+
+hosttalkbutton.addmutemsg(hostchannel)
+hosttalkbutton.addmutemsg(hostchannel, "mute_on_release", destinationbus=producerHB)
 
 ###########################################################
 # Reporting of the subscribed OSC handles in a pretty way #
@@ -55,11 +66,17 @@ ChannelReport = PrettyTable()
 ChannelReport.add_column("Name", ChannelDict["Label"])
 ChannelReport.add_column("Channel", ChannelDict["Channel"])
 ChannelReport.add_column("DCA Group", ChannelDict["DCA Group"])
-ChannelReport.add_column("GPIO Channel", ChannelDict["LED Channels"])
+ChannelReport.add_column("GPO LED Pin", ChannelDict["LED Channels"])
 print "\nOverview of selected channels which are being subscribed to"
 print ChannelReport
 print "Communicating with x32 at %s:%d" % x32address
 
+print "\nHost Mute button set to GPI pin %d. It has the following registered OSC Paths:" % hostmutebutton.gpichannel
+for i in range(0, len(hostmutebutton.mutemsglist)):
+    print "\t", hostmutebutton.mutemsglist[i]
+print "Host Talkback button set to GPI pin %d. It has the following registered OSC Paths:" % hosttalkbutton.gpichannel
+for i in range(0, len(hosttalkbutton.mutemsglist)):
+    print "\t", hosttalkbutton.mutemsglist[i]
 
 """
 MIDI Stuff
@@ -68,15 +85,15 @@ verbose = False  # Verbose being true allows you to see what MIDI messages are b
 pygame.init()
 pygame.midi.init()
 
-# list all midi devices
-for x in range(0, pygame.midi.get_count()):
-    print pygame.midi.get_device_info(x)
-
-# open a specific midi device
-MIDIdevice = 3
-inp = pygame.midi.Input(MIDIdevice)
-
 if ButtonMode is "MIDI":
+    # list all midi devices
+    for x in range(0, pygame.midi.get_count()):
+       print pygame.midi.get_device_info(x)
+
+    # open a specific midi device
+    MIDIdevice = 3
+    inp = pygame.midi.Input(MIDIdevice)
+
     try:
         while 1:
             if inp.poll():
@@ -131,70 +148,35 @@ if ButtonMode is "MIDI":
         print "Done"
 
 if ButtonMode is "GPI":
-
-    Caster1GPI_Mute = 36
-    Caster2GPI_Mute = 37
-    Caster1GPI_Talk = 38
-    Caster2GPI_Talk = 40
-
     GPIO.setmode(GPIO.BOARD)
 
-    GPIO.setup(Caster1GPI_Mute, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-    GPIO.setup(Caster2GPI_Mute, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(hostmutebutton.gpichannel, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(hosttalkbutton.gpichannel, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-    GPIO.setup(Caster1GPI_Talk, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-    GPIO.setup(Caster2GPI_Talk, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-
-    Caster1MuteButton = GPIO.input(Caster1GPI_Mute)
-    Caster2MuteButton = GPIO.input(Caster2GPI_Mute)
-    Caster1TalkButton = GPIO.input(Caster1GPI_Talk)
-    Caster2TalkButton = GPIO.input(Caster2GPI_Talk)
+    HostMuteButton = GPIO.input(hostmutebutton.gpichannel)
+    HostTalkButton = GPIO.input(hosttalkbutton.gpichannel)
 
     try:
         while 1:
-            # Caster 2 MUTE button
-            if GPIO.input(Caster1GPI_Mute) != Caster1MuteButton:
-                if GPIO.input(Caster1GPI_Mute) == 1:
-                    caster1.set_mute(0)
-                    Caster1MuteButton = GPIO.input(Caster1GPI_Mute)
+            # Host MUTE button
+            if GPIO.input(hostmutebutton.gpichannel) != HostMuteButton:
+                if GPIO.input(hostmutebutton.gpichannel) == 1:
+                    hostmutebutton.sendoscmessages(1)
+                    HostMuteButton = GPIO.input(hostmutebutton.gpichannel)
 
-                if GPIO.input(Caster1GPI_Mute) == 0:
-                    caster1.set_mute(1)
-                    Caster1MuteButton = GPIO.input(Caster1GPI_Mute)
-
-            # Caster 1 TALK button
-            if GPIO.input(Caster1GPI_Talk) != Caster1TalkButton:
-                if GPIO.input(Caster1GPI_Talk) == 1:
-                    caster1.set_mute(0)
-                    caster1.open_communications(6)
-                    Caster1TalkButton = GPIO.input(Caster1GPI_Talk)
-
-                if GPIO.input(Caster1GPI_Talk) == 0:
-                    caster1.set_mute(1)
-                    caster1.close_communications(6)
-                    Caster1TalkButton = GPIO.input(Caster1GPI_Talk)
-
-            # Check if the Caster 2 mute button status has changed
-            if GPIO.input(Caster2GPI_Mute) != Caster2MuteButton:
-                if GPIO.input(Caster2GPI_Mute) == 1:
-                    caster2.set_mute(0)
-                    Caster2MuteButton = GPIO.input(Caster2GPI_Mute)
-
-                if GPIO.input(Caster2GPI_Mute) == 0:
-                    caster2.set_mute(1)
-                    Caster2MuteButton = GPIO.input(Caster2GPI_Mute)
+                if GPIO.input(hostmutebutton.gpichannel) == 0:
+                    hostmutebutton.sendoscmessages(0)
+                    HostMuteButton = GPIO.input(hostmutebutton.gpichannel)
 
             # Caster 1 TALK button
-            if GPIO.input(Caster2GPI_Talk) != Caster2TalkButton:
-                if GPIO.input(Caster2GPI_Talk) == 1:
-                    caster2.set_mute(0)
-                    caster2.open_communications(6)
-                    Caster2TalkButton = GPIO.input(Caster2GPI_Talk)
+            if GPIO.input(hosttalkbutton.gpichannel) != HostTalkButton:
+                if GPIO.input(hosttalkbutton.gpichannel) == 1:
+                    hosttalkbutton.sendoscmessages(1)
+                    HostTalkButton = GPIO.input(hosttalkbutton.gpichannel)
 
-                if GPIO.input(Caster2GPI_Talk) == 0:
-                    caster2.set_mute(1)
-                    caster2.close_communications(6)
-                    Caster2TalkButton = GPIO.input(Caster2GPI_Talk)
+                if GPIO.input(hosttalkbutton.gpichannel) == 0:
+                    hosttalkbutton.sendoscmessages(0)
+                    HostTalkButton = GPIO.input(hosttalkbutton.gpichannel)
 
     except KeyboardInterrupt:
         print "\nClosing MIDI Listening Loop."

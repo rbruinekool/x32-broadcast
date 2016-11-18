@@ -38,7 +38,7 @@ class PiException(Exception):
 
 SubscribeFactor = 0
 
-ChannelDict = read_variables_from_csv("x32CSGO.csv")
+ChannelDict = read_variables_from_csv("x32ChannelSheet.csv")
 
 receive_address = ChannelDict["LOCAL IP"][0], 50006   # Local Address
 send_address = ChannelDict["X32 IP"][0], 10023  # Remote Address
@@ -65,9 +65,9 @@ for i in range(0, 8):
     if dcaindexlist[i]:
         DCAObjectList[i].channelindex = dcaindexlist[i]
 
-ObjectList = [None] * len(ChannelLabels)
+ObjectList = []
 for i in range(0, len(ChannelLabels)):
-    ObjectList[i] = MixerChannel(ChannelLabels[i])
+    ObjectList.append(MixerChannel(ChannelLabels[i]))
     ObjectList[i].channelname = ChannelNames[i]
     ObjectList[i].setdcagroup(DCALabels[i])
     ObjectList[i].setledoutput(LEDChannels[i])

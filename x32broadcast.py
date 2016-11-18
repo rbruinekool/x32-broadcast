@@ -252,6 +252,12 @@ class PhysicalButton(object):
         self.gpichannel = gpichannel
 
     def addmutemsg(self, sourcechannel, mutemode='mute_on_press', **kwargs):
+        """
+        Adds an OSC mute message to the list that will be sent when the button is pressed
+        :param sourcechannel: The channel that will be the main focus of the mute message
+        :param mutemode: decides whether the channel is muted on press ('mute_on_press') or on release ("mute_on_release")
+        :param kwargs: a destination bus can be added to change the mute message to a bus mute
+        """
         try:
             destbus = kwargs['destinationbus']
         except KeyError:
