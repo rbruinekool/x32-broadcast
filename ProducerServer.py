@@ -71,24 +71,44 @@ for i in range(0, 8):
 
 # Pad 5 - Talk to Host
 MIDIbuttonlist[4].addtalk2bus(hostbus)
-
+MIDIbuttonlist[4].addmutemsg(hostchannel, mutemode="mute_on_release", destinationbus=producerHB)
+                             
+                             
 # Pad 6 - Talk to Panel
 MIDIbuttonlist[5].addtalk2bus([hostbus, panelbus])
+MIDIbuttonlist[5].addmutemsg(hostchannel, mutemode="mute_on_release", destinationbus=producerHB)
+MIDIbuttonlist[5].addmutemsg(panel1channel, mutemode="mute_on_release", destinationbus=producerHB)
+MIDIbuttonlist[5].addmutemsg(panel2channel, mutemode="mute_on_release", destinationbus=producerHB)
+MIDIbuttonlist[5].addmutemsg(panel3channel, mutemode="mute_on_release", destinationbus=producerHB)
 
 # Pad 1 - Talk to Caster 1
 MIDIbuttonlist[0].addtalk2bus(caster1bus)
+MIDIbuttonlist[0].addmutemsg(caster1channel, mutemode="mute_on_release", destinationbus=producerHB)
 
 # Pad 3 - Talk to Caster 2
 MIDIbuttonlist[2].addtalk2bus(caster2bus)
+MIDIbuttonlist[2].addmutemsg(caster2channel, mutemode="mute_on_release", destinationbus=producerHB)
 
 # Pad 2 - Talk to Caster 1 and Caster 2
 MIDIbuttonlist[1].addtalk2bus([caster1bus, caster2bus])
+MIDIbuttonlist[1].addmutemsg(caster1channel, mutemode="mute_on_release", destinationbus=producerHB)
+MIDIbuttonlist[1].addmutemsg(caster2channel, mutemode="mute_on_release", destinationbus=producerHB)
 
 # Pad 8 - Talk to Stagehost
-MIDIbuttonlist[7].addtalk2bus(stagehostbus)
+if stagehostchannel is not '':
+    MIDIbuttonlist[7].addtalk2bus(stagehostbus)
+    MIDIbuttonlist[7].addmutemsg(stagehostchannel, mutemode="mute_on_release", destinationbus=producerHB)
 
 # Pad 4 - Talk to ALL
 MIDIbuttonlist[3].addtalk2bus([hostbus, panelbus, caster1bus, caster2bus, stagehostbus, reporterbus])
+MIDIbuttonlist[3].addmutemsg(hostchannel, mutemode="mute_on_release", destinationbus=producerHB)
+MIDIbuttonlist[3].addmutemsg(panel1channel, mutemode="mute_on_release", destinationbus=producerHB)
+MIDIbuttonlist[3].addmutemsg(panel2channel, mutemode="mute_on_release", destinationbus=producerHB)
+MIDIbuttonlist[3].addmutemsg(panel3channel, mutemode="mute_on_release", destinationbus=producerHB)
+MIDIbuttonlist[3].addmutemsg(caster1channel, mutemode="mute_on_release", destinationbus=producerHB)
+MIDIbuttonlist[3].addmutemsg(caster2channel, mutemode="mute_on_release", destinationbus=producerHB)
+if stagehostchannel is not '':
+    MIDIbuttonlist[3].addmutemsg(stagehostchannel, mutemode="mute_on_release", destinationbus=producerHB)
 
 #########################################################################################
 ##                            Change encoder functions here                            ##
