@@ -231,10 +231,12 @@ class PhysicalButton(object):
 
     def __init__(self):
         self.gpichannel = ''
+        self.MIDIcc = ''
         self.mutemsglist = []
         self.mutemsgmodelist = []
         self.talk2buslist = []
         self.talk2destmap = 0
+        self.fadermsglist = []
         self.oscmsg = OSC.OSCMessage()
 
     def setx32address(self, x32address):
@@ -250,6 +252,9 @@ class PhysicalButton(object):
 
     def setgpichannel(self, gpichannel):
         self.gpichannel = gpichannel
+
+    def setMIDIcc(self, MIDIcc):
+        self.MIDIcc = MIDIcc
 
     def addmutemsg(self, sourcechannel, mutemode='mute_on_press', **kwargs):
         """
@@ -277,9 +282,68 @@ class PhysicalButton(object):
         else:
             raise NameError("mutemode must be either 'mute_on_press' or 'mute_on_release'")
 
+    def addfadermsg(self, channelnumber, busnumber=''):
+
+        try:
+            for i in range(0, len(channelnumber)):
+                if type(channelnumber[i]) is int:
+                    if busnumber is '':
+                        self.fadermsglist.append("/ch/%02d/mix/fader" % channelnumber[i])
+                    else:
+                        self.fadermsglist.append("/ch/%02d/mix/%02d/level" % (channelnumber[i], busnumber))
+                elif channelnumber[i] is '':
+                    pass
+                else:
+                    print "illegal busnumber entered in CSV. Use only an integer or an empty field"
+        except TypeError:
+            if type(channelnumber) is int:
+                if busnumber is '':
+                    self.fadermsglist.append("/ch/%02d/mix/fader" % channelnumber)
+                else:
+                    self.fadermsglist.append("/ch/%02d/mix/%02d/level" % (channelnumber, busnumber))
+            elif channelnumber is '':
+                pass
+            else:
+                print "illegal busnumber entered in CSV. Use only an integer or an empty field"
+
+    def addbusfadermsg(self, busnumber):
+        try:
+            for i in range(0, len(busnumber)):
+                if type(busnumber[i]) is int:
+                    fadermsg = "/bus/%02d/mix/fader" % (busnumber[i])
+                    self.fadermsglist.append(fadermsg)
+                elif busnumber is '':
+                    pass
+                else:
+                    print "illegal busnumber entered in CSV. Use only an integer or an empty field"
+        except TypeError:
+            if type(busnumber) is int:
+                fadermsg = "/bus/%02d/mix/fader" % (busnumber)
+                self.fadermsglist.append(fadermsg)
+            elif busnumber is '':
+                pass
+            else:
+                print "illegal busnumber entered in CSV. Use only an integer or an empty field"
+
     def addtalk2bus(self, busnumber):
-        self.talk2buslist.append(busnumber)
-        self.talk2destmap = self.talk2destmap + 2**(busnumber - 1)
+        try:
+            for i in range(0, len(busnumber)):
+                if type(busnumber[i]) is int:  # To prevent adding non integer busses
+                    self.talk2buslist.append(busnumber[i])
+                    self.talk2destmap = self.talk2destmap + 2 ** (busnumber[i] - 1)
+                elif busnumber[i] is '':
+                    pass
+                else:
+                    print "Warning, non integer busnumbers are being used. Use only integer values or empty fields"
+
+        except TypeError:
+            if type(busnumber) is int:  # To prevent adding non integer busses
+                self.talk2buslist.append(busnumber)
+                self.talk2destmap = self.talk2destmap + 2 ** (busnumber - 1)
+            elif busnumber[i] is '':
+                pass
+            else:
+                print "Warning, illegal busnumbers are being used. Use only integer values or empty fields"
 
     def removetalk2bus(self, busnumber):
         self.talk2destmap = self.talk2destmap - 2 ** (busnumber - 1)
@@ -311,6 +375,14 @@ class PhysicalButton(object):
             self.oscmsg.append(0)
             self.x32.send(self.oscmsg)
 
+    def sendfaderoscmessages(self, encoderMIDIvalue):
+        oscvalue = float(encoderMIDIvalue) / 127.0  # Convert 127 step msg into msg from 0 to 1
+        for i in range(0, len(self.fadermsglist)):
+            self.oscmsg.clear()
+            self.oscmsg.setAddress(self.fadermsglist[i])
+            self.oscmsg.append(oscvalue)
+            self.x32.send(self.oscmsg)
+
 
 #########################################################################
 #                   Random other functions go here                      #
@@ -337,7 +409,7 @@ def read_variables_from_csv(filename):
             try:
                 ChannelDict[ChannelDictKeyList[i]][j] = int(ChannelDict[ChannelDictKeyList[i]][j])
             except ValueError:
-                dummy = "nothing happens"
+                pass
     return ChannelDict
 
 #For easy programming of the osc messages all the messages will be compiled with these functions

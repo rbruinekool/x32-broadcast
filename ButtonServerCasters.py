@@ -4,7 +4,7 @@ It enables the on-air LEDS and mute/talkback buttons
 
 
 """
-import pygame, pygame.midi
+import pygame, pygame.midi, time
 import RPi.GPIO as GPIO
 from x32broadcast import MixerChannel, PhysicalButton, read_variables_from_csv
 
@@ -27,8 +27,10 @@ ChannelLabels = ChannelDict["Channel"]
 DCALabels = ChannelDict["DCA Group"]
 LEDChannels = ChannelDict["LED Channels"]
 x32ipaddress = ChannelDict["X32 IP"][0]
+producerHB = ChannelDict["Producer HB Bus"][0]
 
 x32address = (x32ipaddress, 10023)
+
 
 if x32ipaddress is '':
     print "ip adress field in csv is empty make sure the ip adress is located in the right spot"
@@ -40,8 +42,6 @@ except ValueError:
     print "The channelnames are not in the correct format. Use Host, Caster 1 and Caster 2"
 
 #### PhysicalButton stuff
-
-producerHB = 6
 
 Hostchannel = ChannelLabels[host_index]
 caster1channel = ChannelLabels[caster1_index]
@@ -62,14 +62,18 @@ c1talkbutton.setx32address(x32address)
 c2mutebutton.setx32address(x32address)
 c2talkbutton.setx32address(x32address)
 
+####################################################################################
+#                      Set button osc messages here                                #
+####################################################################################
+
 c1mutebutton.addmutemsg(caster1channel)
 
-c1talkbutton.addmutemsg(caster1channel)
+c1talkbutton.addfadermsg(caster1channel) # Need to mute on fader otherwise the send is also muted
 c1talkbutton.addmutemsg(caster1channel, "mute_on_release", destinationbus=producerHB)
 
 c2mutebutton.addmutemsg(caster2channel)
 
-c2talkbutton.addmutemsg(caster2channel)
+c2talkbutton.addfadermsg(caster2channel)
 c2talkbutton.addmutemsg(caster2channel, "mute_on_release", destinationbus=producerHB)
 
 ###########################################################
@@ -139,28 +143,24 @@ if ButtonMode is "MIDI":
                 # CC Note ON (activate when a MIDI pad is pressed)
                 if status_byte == 144:
                     if note_number == 36:  # Mute button for caster 2
-                        caster2.set_mute(0)
+                        c2mutebutton.sendoscmessages(1)
                     elif note_number == 37:  # Talkback button for caster 2
-                        caster2.open_communications(6)
-                        caster2.set_mute(0)
+                        c2talkbutton.sendoscmessages(1)
                     elif note_number == 39:  # Mute button for caster 1
-                        caster1.set_mute(0)
+                        c1mutebutton.sendoscmessages(1)
                     elif note_number == 38:  # Talkback button for caster 1
-                        caster1.open_communications(6)
-                        caster1.set_mute(0)
+                        c1talkbutton.sendoscmessages(1)
 
                 # CC Note OFF (activate when a MIDI pad is released)
                 elif status_byte == 128:
                     if note_number == 36:
-                        caster2.set_mute(1)
+                        c2mutebutton.sendoscmessages(0)
                     elif note_number == 37:
-                        caster2.close_communications(6)
-                        caster2.set_mute(1)
+                        c2talkbutton.sendoscmessages(0)
                     elif note_number == 39:
-                        caster1.set_mute(1)
+                        c1mutebutton.sendoscmessages(0)
                     elif note_number == 38:
-                        caster1.close_communications(6)
-                        caster1.set_mute(1)
+                        c1talkbutton.sendoscmessages(0)
 
     except KeyboardInterrupt:
         print "\nClosing MIDI Listening Loop."
@@ -169,58 +169,57 @@ if ButtonMode is "MIDI":
 if ButtonMode is "GPI":
     GPIO.setmode(GPIO.BOARD)
 
-    GPIO.setup(c1mutebutton.gpichannel, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-    GPIO.setup(c1talkbutton.gpichannel, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-    GPIO.setup(c2mutebutton.gpichannel, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-    GPIO.setup(c2talkbutton.gpichannel, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(c1mutebutton.gpichannel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    GPIO.setup(c1talkbutton.gpichannel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    GPIO.setup(c2mutebutton.gpichannel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    GPIO.setup(c2talkbutton.gpichannel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
     Caster1MuteButton = GPIO.input(c1mutebutton.gpichannel)
     Caster1TalkButton = GPIO.input(c1talkbutton.gpichannel)
     Caster2MuteButton = GPIO.input(c2mutebutton.gpichannel)
     Caster2TalkButton = GPIO.input(c2talkbutton.gpichannel)
 
+    bouncetime = 5
+
+    GPIO.add_event_detect(c1mutebutton.gpichannel, GPIO.BOTH)
+    GPIO.add_event_detect(c1talkbutton.gpichannel, GPIO.BOTH)
+    GPIO.add_event_detect(c2mutebutton.gpichannel, GPIO.BOTH)
+    GPIO.add_event_detect(c2talkbutton.gpichannel, GPIO.BOTH)
+
+    # Generic sending function which is called in the loop below:
+    def sendondetect(button):
+        time.sleep(0.02)
+        pinstatus = int(not(GPIO.input(button.gpichannel)))
+        button.sendoscmessages(pinstatus)
+        if pinstatus == 1:
+            button.sendfaderoscmessages(0.0)
+        else:
+            button.sendfaderoscmessages(98)
+        time.sleep(0.02)
+        print "sent messages for pin %d. Pin state = %d " % (button.gpichannel, pinstatus)
+
     try:
         while 1:
-            # Caster 1 MUTE button
-            if GPIO.input(c1mutebutton.gpichannel) != Caster1MuteButton:
-                if GPIO.input(c1mutebutton.gpichannel) == 1:
-                    c1mutebutton.sendoscmessages(1)
-                    Caster1MuteButton = GPIO.input(c1mutebutton.gpichannel)
 
-                if GPIO.input(c1mutebutton.gpichannel) == 0:
-                    c1mutebutton.sendoscmessages(0)
-                    Caster1MuteButton = GPIO.input(c1mutebutton.gpichannel)
+            # Caster 1 mute
+            if GPIO.event_detected(c1mutebutton.gpichannel):
+                sendondetect(c1mutebutton)
 
-            # Caster 1 TALK button
-            if GPIO.input(c1talkbutton.gpichannel) != Caster1TalkButton:
-                if GPIO.input(c1talkbutton.gpichannel) == 1:
-                    c1talkbutton.sendoscmessages(1)
-                    Caster1TalkButton = GPIO.input(c1talkbutton.gpichannel)
+            # Caster 1 Talkback
+            if GPIO.event_detected(c1talkbutton.gpichannel):
+                sendondetect(c1talkbutton)
 
-                if GPIO.input(c1talkbutton.gpichannel) == 0:
-                    c1talkbutton.sendoscmessages(0)
-                    Caster1TalkButton = GPIO.input(c1talkbutton.gpichannel)
+            # Caster 2 Mute
+            if GPIO.event_detected(c2mutebutton.gpichannel):
+                sendondetect(c2mutebutton)
 
-            # Caster 2 MUTE button
-            if GPIO.input(c2mutebutton.gpichannel) != Caster2MuteButton:
-                if GPIO.input(c2mutebutton.gpichannel) == 1:
-                    c2mutebutton.sendoscmessages(1)
-                    Caster2MuteButton = GPIO.input(c2mutebutton.gpichannel)
+            # Caster 2 Talkback
+            if GPIO.event_detected(c2talkbutton.gpichannel):
+                sendondetect(c2talkbutton)
 
-                if GPIO.input(c2mutebutton.gpichannel) == 0:
-                    c2mutebutton.sendoscmessages(0)
-                    Caster2MuteButton = GPIO.input(c2mutebutton.gpichannel)
-
-            # Caster2 TALK button
-            if GPIO.input(c2talkbutton.gpichannel) != Caster2TalkButton:
-                if GPIO.input(c2talkbutton.gpichannel) == 1:
-                    c2talkbutton.sendoscmessages(1)
-                    Caster2TalkButton = GPIO.input(c2talkbutton.gpichannel)
-
-                if GPIO.input(c2talkbutton.gpichannel) == 0:
-                    c2talkbutton.sendoscmessages(0)
-                    Caster2TalkButton = GPIO.input(c2talkbutton.gpichannel)
+            time.sleep(0.05)
 
     except KeyboardInterrupt:
-        print "\nClosing MIDI Listening Loop."
+        print "\nClosing MIDI Listening Loop and GPIO ports."
+        GPIO.cleanup()
         print "Done"
