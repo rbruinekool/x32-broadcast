@@ -4,9 +4,11 @@ It enables the on-air LEDS and mute/talkback buttons
 
 
 """
-import pygame, pygame.midi, time
 import RPi.GPIO as GPIO
-from x32broadcast import MixerChannel, PhysicalButton, read_variables_from_csv
+import pygame.midi
+import time
+
+from x32broadcast import PhysicalButton, read_variables_from_csv
 
 ButtonMode = "GPI" # Fill in "MIDI" if a MIDI pad is used and "GPI" if GPI's are used
 
@@ -154,7 +156,7 @@ if ButtonMode is "GPI":
         pinstatus = int(not(GPIO.input(button.gpichannel)))
         button.sendoscmessages(pinstatus)
         time.sleep(0.02)
-        print "sent messages for pin " , button.gpichannel
+        print "sent messages for pin %d. Pin state = %d " % (button.gpichannel, pinstatus)
 
     try:
         while 1:
