@@ -113,6 +113,8 @@ for i in range(0, len(c1mutebutton.fadermsglist)):
 print "Caster 1 Talkback button set to GPI pin %d. It has the following registered OSC Paths:" % c1talkbutton.gpichannel
 for i in range(0, len(c1talkbutton.mutemsglist)):
     print "\t", c1talkbutton.mutemsglist[i]
+for i in range(0, len(c1talkbutton.fadermsglist)):
+    print "\t", c1talkbutton.fadermsglist[i]
 print "\nCaster 2 Mute button set to GPI pin %d. It has the following registered OSC Paths:" % c2mutebutton.gpichannel
 for i in range(0, len(c2mutebutton.mutemsglist)):
     print "\t", c2mutebutton.mutemsglist[i]

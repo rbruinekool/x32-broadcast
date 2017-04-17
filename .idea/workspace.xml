@@ -26,11 +26,11 @@
       <file leaf-file-name="ButtonServerCasters.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ButtonServerCasters.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="110" column="47" selection-start-line="110" selection-start-column="47" selection-end-line="110" selection-end-column="47" />
+            <state relative-caret-position="178">
+              <caret line="114" column="43" selection-start-line="114" selection-start-column="43" selection-end-line="114" selection-end-column="43" />
               <folding>
                 <element signature="e#108#119#0" expanded="true" />
-                <marker date="1492452090000" expanded="false" signature="5052:7285" ph="..." />
+                <marker date="1492452221000" expanded="false" signature="5148:7381" ph="..." />
               </folding>
             </state>
           </provider>
@@ -813,7 +813,14 @@
       <option name="project" value="LOCAL" />
       <updated>1492451920940</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Adding reporting of fadermessages">
+      <created>1492452120508</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1492452120508</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -1241,11 +1248,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ButtonServerCasters.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="110" column="47" selection-start-line="110" selection-start-column="47" selection-end-line="110" selection-end-column="47" />
+        <state relative-caret-position="178">
+          <caret line="114" column="43" selection-start-line="114" selection-start-column="43" selection-end-line="114" selection-end-column="43" />
           <folding>
             <element signature="e#108#119#0" expanded="true" />
-            <marker date="1492452090000" expanded="false" signature="5052:7285" ph="..." />
+            <marker date="1492452221000" expanded="false" signature="5148:7381" ph="..." />
           </folding>
         </state>
       </provider>
