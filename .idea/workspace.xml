@@ -26,11 +26,11 @@
       <file leaf-file-name="ButtonServerCasters.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ButtonServerCasters.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="100" column="61" selection-start-line="100" selection-start-column="61" selection-end-line="100" selection-end-column="61" />
+            <state relative-caret-position="388">
+              <caret line="92" column="1" selection-start-line="92" selection-start-column="1" selection-end-line="92" selection-end-column="1" />
               <folding>
                 <element signature="e#108#119#0" expanded="true" />
-                <element signature="e#4976#7204#0" expanded="false" />
+                <element signature="e#4984#7212#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -757,7 +757,14 @@
       <option name="project" value="LOCAL" />
       <updated>1492450505371</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Added reading of PA channels from csv file to buttonservercasters.py">
+      <created>1492450708869</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1492450708869</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -1184,11 +1191,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ButtonServerCasters.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="100" column="61" selection-start-line="100" selection-start-column="61" selection-end-line="100" selection-end-column="61" />
+        <state relative-caret-position="388">
+          <caret line="92" column="1" selection-start-line="92" selection-start-column="1" selection-end-line="92" selection-end-column="1" />
           <folding>
             <element signature="e#108#119#0" expanded="true" />
-            <element signature="e#4976#7204#0" expanded="false" />
+            <element signature="e#4984#7212#0" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -75,22 +75,22 @@ c2talkbutton.setx32address(x32address)
 ####################################################################################
 
 c1mutebutton.addmutemsg(caster1channel)
-if caster1channel_PA:                           #prevents adding empty mute messages
-    c1mutebutton.addmutemsg(caster1channel_PA)  # Mute Caster 1 PA Channel
+#if caster1channel_PA:                           #prevents adding empty mute messages
+#    c1mutebutton.addmutemsg(caster1channel_PA)  # Mute Caster 1 PA Channel
 
 c1talkbutton.addfadermsg(caster1channel) # Need to mute on fader otherwise the send is also muted
 c1talkbutton.addmutemsg(caster1channel, "mute_on_release", destinationbus=producerHB)
-if caster1channel_PA:
-    c1talkbutton.addmutemsg(caster1channel_PA) # Mute Caster 1 PA Channel
+#if caster1channel_PA:
+#    c1talkbutton.addmutemsg(caster1channel_PA) # Mute Caster 1 PA Channel
 
 c2mutebutton.addmutemsg(caster2channel)
-if caster2channel_PA:
-    c2mutebutton.addmutemsg(caster2channel_PA)  # Mute Caster 2 PA Channel
+#if caster2channel_PA:
+#    c2mutebutton.addmutemsg(caster2channel_PA)  # Mute Caster 2 PA Channel
 
 c2talkbutton.addfadermsg(caster2channel)
 c2talkbutton.addmutemsg(caster2channel, "mute_on_release", destinationbus=producerHB)
-if caster2channel_PA:
-    c2talkbutton.addmutemsg(caster2channel_PA)  # Mute Caster 2 PA Channel
+#if caster2channel_PA:
+#    c2talkbutton.addmutemsg(caster2channel_PA)  # Mute Caster 2 PA Channel
 
 ###########################################################
 # Reporting of the subscribed OSC handles in a pretty way #
