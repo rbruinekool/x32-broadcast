@@ -4,9 +4,10 @@ It enables the on-air LEDS and mute/talkback buttons
 
 
 """
+import time
+
 import RPi.GPIO as GPIO
 import pygame.midi
-import time
 
 from x32broadcast import PhysicalButton, read_variables_from_csv
 
@@ -26,6 +27,7 @@ ChannelDict = read_variables_from_csv("x32ChannelSheet.csv")
 
 ChannelNames = ChannelDict["Label"]
 ChannelLabels = ChannelDict["Channel"]
+PALabels = ChannelDict["PAChannel"]
 DCALabels = ChannelDict["DCA Group"]
 LEDChannels = ChannelDict["LED Channels"]
 x32ipaddress = ChannelDict["X32 IP"][0]
@@ -48,6 +50,10 @@ hostchannel = ChannelLabels[host_index]
 caster1channel = ChannelLabels[caster1_index]
 caster2channel = ChannelLabels[caster2_index]
 
+caster1channel_PA = PALabels[caster1_index]            # PA Channels Here
+caster2channel_PA = PALabels[caster2_index]
+Hostchannel_PA = PALabels[host_index]
+
 hostmutebutton = PhysicalButton()
 hosttalkbutton = PhysicalButton()
 
@@ -59,8 +65,12 @@ hosttalkbutton.setx32address(x32address)
 
 hostmutebutton.addmutemsg(hostchannel)
 
-hosttalkbutton.addmutemsg(hostchannel)
+hosttalkbutton.addfadermsg(hostchannel)
 hosttalkbutton.addmutemsg(hostchannel, "mute_on_release", destinationbus=producerHB)
+
+if Hostchannel_PA:
+    hostmutebutton.addmutemsg(Hostchannel_PA)
+    hosttalkbutton.addmutemsg(Hostchannel_PA)
 
 
 ###########################################################
@@ -70,6 +80,7 @@ ChannelReport = PrettyTable()
 ChannelReport.add_column("Name", ChannelDict["Label"])
 ChannelReport.add_column("Channel", ChannelDict["Channel"])
 ChannelReport.add_column("DCA Group", ChannelDict["DCA Group"])
+ChannelReport.add_column("PA Channel", ChannelDict["PAChannel"])
 ChannelReport.add_column("GPO LED Pin", ChannelDict["LED Channels"])
 print "\nOverview of selected channels which are being subscribed to"
 print ChannelReport
@@ -78,9 +89,13 @@ print "Communicating with x32 at %s:%d" % x32address
 print "\nHost Mute button set to GPI pin %d. It has the following registered OSC Paths:" % hostmutebutton.gpichannel
 for i in range(0, len(hostmutebutton.mutemsglist)):
     print "\t", hostmutebutton.mutemsglist[i]
+for i in range(0, len(hostmutebutton.fadermsglist)):
+    print "\t", hostmutebutton.fadermsglist[i]
 print "Host Talkback button set to GPI pin %d. It has the following registered OSC Paths:" % hosttalkbutton.gpichannel
 for i in range(0, len(hosttalkbutton.mutemsglist)):
     print "\t", hosttalkbutton.mutemsglist[i]
+for i in range(0, len(hosttalkbutton.fadermsglist)):
+    print "\t", hosttalkbutton.fadermsglist[i]
 
 """
 MIDI Stuff

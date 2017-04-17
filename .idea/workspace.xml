@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0ef4897f-b889-43bb-a3d6-b51e9c535ab5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ButtonServerCasters.py" afterPath="$PROJECT_DIR$/ButtonServerCasters.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ButtonServerPanel.py" afterPath="$PROJECT_DIR$/ButtonServerPanel.py" />
     </list>
     <ignored path="https---github.com-rbruinekool-x32-broadcast.git.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,13 +23,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ButtonServerCasters.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ButtonServerCasters.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ButtonServerCasters.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="123" column="29" selection-start-line="123" selection-start-column="29" selection-end-line="123" selection-end-column="29" />
+            <state relative-caret-position="135">
+              <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="64" />
               <folding>
-                <element signature="e#108#119#0" expanded="true" />
                 <marker date="1492452289000" expanded="false" signature="5340:7573" ph="..." />
               </folding>
             </state>
@@ -46,14 +45,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ButtonServerPanel.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ButtonServerPanel.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ButtonServerPanel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1015">
-              <caret line="158" column="8" selection-start-line="158" selection-start-column="8" selection-end-line="158" selection-end-column="8" />
+            <state relative-caret-position="210">
+              <caret line="94" column="28" selection-start-line="94" selection-start-column="28" selection-end-line="94" selection-end-column="28" />
               <folding>
                 <element signature="e#108#131#0" expanded="true" />
-                <element signature="e#3150#4918#0" expanded="false" />
+                <element signature="e#3721#5489#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -118,9 +117,9 @@
         <option value="$PROJECT_DIR$/x32CSGO.csv" />
         <option value="$PROJECT_DIR$/testscript.py" />
         <option value="$PROJECT_DIR$/ProducerServer.py" />
-        <option value="$PROJECT_DIR$/ButtonServerPanel.py" />
         <option value="$PROJECT_DIR$/x32broadcast.py" />
         <option value="$PROJECT_DIR$/ButtonServerCasters.py" />
+        <option value="$PROJECT_DIR$/ButtonServerPanel.py" />
       </list>
     </option>
   </component>
@@ -827,7 +826,14 @@
       <option name="project" value="LOCAL" />
       <updated>1492452232886</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Now added reporting of fadermessages to buttonservercasters">
+      <created>1492452307640</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1492452307640</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -930,7 +936,8 @@
     <MESSAGE value="Refined the sent message in the panelbuttonserver" />
     <MESSAGE value="Added reading of PA channels from csv file to buttonservercasters.py" />
     <MESSAGE value="Adding reporting of fadermessages" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding reporting of fadermessages" />
+    <MESSAGE value="Now added reporting of fadermessages to buttonservercasters" />
+    <option name="LAST_COMMIT_MESSAGE" value="Now added reporting of fadermessages to buttonservercasters" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1234,17 +1241,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ButtonServerPanel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1015">
-          <caret line="158" column="8" selection-start-line="158" selection-start-column="8" selection-end-line="158" selection-end-column="8" />
-          <folding>
-            <element signature="e#108#131#0" expanded="true" />
-            <element signature="e#3150#4918#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/x32broadcast.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3900">
@@ -1255,11 +1251,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ButtonServerCasters.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="123" column="29" selection-start-line="123" selection-start-column="29" selection-end-line="123" selection-end-column="29" />
+        <state relative-caret-position="135">
+          <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="64" />
           <folding>
-            <element signature="e#108#119#0" expanded="true" />
             <marker date="1492452289000" expanded="false" signature="5340:7573" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ButtonServerPanel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="94" column="28" selection-start-line="94" selection-start-column="28" selection-end-line="94" selection-end-column="28" />
+          <folding>
+            <element signature="e#108#131#0" expanded="true" />
+            <element signature="e#3721#5489#0" expanded="false" />
           </folding>
         </state>
       </provider>
