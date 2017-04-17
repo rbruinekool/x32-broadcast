@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0ef4897f-b889-43bb-a3d6-b51e9c535ab5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ButtonServerCasters.py" afterPath="$PROJECT_DIR$/ButtonServerCasters.py" />
     </list>
     <ignored path="https---github.com-rbruinekool-x32-broadcast.git.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,9 +27,10 @@
         <entry file="file://$PROJECT_DIR$/ButtonServerCasters.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="193">
-              <caret line="111" column="44" selection-start-line="111" selection-start-column="44" selection-end-line="111" selection-end-column="44" />
+              <caret line="110" column="29" selection-start-line="110" selection-start-column="29" selection-end-line="110" selection-end-column="29" />
               <folding>
-                <marker date="1492451407000" expanded="false" signature="5054:7287" ph="..." />
+                <element signature="e#108#119#0" expanded="true" />
+                <marker date="1492451532000" expanded="false" signature="5092:7325" ph="..." />
               </folding>
             </state>
           </provider>
@@ -776,7 +778,14 @@
       <option name="project" value="LOCAL" />
       <updated>1492451423734</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Adding reporting of fadermessages">
+      <created>1492451439523</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1492451439523</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -878,7 +887,8 @@
     <MESSAGE value="Set the self.talk2busdestmap to be an empty list by default. Added an if statement to prevent sending talkbus messages if there have been no talk2busses defined" />
     <MESSAGE value="Refined the sent message in the panelbuttonserver" />
     <MESSAGE value="Added reading of PA channels from csv file to buttonservercasters.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added reading of PA channels from csv file to buttonservercasters.py" />
+    <MESSAGE value="Adding reporting of fadermessages" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding reporting of fadermessages" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1204,9 +1214,10 @@
     <entry file="file://$PROJECT_DIR$/ButtonServerCasters.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
-          <caret line="111" column="44" selection-start-line="111" selection-start-column="44" selection-end-line="111" selection-end-column="44" />
+          <caret line="110" column="29" selection-start-line="110" selection-start-column="29" selection-end-line="110" selection-end-column="29" />
           <folding>
-            <marker date="1492451407000" expanded="false" signature="5054:7287" ph="..." />
+            <element signature="e#108#119#0" expanded="true" />
+            <marker date="1492451532000" expanded="false" signature="5092:7325" ph="..." />
           </folding>
         </state>
       </provider>
