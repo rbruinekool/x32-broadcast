@@ -4,9 +4,10 @@ It enables the on-air LEDS and mute/talkback buttons
 
 
 """
+import time
+
 import RPi.GPIO as GPIO
 import pygame.midi
-import time
 
 from x32broadcast import PhysicalButton, read_variables_from_csv
 
@@ -26,7 +27,7 @@ ChannelDict = read_variables_from_csv("x32ChannelSheet.csv")
 
 ChannelNames = ChannelDict["Label"]
 ChannelLabels = ChannelDict["Channel"]
-PALabels = ChannelDict["PALabels"]
+PALabels = ChannelDict["PAChannel"]
 DCALabels = ChannelDict["DCA Group"]
 LEDChannels = ChannelDict["LED Channels"]
 x32ipaddress = ChannelDict["X32 IP"][0]
