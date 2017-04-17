@@ -26,11 +26,11 @@
       <file leaf-file-name="ButtonServerCasters.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ButtonServerCasters.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
+            <state relative-caret-position="0">
+              <caret line="100" column="61" selection-start-line="100" selection-start-column="61" selection-end-line="100" selection-end-column="61" />
               <folding>
-                <element signature="e#108#131#0" expanded="true" />
-                <element signature="e#4910#7138#0" expanded="false" />
+                <element signature="e#108#119#0" expanded="true" />
+                <element signature="e#4976#7204#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -750,7 +750,14 @@
       <option name="project" value="LOCAL" />
       <updated>1492450362189</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Added reading of PA channels from csv file to buttonservercasters.py">
+      <created>1492450505371</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1492450505371</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -1177,11 +1184,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ButtonServerCasters.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
+        <state relative-caret-position="0">
+          <caret line="100" column="61" selection-start-line="100" selection-start-column="61" selection-end-line="100" selection-end-column="61" />
           <folding>
-            <element signature="e#108#131#0" expanded="true" />
-            <element signature="e#4910#7138#0" expanded="false" />
+            <element signature="e#108#119#0" expanded="true" />
+            <element signature="e#4976#7204#0" expanded="false" />
           </folding>
         </state>
       </provider>

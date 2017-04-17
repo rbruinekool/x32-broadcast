@@ -98,6 +98,7 @@ if caster2channel_PA:
 ChannelReport = PrettyTable()
 ChannelReport.add_column("Name", ChannelDict["Label"])
 ChannelReport.add_column("Channel", ChannelDict["Channel"])
+ChannelReport.add_column("PA Channel", ChannelDict["PAChannel"])
 ChannelReport.add_column("DCA Group", ChannelDict["DCA Group"])
 ChannelReport.add_column("GPO LED Pin", ChannelDict["LED Channels"])
 print "\nOverview of selected channels which are being subscribed to"
