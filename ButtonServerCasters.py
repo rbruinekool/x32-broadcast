@@ -47,6 +47,9 @@ Hostchannel = ChannelLabels[host_index]
 caster1channel = ChannelLabels[caster1_index]
 caster2channel = ChannelLabels[caster2_index]
 
+caster1channel_PA = 23            # PA Channels Here
+caster2channel_PA = 24
+
 c1mutebutton = PhysicalButton()
 c1talkbutton = PhysicalButton()
 c2mutebutton = PhysicalButton()
@@ -67,14 +70,18 @@ c2talkbutton.setx32address(x32address)
 ####################################################################################
 
 c1mutebutton.addmutemsg(caster1channel)
+c1mutebutton.addmutemsg(caster1channel_PA)  # Mute Caster 1 PA Channel
 
 c1talkbutton.addfadermsg(caster1channel) # Need to mute on fader otherwise the send is also muted
 c1talkbutton.addmutemsg(caster1channel, "mute_on_release", destinationbus=producerHB)
+c1talkbutton.addmutemsg(caster1channel_PA) # Mute Caster 1 PA Channel
 
 c2mutebutton.addmutemsg(caster2channel)
+c2mutebutton.addmutemsg(caster2channel_PA)  # Mute Caster 2 PA Channel
 
 c2talkbutton.addfadermsg(caster2channel)
 c2talkbutton.addmutemsg(caster2channel, "mute_on_release", destinationbus=producerHB)
+c2talkbutton.addmutemsg(caster2channel_PA)  # Mute Caster 2 PA Channel
 
 ###########################################################
 # Reporting of the subscribed OSC handles in a pretty way #
