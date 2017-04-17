@@ -51,9 +51,9 @@ Hostchannel = ChannelLabels[host_index]
 caster1channel = ChannelLabels[caster1_index]
 caster2channel = ChannelLabels[caster2_index]
 
-caster1channel_PA = ChannelLabels[caster1_index]            # PA Channels Here
-caster2channel_PA = ChannelLabels[caster2_index]
-Hostchannel_PA = ChannelLabels[host_index]
+caster1channel_PA = PALabels[caster1_index]            # PA Channels Here
+caster2channel_PA = PALabels[caster2_index]
+Hostchannel_PA = PALabels[host_index]
 
 c1mutebutton = PhysicalButton()
 c1talkbutton = PhysicalButton()
@@ -75,22 +75,22 @@ c2talkbutton.setx32address(x32address)
 ####################################################################################
 
 c1mutebutton.addmutemsg(caster1channel)
-#if caster1channel_PA:                           #prevents adding empty mute messages
-#    c1mutebutton.addmutemsg(caster1channel_PA)  # Mute Caster 1 PA Channel
+if caster1channel_PA:                           #prevents adding empty mute messages
+    c1mutebutton.addmutemsg(caster1channel_PA)  # Mute Caster 1 PA Channel
 
 c1talkbutton.addfadermsg(caster1channel) # Need to mute on fader otherwise the send is also muted
 c1talkbutton.addmutemsg(caster1channel, "mute_on_release", destinationbus=producerHB)
-#if caster1channel_PA:
-#    c1talkbutton.addmutemsg(caster1channel_PA) # Mute Caster 1 PA Channel
+if caster1channel_PA:
+    c1talkbutton.addmutemsg(caster1channel_PA) # Mute Caster 1 PA Channel
 
 c2mutebutton.addmutemsg(caster2channel)
-#if caster2channel_PA:
-#    c2mutebutton.addmutemsg(caster2channel_PA)  # Mute Caster 2 PA Channel
+if caster2channel_PA:
+    c2mutebutton.addmutemsg(caster2channel_PA)  # Mute Caster 2 PA Channel
 
 c2talkbutton.addfadermsg(caster2channel)
 c2talkbutton.addmutemsg(caster2channel, "mute_on_release", destinationbus=producerHB)
-#if caster2channel_PA:
-#    c2talkbutton.addmutemsg(caster2channel_PA)  # Mute Caster 2 PA Channel
+if caster2channel_PA:
+    c2talkbutton.addmutemsg(caster2channel_PA)  # Mute Caster 2 PA Channel
 
 ###########################################################
 # Reporting of the subscribed OSC handles in a pretty way #
@@ -108,6 +108,8 @@ print "Communicating with x32 at %s:%d" % x32address
 print "\nCaster 1 Mute button set to GPI pin %d. It has the following registered OSC Paths:" % c1mutebutton.gpichannel
 for i in range(0, len(c1mutebutton.mutemsglist)):
     print "\t", c1mutebutton.mutemsglist[i]
+for i in range(0, len(c1mutebutton.mutemsglist[i])):
+    print "\t", c1mutebutton.fadermsglist[i]
 print "Caster 1 Talkback button set to GPI pin %d. It has the following registered OSC Paths:" % c1talkbutton.gpichannel
 for i in range(0, len(c1talkbutton.mutemsglist)):
     print "\t", c1talkbutton.mutemsglist[i]

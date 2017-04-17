@@ -33,6 +33,7 @@ class MixerChannel(object):
         self.mutepath = "/ch/%02d/mix/on" % channelnumber
         self.faderpath = "/ch/%02d/mix/fader" % channelnumber
         self.channelname = "No channel name assigned, use self.channelname"
+        self.fadermsglist = None
 
         # Creating an OSCMessage instance to prevent
         # having to do this repeatedly inside a loop
