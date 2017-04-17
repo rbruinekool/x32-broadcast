@@ -4,9 +4,11 @@ It enables the on-air LEDS and mute/talkback buttons
 
 
 """
-import pygame, pygame.midi, time
 import RPi.GPIO as GPIO
-from x32broadcast import MixerChannel, PhysicalButton, read_variables_from_csv
+import pygame.midi
+import time
+
+from x32broadcast import PhysicalButton, read_variables_from_csv
 
 ButtonMode = "GPI" # Fill in "MIDI" if a MIDI pad is used and "GPI" if GPI's are used
 
@@ -24,6 +26,7 @@ ChannelDict = read_variables_from_csv("x32ChannelSheet.csv")
 
 ChannelNames = ChannelDict["Label"]
 ChannelLabels = ChannelDict["Channel"]
+PALabels = ChannelDict["PALabels"]
 DCALabels = ChannelDict["DCA Group"]
 LEDChannels = ChannelDict["LED Channels"]
 x32ipaddress = ChannelDict["X32 IP"][0]
@@ -47,8 +50,9 @@ Hostchannel = ChannelLabels[host_index]
 caster1channel = ChannelLabels[caster1_index]
 caster2channel = ChannelLabels[caster2_index]
 
-caster1channel_PA = 23            # PA Channels Here
-caster2channel_PA = 24
+caster1channel_PA = ChannelLabels[caster1_index]            # PA Channels Here
+caster2channel_PA = ChannelLabels[caster2_index]
+Hostchannel_PA = ChannelLabels[host_index]
 
 c1mutebutton = PhysicalButton()
 c1talkbutton = PhysicalButton()
@@ -70,18 +74,22 @@ c2talkbutton.setx32address(x32address)
 ####################################################################################
 
 c1mutebutton.addmutemsg(caster1channel)
-c1mutebutton.addmutemsg(caster1channel_PA)  # Mute Caster 1 PA Channel
+if caster1channel_PA:                           #prevents adding empty mute messages
+    c1mutebutton.addmutemsg(caster1channel_PA)  # Mute Caster 1 PA Channel
 
 c1talkbutton.addfadermsg(caster1channel) # Need to mute on fader otherwise the send is also muted
 c1talkbutton.addmutemsg(caster1channel, "mute_on_release", destinationbus=producerHB)
-c1talkbutton.addmutemsg(caster1channel_PA) # Mute Caster 1 PA Channel
+if caster1channel_PA:
+    c1talkbutton.addmutemsg(caster1channel_PA) # Mute Caster 1 PA Channel
 
 c2mutebutton.addmutemsg(caster2channel)
-c2mutebutton.addmutemsg(caster2channel_PA)  # Mute Caster 2 PA Channel
+if caster2channel_PA:
+    c2mutebutton.addmutemsg(caster2channel_PA)  # Mute Caster 2 PA Channel
 
 c2talkbutton.addfadermsg(caster2channel)
 c2talkbutton.addmutemsg(caster2channel, "mute_on_release", destinationbus=producerHB)
-c2talkbutton.addmutemsg(caster2channel_PA)  # Mute Caster 2 PA Channel
+if caster2channel_PA:
+    c2talkbutton.addmutemsg(caster2channel_PA)  # Mute Caster 2 PA Channel
 
 ###########################################################
 # Reporting of the subscribed OSC handles in a pretty way #

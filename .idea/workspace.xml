@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0ef4897f-b889-43bb-a3d6-b51e9c535ab5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ButtonServerPanel.py" afterPath="$PROJECT_DIR$/ButtonServerPanel.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ButtonServerCasters.py" afterPath="$PROJECT_DIR$/ButtonServerCasters.py" />
     </list>
     <ignored path="https---github.com-rbruinekool-x32-broadcast.git.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,25 +23,36 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ButtonServerCasters.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ButtonServerCasters.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ButtonServerCasters.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="205" column="90" selection-start-line="205" selection-start-column="8" selection-end-line="205" selection-end-column="90" />
+            <state relative-caret-position="255">
+              <caret line="74" column="84" selection-start-line="74" selection-start-column="84" selection-end-line="74" selection-end-column="84" />
               <folding>
-                <element signature="e#4627#6855#0" expanded="false" />
+                <element signature="e#4924#7152#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ButtonServerPanel.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="x32CSGO.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/x32CSGO.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ButtonServerPanel.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ButtonServerPanel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="156" column="8" selection-start-line="156" selection-start-column="8" selection-end-line="156" selection-end-column="8" />
+            <state relative-caret-position="1015">
+              <caret line="158" column="8" selection-start-line="158" selection-start-column="8" selection-end-line="158" selection-end-column="8" />
               <folding>
-                <element signature="e#3165#4933#0" expanded="false" />
+                <element signature="e#108#131#0" expanded="true" />
+                <element signature="e#3150#4918#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -60,7 +71,7 @@
       <file leaf-file-name="ProducerServer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ProducerServer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-758">
+            <state relative-caret-position="-338">
               <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -105,10 +116,10 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/x32CSGO.csv" />
         <option value="$PROJECT_DIR$/testscript.py" />
-        <option value="$PROJECT_DIR$/ButtonServerCasters.py" />
         <option value="$PROJECT_DIR$/ProducerServer.py" />
         <option value="$PROJECT_DIR$/x32broadcast.py" />
         <option value="$PROJECT_DIR$/ButtonServerPanel.py" />
+        <option value="$PROJECT_DIR$/ButtonServerCasters.py" />
       </list>
     </option>
   </component>
@@ -724,7 +735,14 @@
       <option name="project" value="LOCAL" />
       <updated>1492438441101</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Refined the sent message in the panelbuttonserver">
+      <created>1492438644025</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1492438644025</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -824,7 +842,8 @@
     <MESSAGE value="PhysicalButton&#10;&#10;The PhysicalButton class now works" />
     <MESSAGE value="PhysicalButton&#10;&#10;Added functionality to add certain busses to talk to when a  button is pressed" />
     <MESSAGE value="Set the self.talk2busdestmap to be an empty list by default. Added an if statement to prevent sending talkbus messages if there have been no talk2busses defined" />
-    <option name="LAST_COMMIT_MESSAGE" value="Set the self.talk2busdestmap to be an empty list by default. Added an if statement to prevent sending talkbus messages if there have been no talk2busses defined" />
+    <MESSAGE value="Refined the sent message in the panelbuttonserver" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refined the sent message in the panelbuttonserver" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1060,13 +1079,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/x32CSGO.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="21" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -1127,7 +1139,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ProducerServer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-758">
+        <state relative-caret-position="-338">
           <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
@@ -1135,22 +1147,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ButtonServerCasters.py">
+    <entry file="file://$PROJECT_DIR$/x32CSGO.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="205" column="90" selection-start-line="205" selection-start-column="8" selection-end-line="205" selection-end-column="90" />
-          <folding>
-            <element signature="e#4627#6855#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="30">
+          <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ButtonServerPanel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="156" column="8" selection-start-line="156" selection-start-column="8" selection-end-line="156" selection-end-column="8" />
+        <state relative-caret-position="1015">
+          <caret line="158" column="8" selection-start-line="158" selection-start-column="8" selection-end-line="158" selection-end-column="8" />
           <folding>
-            <element signature="e#3165#4933#0" expanded="false" />
+            <element signature="e#108#131#0" expanded="true" />
+            <element signature="e#3150#4918#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ButtonServerCasters.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="74" column="84" selection-start-line="74" selection-start-column="84" selection-end-line="74" selection-end-column="84" />
+          <folding>
+            <element signature="e#4924#7152#0" expanded="false" />
           </folding>
         </state>
       </provider>
