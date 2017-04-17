@@ -706,7 +706,14 @@
       <option name="project" value="LOCAL" />
       <updated>1492438431392</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Set the self.talk2busdestmap to be an empty list by default. Added an if statement to prevent sending talkbus messages if there have been no talk2busses defined">
+      <created>1492438437002</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1492438437002</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
