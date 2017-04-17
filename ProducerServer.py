@@ -1,4 +1,5 @@
-import pygame, pygame.midi
+import pygame.midi
+
 from x32broadcast import PhysicalButton, read_variables_from_csv
 
 # Variables

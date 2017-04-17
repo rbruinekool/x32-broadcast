@@ -235,7 +235,7 @@ class PhysicalButton(object):
         self.mutemsglist = []
         self.mutemsgmodelist = []
         self.talk2buslist = []
-        self.talk2destmap = 0
+        self.talk2destmap = []
         self.fadermsglist = []
         self.oscmsg = OSC.OSCMessage()
 
@@ -364,16 +364,17 @@ class PhysicalButton(object):
             self.x32.send(self.oscmsg)
 
         # Talk2bus messages will be sent here
-        if buttonstate is 1:
-            self.oscmsg.clear()
-            self.oscmsg.setAddress("/config/talk/A/destmap")
-            self.oscmsg.append(self.talk2destmap)
-            self.x32.send(self.oscmsg)
-        elif buttonstate is 0:
-            self.oscmsg.clear()
-            self.oscmsg.setAddress("/config/talk/A/destmap")
-            self.oscmsg.append(0)
-            self.x32.send(self.oscmsg)
+        if self.talk2destmap:
+            if buttonstate is 1:
+                self.oscmsg.clear()
+                self.oscmsg.setAddress("/config/talk/A/destmap")
+                self.oscmsg.append(self.talk2destmap)
+                self.x32.send(self.oscmsg)
+            elif buttonstate is 0:
+                self.oscmsg.clear()
+                self.oscmsg.setAddress("/config/talk/A/destmap")
+                self.oscmsg.append(0)
+                self.x32.send(self.oscmsg)
 
     def sendfaderoscmessages(self, encoderMIDIvalue):
         oscvalue = float(encoderMIDIvalue) / 127.0  # Convert 127 step msg into msg from 0 to 1
