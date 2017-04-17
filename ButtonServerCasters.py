@@ -108,9 +108,8 @@ print "Communicating with x32 at %s:%d" % x32address
 print "\nCaster 1 Mute button set to GPI pin %d. It has the following registered OSC Paths:" % c1mutebutton.gpichannel
 for i in range(0, len(c1mutebutton.mutemsglist)):
     print "\t", c1mutebutton.mutemsglist[i]
-if c1mutebutton.fadermsglist:
-    for i in range(0, len(c1mutebutton.mutemsglist[i])):
-        print "\t", c1mutebutton.fadermsglist[i]
+for i in range(0, len(c1mutebutton.fadermsglist[i])):
+    print "\t", c1mutebutton.fadermsglist[i]
 print "Caster 1 Talkback button set to GPI pin %d. It has the following registered OSC Paths:" % c1talkbutton.gpichannel
 for i in range(0, len(c1talkbutton.mutemsglist)):
     print "\t", c1talkbutton.mutemsglist[i]
