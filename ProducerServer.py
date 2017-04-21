@@ -8,7 +8,7 @@ ChannelDict = read_variables_from_csv("x32ChannelSheet.csv")
 ChannelNames = ChannelDict["Label"]
 ChannelLabels = ChannelDict["Channel"]
 DCALabels = ChannelDict["DCA Group"]
-LEDChannels = ChannelDict["LED Channels"]
+LEDChannels = ChannelDict["LED Channels"]m
 
 try:
     x32ipaddress = ChannelDict["X32 IP"][0]

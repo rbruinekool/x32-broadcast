@@ -1,4 +1,5 @@
 import csv
+import time
 from itertools import count
 
 import OSC
@@ -412,6 +413,21 @@ def read_variables_from_csv(filename):
             except ValueError:
                 pass
     return ChannelDict
+
+# Generic sending function which is called in the loop below:
+def sendondetect(button, *args):
+    time.sleep(0.02)
+    if args[0]:
+        pinstatus = args[0]
+    else:
+        pinstatus = int(not (GPIO.input(button.gpichannel)))
+    button.sendoscmessages(pinstatus)
+    if pinstatus == 1:
+        button.sendfaderoscmessages(0.0)
+    else:
+        button.sendfaderoscmessages(98)
+    time.sleep(0.02)
+    print "sent messages for pin %d. Pin state = %d " % (button.gpichannel, pinstatus)
 
 #For easy programming of the osc messages all the messages will be compiled with these functions
 #to import them use the import function (e.g. 'from X32OSCFunctions import MuteChannel2Bus')

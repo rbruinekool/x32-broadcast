@@ -4,14 +4,21 @@ It enables the on-air LEDS and mute/talkback buttons
 
 
 """
+import logging
+import sys
 import time
 
-import RPi.GPIO as GPIO
-import pygame.midi
+try:
+    import RPi.GPIO as GPIO
+    import pygame.midi
+except ImportError:
+    logging.warning("No GPIO or Pygame found - running in diagnostic mode")
+    DiagnosticMode = True
 
-from x32broadcast import PhysicalButton, read_variables_from_csv
 
-ButtonMode = "GPI" # Fill in "MIDI" if a MIDI pad is used and "GPI" if GPI's are used
+from x32broadcast import PhysicalButton, read_variables_from_csv, sendondetect
+
+ButtonMode = "GPI"  # Fill in "MIDI" if a MIDI pad is used and "GPI" if GPI's are used
 
 try:
     from prettytable import PrettyTable
@@ -126,14 +133,38 @@ for i in range(0, len(c2talkbutton.mutemsglist)):
 for i in range(0, len(c2talkbutton.fadermsglist)):
     print "\t", c2talkbutton.fadermsglist[i]
 
-"""
-MIDI Stuff
-"""
-verbose = False  # Verbose being true allows you to see what MIDI messages are being registered
-pygame.init()
-pygame.midi.init()
+
+#################################################################
+#                       Diagnostic Mode                         #
+#################################################################
+
+if DiagnosticMode is True:
+    print "\nDiagnostic Mode started\nPossible buttons to choose from are: c1mutebutton, c1talkbutton, c2mutebutton, c2talkbutton, exit"
+
+while DiagnosticMode is True:
+    ChosenButton = raw_input("Please enter the name of the button you wish to simulate a press on: ")
+    if ChosenButton is "exit":
+        sys.exit()
+    ChosenStatus = input("Press (1) or release (0): ")
+
+    buttonmutelist = "%s.mutemsglist" % ChosenButton
+    buttonfaderlist = "%s.fadermsglist" % ChosenButton
+
+    try:
+        MessageList = eval(buttonmutelist)
+        FaderList = eval(buttonfaderlist)
+        sendondetect(eval(ChosenButton), ChosenStatus)
+    except NameError:
+        logging.warning("invalid button name")
 
 if ButtonMode is "MIDI":
+    """
+    MIDI Stuff
+    """
+    verbose = False  # Verbose being true allows you to see what MIDI messages are being registered
+    pygame.init()
+    pygame.midi.init()
+
     # list all midi devices
     for x in range(0, pygame.midi.get_count()):
        print pygame.midi.get_device_info(x)
@@ -210,18 +241,6 @@ if ButtonMode is "GPI":
     GPIO.add_event_detect(c1talkbutton.gpichannel, GPIO.BOTH)
     GPIO.add_event_detect(c2mutebutton.gpichannel, GPIO.BOTH)
     GPIO.add_event_detect(c2talkbutton.gpichannel, GPIO.BOTH)
-
-    # Generic sending function which is called in the loop below:
-    def sendondetect(button):
-        time.sleep(0.02)
-        pinstatus = int(not(GPIO.input(button.gpichannel)))
-        button.sendoscmessages(pinstatus)
-        if pinstatus == 1:
-            button.sendfaderoscmessages(0.0)
-        else:
-            button.sendfaderoscmessages(98)
-        time.sleep(0.02)
-        print "sent messages for pin %d. Pin state = %d " % (button.gpichannel, pinstatus)
 
     try:
         while 1:
