@@ -415,11 +415,12 @@ def read_variables_from_csv(filename):
     return ChannelDict
 
 # Generic sending function which is called in the loop below:
-def sendondetect(button, *args):
+def sendondetect(button, **kwargs):
     time.sleep(0.02)
-    if args[0]:
-        pinstatus = args[0]
-    else:
+    try:
+        pinstatus = kwargs['pinstatus']
+    except KeyError:
+        print "using gpio"
         pinstatus = int(not (GPIO.input(button.gpichannel)))
     button.sendoscmessages(pinstatus)
     if pinstatus == 1:

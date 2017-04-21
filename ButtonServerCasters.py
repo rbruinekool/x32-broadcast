@@ -153,9 +153,9 @@ while DiagnosticMode is True:
     try:
         MessageList = eval(buttonmutelist)
         FaderList = eval(buttonfaderlist)
-        sendondetect(eval(ChosenButton), ChosenStatus)
+        sendondetect(eval(ChosenButton), pinstatus=ChosenStatus)
     except NameError:
-        logging.warning("invalid button name")
+        logging.warning("invalid button name or status")
 
 if ButtonMode is "MIDI":
     """
