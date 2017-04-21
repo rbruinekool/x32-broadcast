@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0ef4897f-b889-43bb-a3d6-b51e9c535ab5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ButtonServerCasters.py" afterPath="$PROJECT_DIR$/ButtonServerCasters.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ButtonServerPanel.py" afterPath="$PROJECT_DIR$/ButtonServerPanel.py" />
     </list>
     <ignored path="https---github.com-rbruinekool-x32-broadcast.git.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -748,7 +746,14 @@
       <option name="project" value="LOCAL" />
       <updated>1492804634150</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Added a diagnostic mode to ButtonServerCasters that automatically runs when pygame or GPIO boards are not detected. In this diagnostic mode the user can send the OSC messages by simulating GPI button presses or releases. The sendondetect() function has been moved to x32-broadcast because it has been substantially changed and the diagnostic mode may be good to be added to the ProducerServer and the PanelServer">
+      <created>1492805885560</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1492805885560</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
