@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0ef4897f-b889-43bb-a3d6-b51e9c535ab5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProducerServer.py" afterPath="$PROJECT_DIR$/ProducerServer.py" />
     </list>
     <ignored path="https---github.com-rbruinekool-x32-broadcast.git.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,20 +26,19 @@
       <file leaf-file-name="ButtonServerCasters.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ButtonServerCasters.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="26" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="26" />
+            <state relative-caret-position="105">
+              <caret line="7" column="10" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
               <folding>
-                <element signature="e#108#122#0" expanded="true" />
                 <element signature="e#6351#8752#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ButtonServerPanel.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ButtonServerPanel.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ButtonServerPanel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
+            <state relative-caret-position="-1065">
               <caret line="11" column="26" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
               <folding>
                 <element signature="e#108#122#0" expanded="true" />
@@ -64,6 +64,16 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
               <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProducerServer.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ProducerServer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -103,17 +113,17 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/x32CSGO.csv" />
         <option value="$PROJECT_DIR$/testscript.py" />
-        <option value="$PROJECT_DIR$/ProducerServer.py" />
         <option value="$PROJECT_DIR$/x32ChannelSheet.csv" />
         <option value="$PROJECT_DIR$/x32broadcast.py" />
         <option value="$PROJECT_DIR$/ButtonServerCasters.py" />
         <option value="$PROJECT_DIR$/ButtonServerPanel.py" />
+        <option value="$PROJECT_DIR$/ProducerServer.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="110" />
-    <option name="y" value="35" />
+    <option name="x" value="107" />
+    <option name="y" value="23" />
     <option name="width" value="1201" />
     <option name="height" value="821" />
   </component>
@@ -190,7 +200,7 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/Broadcast-Scripts" />
   </component>
-  <component name="RunManager" selected="Python.ButtonServerPanel">
+  <component name="RunManager" selected="Python.ButtonServerCasters">
     <configuration default="false" name="testscript" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -419,8 +429,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.ButtonServerPanel" />
-        <item index="1" class="java.lang.String" itemvalue="Python.ButtonServerCasters" />
+        <item index="0" class="java.lang.String" itemvalue="Python.ButtonServerCasters" />
+        <item index="1" class="java.lang.String" itemvalue="Python.ButtonServerPanel" />
         <item index="2" class="java.lang.String" itemvalue="Python.ProducerServer" />
         <item index="3" class="java.lang.String" itemvalue="Python.testscript" />
         <item index="4" class="java.lang.String" itemvalue="Python.x32OSCServer" />
@@ -753,7 +763,14 @@
       <option name="project" value="LOCAL" />
       <updated>1492805885560</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Added a diagnostic mode to ButtonServerCasters that automatically runs when pygame or GPIO boards are not detected. In this diagnostic mode the user can send the OSC messages by simulating GPI button presses or releases. The sendondetect() function has been moved to x32-broadcast because it has been substantially changed and the diagnostic mode may be good to be added to the ProducerServer and the PanelServer">
+      <created>1492805893634</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1492805893634</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -766,7 +783,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="110" y="35" width="1201" height="821" extended-state="0" />
+    <frame x="107" y="23" width="1201" height="821" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19661017" sideWeight="0.6506276" order="0" side_tool="false" content_ui="combo" />
@@ -1124,14 +1141,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ProducerServer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2025">
-          <caret line="137" column="15" selection-start-line="137" selection-start-column="15" selection-end-line="137" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ONAIRServer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1164,26 +1173,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ButtonServerCasters.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="26" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="26" />
-          <folding>
-            <element signature="e#108#122#0" expanded="true" />
-            <element signature="e#6351#8752#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ButtonServerPanel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
+        <state relative-caret-position="-1065">
           <caret line="11" column="26" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
           <folding>
             <element signature="e#108#122#0" expanded="true" />
             <element signature="e#4692#6632#0" expanded="false" />
             <element signature="e#6662#7454#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ButtonServerCasters.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="10" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
+          <folding>
+            <element signature="e#6351#8752#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProducerServer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
+          <folding />
         </state>
       </provider>
     </entry>
