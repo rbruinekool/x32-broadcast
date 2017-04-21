@@ -9,6 +9,7 @@ import sys
 import time
 
 try:
+    DiagnosticMode = False
     import RPi.GPIO as GPIO
     import pygame.midi
 except ImportError:
