@@ -221,8 +221,8 @@ while run:
             try:
                 currentbuttonindex = MIDICClist.index(note_number)
                 MIDIbuttonlist[currentbuttonindex].sendoscmessages(buttonstate)
-                print "Received midi note %d. sending these osc talk messages" %note_number
-                print MIDIbuttonlist[currentbuttonindex].talk2buslist
+                #  print "Received midi note %d. sending these osc talk messages" %note_number
+                #  print MIDIbuttonlist[currentbuttonindex].talk2buslist
             except ValueError:
                 print "MIDI Note %d is not registered" % note_number
 
