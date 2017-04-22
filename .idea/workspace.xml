@@ -75,8 +75,8 @@
       <file leaf-file-name="ProducerServer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ProducerServer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="130" column="48" selection-start-line="130" selection-start-column="48" selection-end-line="130" selection-end-column="48" />
+            <state relative-caret-position="180">
+              <caret line="127" column="18" selection-start-line="127" selection-start-column="18" selection-end-line="127" selection-end-column="18" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -563,13 +563,6 @@
       <option name="presentableId" value="Default" />
       <updated>1476358789554</updated>
     </task>
-    <task id="LOCAL-00001" summary="Building the formatting of subscribe functions into the channel object">
-      <created>1476710075722</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1476710075722</updated>
-    </task>
     <task id="LOCAL-00002" summary="The OSC server and classes now work for a DCA as well. Some work must be done to clean up lists to be less specific and more easily expanded">
       <created>1476818491713</created>
       <option name="number" value="00002" />
@@ -906,7 +899,14 @@
       <option name="project" value="LOCAL" />
       <updated>1492858726417</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="First test of the variable listen to features">
+      <created>1492859412921</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1492859412921</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -1015,7 +1015,8 @@
     <MESSAGE value="Fixed minor error in producerserver" />
     <MESSAGE value="Fixed error in x32broadcast's PhysicalButton object where adding of talk2busses was no longer possible due to changing that property of the object to a list by default. It is now None by default and will get a value of 0 the first time a bus is added" />
     <MESSAGE value="Adding the feature that whether the producer hears whomever he/she is talking to can be defined the .csv sheet" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding the feature that whether the producer hears whomever he/she is talking to can be defined the .csv sheet" />
+    <MESSAGE value="First test of the variable listen to features" />
+    <option name="LAST_COMMIT_MESSAGE" value="First test of the variable listen to features" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1363,8 +1364,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ProducerServer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="130" column="48" selection-start-line="130" selection-start-column="48" selection-end-line="130" selection-end-column="48" />
+        <state relative-caret-position="180">
+          <caret line="127" column="18" selection-start-line="127" selection-start-column="18" selection-end-line="127" selection-end-column="18" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
