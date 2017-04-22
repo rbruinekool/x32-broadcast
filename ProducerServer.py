@@ -1,6 +1,13 @@
-import pygame.midi
+import logging
+import sys
 
 from x32broadcast import PhysicalButton, read_variables_from_csv
+
+try:
+    import pygame.midi
+except ImportError:
+    logging.warning("pygame.midi not found. Make sure to run this script on a raspberry pi with pygame.midi installed")
+    sys.exit()
 
 # Variables
 ChannelDict = read_variables_from_csv("x32ChannelSheet.csv")
@@ -9,6 +16,7 @@ ChannelNames = ChannelDict["Label"]
 ChannelLabels = ChannelDict["Channel"]
 DCALabels = ChannelDict["DCA Group"]
 LEDChannels = ChannelDict["LED Channels"]
+ProducerHearsOnPress = ChannelDict["ProducerHearsOnPress"]
 
 try:
     x32ipaddress = ChannelDict["X32 IP"][0]
@@ -46,6 +54,8 @@ caster2channel = ChannelLabels[caster2_index]
 stagehostchannel = ChannelLabels[stagehost_index]
 reporterchannel = ChannelLabels[reporter_index]
 
+ProducerHearsOnPress_Host = ProducerHearsOnPress[host_index]
+
 def create_MIDI_button(MIDIcc, ipaddress):
         MIDIbutton = PhysicalButton()
         MIDIbutton.setMIDIcc(MIDIcc)
@@ -72,12 +82,13 @@ for i in range(0, 8):
 
 # Pad 5 - Talk to Host
 MIDIbuttonlist[4].addtalk2bus(hostbus)
-MIDIbuttonlist[4].addmutemsg(hostchannel, mutemode="mute_on_release", destinationbus=producerHB)
-                             
+if ProducerHearsOnPress_Host:
+    MIDIbuttonlist[4].addmutemsg(hostchannel, mutemode="mute_on_release", destinationbus=producerHB)
                              
 # Pad 6 - Talk to Panel
 MIDIbuttonlist[5].addtalk2bus([hostbus, panelbus])
-MIDIbuttonlist[5].addmutemsg(hostchannel, mutemode="mute_on_release", destinationbus=producerHB)
+if ProducerHearsOnPress_Host:
+    MIDIbuttonlist[5].addmutemsg(hostchannel, mutemode="mute_on_release", destinationbus=producerHB)
 MIDIbuttonlist[5].addmutemsg(panel1channel, mutemode="mute_on_release", destinationbus=producerHB)
 MIDIbuttonlist[5].addmutemsg(panel2channel, mutemode="mute_on_release", destinationbus=producerHB)
 MIDIbuttonlist[5].addmutemsg(panel3channel, mutemode="mute_on_release", destinationbus=producerHB)

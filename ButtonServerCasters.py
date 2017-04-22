@@ -16,7 +16,6 @@ except ImportError:
     logging.warning("No GPIO or Pygame found - running in diagnostic mode")
     DiagnosticMode = True
 
-
 from x32broadcast import PhysicalButton, read_variables_from_csv, sendondetect
 
 ButtonMode = "GPI"  # Fill in "MIDI" if a MIDI pad is used and "GPI" if GPI's are used
@@ -42,7 +41,6 @@ x32ipaddress = ChannelDict["X32 IP"][0]
 producerHB = ChannelDict["Producer HB Bus"][0]
 
 x32address = (x32ipaddress, 10023)
-
 
 if x32ipaddress is '':
     print "ip adress field in csv is empty make sure the ip adress is located in the right spot"
