@@ -217,12 +217,12 @@ while run:
             buttonstate = 0
 
         ##### Sending all osc PAD messages based on the MIDICClist #####
-        if 36 <= note_number <= 42:
+        if 36 <= note_number <= 43:
             try:
                 currentbuttonindex = MIDICClist.index(note_number)
                 MIDIbuttonlist[currentbuttonindex].sendoscmessages(buttonstate)
-                print "Received midi note %d. sending these osc mute messages" %note_number
-                print MIDIbuttonlist[currentbuttonindex].mutemsglist
+                print "Received midi note %d. sending these osc talk messages" %note_number
+                print MIDIbuttonlist[currentbuttonindex].talk2buslist
             except ValueError:
                 print "MIDI Note %d is not registered" % note_number
 
