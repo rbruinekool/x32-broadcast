@@ -54,9 +54,6 @@ caster2channel = ChannelLabels[caster2_index]
 stagehostchannel = ChannelLabels[stagehost_index]
 reporterchannel = ChannelLabels[reporter_index]
 
-print stagehostchannel
-print reporterchannel
-
 #  If any of the below statements are filled in with anything other then '' it will cause a press of the button by the
 #  to also hear the person(s) he is talking to as long as he holds the button (useful if the talent does not have
 #  talkback buttons. Filling any value in the 'ProducerHearsOnPress' row in x32ChannelSheet.csv file will cause this
@@ -224,6 +221,8 @@ while run:
             try:
                 currentbuttonindex = MIDICClist.index(note_number)
                 MIDIbuttonlist[currentbuttonindex].sendoscmessages(buttonstate)
+                print "Received midi note %d. sending these osc mute messages" %note_number
+                print MIDIbuttonlist[currentbuttonindex].mutemsglist
             except ValueError:
                 print "MIDI Note %d is not registered" % note_number
 

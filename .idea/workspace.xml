@@ -75,8 +75,8 @@
       <file leaf-file-name="ProducerServer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ProducerServer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="57" column="21" selection-start-line="57" selection-start-column="21" selection-end-line="57" selection-end-column="21" />
+            <state relative-caret-position="127">
+              <caret line="223" column="68" selection-start-line="223" selection-start-column="68" selection-end-line="223" selection-end-column="68" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -563,13 +563,6 @@
       <option name="presentableId" value="Default" />
       <updated>1476358789554</updated>
     </task>
-    <task id="LOCAL-00003" summary="The OSC server and classes now work for a DCA as well. Some work must be done to clean up lists to be less specific and more easily expanded">
-      <created>1476818588375</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1476818588375</updated>
-    </task>
     <task id="LOCAL-00004" summary="The OSC server and classes now work for a DCA as well. Some work must be done to clean up lists to be less specific and more easily expanded">
       <created>1476818594766</created>
       <option name="number" value="00004" />
@@ -906,7 +899,14 @@
       <option name="project" value="LOCAL" />
       <updated>1492859473143</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="First test of the variable listen to features">
+      <created>1492859657489</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1492859657489</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -1364,8 +1364,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ProducerServer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="57" column="21" selection-start-line="57" selection-start-column="21" selection-end-line="57" selection-end-column="21" />
+        <state relative-caret-position="127">
+          <caret line="223" column="68" selection-start-line="223" selection-start-column="68" selection-end-line="223" selection-end-column="68" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
