@@ -3,6 +3,7 @@ Channel,1,2,3,4,5,6,7,8
 DCA Group,,,,,,,5,5
 PAChannel,,,,,,,8,
 LED Channels,,,,,,,7,11
+ProducerHearsOnPress,FALSE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE
 X32 IP,10.75.255.74,,,,,,,
 LOCAL IP,10.75.1.3,,,,,,,
 Host Bus,1,,,,,,,
