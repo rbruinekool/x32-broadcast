@@ -54,7 +54,18 @@ caster2channel = ChannelLabels[caster2_index]
 stagehostchannel = ChannelLabels[stagehost_index]
 reporterchannel = ChannelLabels[reporter_index]
 
+#  If any of the below statements are filled in with anything other then '' it will cause a press of the button by the
+#  to also hear the person(s) he is talking to as long as he holds the button (useful if the talent does not have
+#  talkback buttons. Filling any value in the 'ProducerHearsOnPress' row in x32ChannelSheet.csv file will cause this
+#  to happen.
 ProducerHearsOnPress_Host = ProducerHearsOnPress[host_index]
+ProducerHearsOnPress_Panel1 = ProducerHearsOnPress[panel1_index]
+ProducerHearsOnPress_Panel2 = ProducerHearsOnPress[panel2_index]
+ProducerHearsOnPress_Panel3 = ProducerHearsOnPress[panel3_index]
+ProducerHearsOnPress_Caster1 = ProducerHearsOnPress[caster1_index]
+ProducerHearsOnPress_Caster2 = ProducerHearsOnPress[caster2_index]
+ProducerHearsOnPress_Stagehost = ProducerHearsOnPress[stagehost_index]
+ProducerHearsOnPress_Reporter = ProducerHearsOnPress[reporter_index]
 
 def create_MIDI_button(MIDIcc, ipaddress):
         MIDIbutton = PhysicalButton()
@@ -89,26 +100,40 @@ if ProducerHearsOnPress_Host:
 MIDIbuttonlist[5].addtalk2bus([hostbus, panelbus])
 if ProducerHearsOnPress_Host:
     MIDIbuttonlist[5].addmutemsg(hostchannel, mutemode="mute_on_release", destinationbus=producerHB)
-MIDIbuttonlist[5].addmutemsg(panel1channel, mutemode="mute_on_release", destinationbus=producerHB)
-MIDIbuttonlist[5].addmutemsg(panel2channel, mutemode="mute_on_release", destinationbus=producerHB)
-MIDIbuttonlist[5].addmutemsg(panel3channel, mutemode="mute_on_release", destinationbus=producerHB)
+if ProducerHearsOnPress_Panel1:
+    MIDIbuttonlist[5].addmutemsg(panel1channel, mutemode="mute_on_release", destinationbus=producerHB)
+if ProducerHearsOnPress_Panel2:
+    MIDIbuttonlist[5].addmutemsg(panel2channel, mutemode="mute_on_release", destinationbus=producerHB)
+if ProducerHearsOnPress_Panel3:
+    MIDIbuttonlist[5].addmutemsg(panel3channel, mutemode="mute_on_release", destinationbus=producerHB)
 
 # Pad 1 - Talk to Caster 1
 MIDIbuttonlist[0].addtalk2bus(caster1bus)
-MIDIbuttonlist[0].addmutemsg(caster1channel, mutemode="mute_on_release", destinationbus=producerHB)
+if ProducerHearsOnPress_Caster1:
+    MIDIbuttonlist[0].addmutemsg(caster1channel, mutemode="mute_on_release", destinationbus=producerHB)
 
 # Pad 3 - Talk to Caster 2
 MIDIbuttonlist[2].addtalk2bus(caster2bus)
-MIDIbuttonlist[2].addmutemsg(caster2channel, mutemode="mute_on_release", destinationbus=producerHB)
+if ProducerHearsOnPress_Caster2:
+    MIDIbuttonlist[2].addmutemsg(caster2channel, mutemode="mute_on_release", destinationbus=producerHB)
 
 # Pad 2 - Talk to Caster 1 and Caster 2
 MIDIbuttonlist[1].addtalk2bus([caster1bus, caster2bus])
-MIDIbuttonlist[1].addmutemsg(caster1channel, mutemode="mute_on_release", destinationbus=producerHB)
-MIDIbuttonlist[1].addmutemsg(caster2channel, mutemode="mute_on_release", destinationbus=producerHB)
+if ProducerHearsOnPress_Caster1:
+    MIDIbuttonlist[1].addmutemsg(caster1channel, mutemode="mute_on_release", destinationbus=producerHB)
+if ProducerHearsOnPress_Caster2:
+    MIDIbuttonlist[1].addmutemsg(caster2channel, mutemode="mute_on_release", destinationbus=producerHB)
+
+# Pad 7 - Talk to Reporter
+if Reporter is not '':
+    MIDIbuttonlist[7].addtalk2bus(reporterbus)
+if ProducerHearsOnPress_Reporter:
+    MIDIbuttonlist[7].addmutemsg(reporterchannel, mutemode="mute_on_release", destinationbus=producerHB)
 
 # Pad 8 - Talk to Stagehost
 if stagehostchannel is not '':
     MIDIbuttonlist[7].addtalk2bus(stagehostbus)
+if ProducerHearsOnPress_Stagehost:
     MIDIbuttonlist[7].addmutemsg(stagehostchannel, mutemode="mute_on_release", destinationbus=producerHB)
 
 # Pad 4 - Talk to ALL
