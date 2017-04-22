@@ -236,7 +236,7 @@ class PhysicalButton(object):
         self.mutemsglist = []
         self.mutemsgmodelist = []
         self.talk2buslist = []
-        self.talk2destmap = []
+        self.talk2destmap = None
         self.fadermsglist = []
         self.oscmsg = OSC.OSCMessage()
 
@@ -327,11 +327,13 @@ class PhysicalButton(object):
                 print "illegal busnumber entered in CSV. Use only an integer or an empty field"
 
     def addtalk2bus(self, busnumber):
+        if self.talk2destmap is None:
+            self.talk2destmap = 0
         try:
             for i in range(0, len(busnumber)):
                 if type(busnumber[i]) is int:  # To prevent adding non integer busses
                     self.talk2buslist.append(busnumber[i])
-                    self.talk2destmap = self.talk2destmap + 2 ** (busnumber[i] - 1)
+                    self.talk2destmap += 2 ** (busnumber[i] - 1)
                 elif busnumber[i] is '':
                     pass
                 else:
