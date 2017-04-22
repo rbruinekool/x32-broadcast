@@ -126,9 +126,9 @@ if ProducerHearsOnPress_Caster2:
 
 # Pad 7 - Talk to Reporter
 if reporterchannel is not '':
-    MIDIbuttonlist[7].addtalk2bus(reporterbus)
+    MIDIbuttonlist[6].addtalk2bus(reporterbus)
 if ProducerHearsOnPress_Reporter:
-    MIDIbuttonlist[7].addmutemsg(reporterchannel, mutemode="mute_on_release", destinationbus=producerHB)
+    MIDIbuttonlist[6].addmutemsg(reporterchannel, mutemode="mute_on_release", destinationbus=producerHB)
 
 # Pad 8 - Talk to Stagehost
 if stagehostchannel is not '':
