@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0ef4897f-b889-43bb-a3d6-b51e9c535ab5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProducerServer.py" afterPath="$PROJECT_DIR$/ProducerServer.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/x32broadcast.py" afterPath="$PROJECT_DIR$/x32broadcast.py" />
     </list>
     <ignored path="https---github.com-rbruinekool-x32-broadcast.git.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -50,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="x32broadcast.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="x32broadcast.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/x32broadcast.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="352" column="0" selection-start-line="352" selection-start-column="0" selection-end-line="352" selection-end-column="0" />
+            <state relative-caret-position="113">
+              <caret line="423" column="20" selection-start-line="423" selection-start-column="20" selection-end-line="423" selection-end-column="20" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -72,14 +72,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProducerServer.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ProducerServer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ProducerServer.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="232">
               <caret line="223" column="19" selection-start-line="223" selection-start-column="19" selection-end-line="223" selection-end-column="19" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -119,10 +117,10 @@
         <option value="$PROJECT_DIR$/x32CSGO.csv" />
         <option value="$PROJECT_DIR$/testscript.py" />
         <option value="$PROJECT_DIR$/ButtonServerPanel.py" />
-        <option value="$PROJECT_DIR$/x32broadcast.py" />
         <option value="$PROJECT_DIR$/ButtonServerCasters.py" />
         <option value="$PROJECT_DIR$/x32ChannelSheet.csv" />
         <option value="$PROJECT_DIR$/ProducerServer.py" />
+        <option value="$PROJECT_DIR$/x32broadcast.py" />
       </list>
     </option>
   </component>
@@ -563,13 +561,6 @@
       <option name="presentableId" value="Default" />
       <updated>1476358789554</updated>
     </task>
-    <task id="LOCAL-00007" summary="Started writing the OSC callback functions into the MixerChannel object - at this commit it works for Channel Mutes">
-      <created>1476825211921</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1476825211921</updated>
-    </task>
     <task id="LOCAL-00008" summary="Started writing the OSC callback functions into the MixerChannel object - at this commit it works for Channel Mutes">
       <created>1476825744851</created>
       <option name="number" value="00008" />
@@ -906,7 +897,14 @@
       <option name="project" value="LOCAL" />
       <updated>1492860080713</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="Variable listening works">
+      <created>1492860290399</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1492860290399</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -991,7 +989,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Building the formatting of subscribe functions into the channel object" />
     <MESSAGE value="The OSC server and classes now work for a DCA as well. Some work must be done to clean up lists to be less specific and more easily expanded" />
     <MESSAGE value="Started writing the OSC callback functions into the MixerChannel object - at this commit it works for Channel Mutes" />
     <MESSAGE value="Integration of OSC Callback functions" />
@@ -1016,7 +1013,8 @@
     <MESSAGE value="Fixed error in x32broadcast's PhysicalButton object where adding of talk2busses was no longer possible due to changing that property of the object to a list by default. It is now None by default and will get a value of 0 the first time a bus is added" />
     <MESSAGE value="Adding the feature that whether the producer hears whomever he/she is talking to can be defined the .csv sheet" />
     <MESSAGE value="First test of the variable listen to features" />
-    <option name="LAST_COMMIT_MESSAGE" value="First test of the variable listen to features" />
+    <MESSAGE value="Variable listening works" />
+    <option name="LAST_COMMIT_MESSAGE" value="Variable listening works" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1340,16 +1338,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/x32broadcast.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="352" column="0" selection-start-line="352" selection-start-column="0" selection-end-line="352" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ButtonServerPanel.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1065">
@@ -1366,8 +1354,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="232">
           <caret line="223" column="19" selection-start-line="223" selection-start-column="19" selection-end-line="223" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/x32broadcast.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="423" column="20" selection-start-line="423" selection-start-column="20" selection-end-line="423" selection-end-column="20" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>

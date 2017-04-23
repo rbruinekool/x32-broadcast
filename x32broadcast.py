@@ -422,7 +422,6 @@ def sendondetect(button, **kwargs):
     try:
         pinstatus = kwargs['pinstatus']
     except KeyError:
-        print "using gpio"
         pinstatus = int(not (GPIO.input(button.gpichannel)))
     button.sendoscmessages(pinstatus)
     if pinstatus == 1:
