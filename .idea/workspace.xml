@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0ef4897f-b889-43bb-a3d6-b51e9c535ab5" name="Default" comment="Edited the producer server to automatically look for the LPD8 MIDI controller as the input device. This makes it easy to also run the producerserver on PC (tested and works)">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/https---github.com-rbruinekool-x32-broadcast.git.iml" afterPath="$PROJECT_DIR$/.idea/https---github.com-rbruinekool-x32-broadcast.git.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+    <list default="true" id="0ef4897f-b889-43bb-a3d6-b51e9c535ab5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProducerServer.py" afterPath="$PROJECT_DIR$/ProducerServer.py" />
     </list>
     <ignored path="https---github.com-rbruinekool-x32-broadcast.git.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -437,13 +434,6 @@
       <option name="presentableId" value="Default" />
       <updated>1476358789554</updated>
     </task>
-    <task id="LOCAL-00008" summary="Started writing the OSC callback functions into the MixerChannel object - at this commit it works for Channel Mutes">
-      <created>1476825744851</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1476825744851</updated>
-    </task>
     <task id="LOCAL-00009" summary="Integration of OSC Callback functions">
       <created>1476825772382</created>
       <option name="number" value="00009" />
@@ -780,7 +770,14 @@
       <option name="project" value="LOCAL" />
       <updated>1492860290399</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Edited the producer server to automatically look for the LPD8 MIDI controller as the input device. This makes it easy to also run the producerserver on PC (tested and works)">
+      <created>1501150441075</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1501150441075</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
