@@ -6,7 +6,7 @@ from x32broadcast import PhysicalButton, read_variables_from_csv
 try:
     import pygame.midi
 except ImportError:
-    logging.warning("pygame.midi not found. Make sure to run this script on a raspberry pi with pygame.midi installed")
+    logging.warning("pygame.midi not found. Make sure to run this script on a machine with pygame.midi installed")
     sys.exit()
 
 # Variables
@@ -175,13 +175,19 @@ verbose = False #Only use for diagnostics, it really slows the program
 pygame.init()
 pygame.midi.init()
 
+MIDIDeviceName = 'LPD8'    #The name of the midi Device as detected by pygame.midi.get_device_info()
+
 # list all midi devices
 for x in range( 0, pygame.midi.get_count()):
-    print pygame.midi.get_device_info(x)
+    currentMIDIdevice = pygame.midi.get_device_info(x)
+    print x,': ', currentMIDIdevice
+    if currentMIDIdevice[2] == 1 and currentMIDIdevice[1] == MIDIDeviceName:
+        device = x
 
 # open a specific midi device
 
-device = 3#input('Please type MIDI input device number: ')
+print '\nFound and selected %s as device number %d' %(MIDIDeviceName, device)
+# device = 2#input('Please type MIDI input device number: ')
 
 inp = pygame.midi.Input(device)
 
@@ -221,8 +227,8 @@ while run:
             try:
                 currentbuttonindex = MIDICClist.index(note_number)
                 MIDIbuttonlist[currentbuttonindex].sendoscmessages(buttonstate)
-                #  print "Received midi note %d. sending these osc talk messages" %note_number
-                #  print MIDIbuttonlist[currentbuttonindex].talk2buslist
+                print "Received midi note %d. Sent OSC message to %s:10023 to talk to these busses:" %(note_number,x32ipaddress)
+                print MIDIbuttonlist[currentbuttonindex].talk2buslist
             except ValueError:
                 print "MIDI Note %d is not registered" % note_number
 
@@ -233,6 +239,8 @@ while run:
                 MIDIencoderlist[currentencoderindex].sendfaderoscmessages(velocity)
             except ValueError:
                 print "MIDI Note %d is not registered" % note_number
+        else:
+            print "Received unregistered midi message"
 
 
 
