@@ -9,6 +9,11 @@ except ImportError:
     logging.warning("pygame.midi not found. Make sure to run this script on a raspberry pi with pygame.midi installed")
     sys.exit()
 
+try:
+    from prettytable import PrettyTable
+except ImportError:
+    print "prettytable module not installed"
+
 # Variables
 ChannelDict = read_variables_from_csv("x32ChannelSheet.csv")
 
@@ -66,6 +71,32 @@ ProducerHearsOnPress_Caster1 = ProducerHearsOnPress[caster1_index]
 ProducerHearsOnPress_Caster2 = ProducerHearsOnPress[caster2_index]
 ProducerHearsOnPress_Stagehost = ProducerHearsOnPress[stagehost_index]
 ProducerHearsOnPress_Reporter = ProducerHearsOnPress[reporter_index]
+
+###########################################################
+# Reporting of the subscribed OSC handles in a pretty way #
+###########################################################
+BusReport = PrettyTable()
+BusReport._set_field_names(["Bus Name", "Bus Number"])
+BusReport.add_row(["Host Bus", hostbus])
+BusReport.add_row(["Panel Bus", panelbus])
+BusReport.add_row(["Caster 1 Bus", caster1bus])
+BusReport.add_row(["Caster 2 Bus", caster2bus])
+BusReport.add_row(["Stagehost Bus", stagehostbus])
+BusReport.add_row(["Reporter Bus", reporterbus])
+BusReport.add_row(["Producer Hearback", producerHB])
+BusReport.add_row(["Producer PGM", producerpgmbus])
+
+print "\nOverview of selected busses:"
+print BusReport
+
+ChannelReport = PrettyTable()
+ChannelReport.add_column("Channel Name", ChannelDict["Label"])
+ChannelReport.add_column("Channel Number", ChannelDict["Channel"])
+ChannelReport.add_column("Producer Hears on Press", ChannelDict["ProducerHearsOnPress"])
+
+print"\nOverview of selected channels, and whether producer hears them whilst talking to them:"
+print ChannelReport
+print "Communicating with x32 at %s:%d" % x32address
 
 def create_MIDI_button(MIDIcc, ipaddress):
         MIDIbutton = PhysicalButton()
@@ -137,7 +168,8 @@ if ProducerHearsOnPress_Stagehost:
     MIDIbuttonlist[7].addmutemsg(stagehostchannel, mutemode="mute_on_release", destinationbus=producerHB)
 
 # Pad 4 - Talk to ALL
-MIDIbuttonlist[3].addtalk2bus([hostbus, panelbus, caster1bus, caster2bus, stagehostbus, reporterbus])
+talk2BusList = [hostbus, panelbus, caster1bus, caster2bus, stagehostbus, reporterbus]
+MIDIbuttonlist[3].addtalk2bus(talk2BusList)
 MIDIbuttonlist[3].addmutemsg(hostchannel, mutemode="mute_on_release", destinationbus=producerHB)
 MIDIbuttonlist[3].addmutemsg(panel1channel, mutemode="mute_on_release", destinationbus=producerHB)
 MIDIbuttonlist[3].addmutemsg(panel2channel, mutemode="mute_on_release", destinationbus=producerHB)
@@ -176,17 +208,30 @@ pygame.init()
 pygame.midi.init()
 
 # list all midi devices
-for x in range( 0, pygame.midi.get_count()):
-    print pygame.midi.get_device_info(x)
+#for x in range( 0, pygame.midi.get_count()):
+#    print pygame.midi.get_device_info(x)
 
 # open a specific midi device
 
-device = 3#input('Please type MIDI input device number: ')
+MIDIDeviceName = 'LPD8'    #The name of the midi Device as detected by pygame.midi.get_device_info()
+
+# list all midi devices
+for x in range( 0, pygame.midi.get_count()):
+    currentMIDIdevice = pygame.midi.get_device_info(x)
+    print x,': ', currentMIDIdevice
+    if currentMIDIdevice[2] == 1 and currentMIDIdevice[1] == MIDIDeviceName:
+        device = x
+
+# open a specific midi device
+
+print '\nFound and selected %s as device number %d' %(MIDIDeviceName, device)
+# device = 2#input('Please type MIDI input device number: ')
 
 inp = pygame.midi.Input(device)
 
 # run the event loop
 run = True
+print "\nNow listening for MIDI commands"
 while run:
 ##    print PadCount
     if inp.poll():

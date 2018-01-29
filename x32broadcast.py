@@ -330,23 +330,27 @@ class PhysicalButton(object):
         if self.talk2destmap is None:
             self.talk2destmap = 0
         try:
+            busnumber = list(set(busnumber)) #This statement prevents adding busses twice
             for i in range(0, len(busnumber)):
-                if type(busnumber[i]) is int:  # To prevent adding non integer busses
+                if type(busnumber[i]) is int and 0 < busnumber[i] < 17:  # To prevent adding non integer busses
                     self.talk2buslist.append(busnumber[i])
                     self.talk2destmap += 2 ** (busnumber[i] - 1)
                 elif busnumber[i] is '':
                     pass
                 else:
-                    print "Warning, non integer busnumbers are being used. Use only integer values or empty fields"
+                    raise ValueError("Busnumbers must be given in the range of 1-16.\n "
+                                     "Leave the field blank in the x32ChannelSheet.csv if you do not want to use the bus")
+                    #print "Warning, non integer busnumbers are being used. Use only integer values in the range of 1-16 or empty fields"
 
         except TypeError:
-            if type(busnumber) is int:  # To prevent adding non integer busses
+            if type(busnumber) is int and 0 < busnumber < 17:  # To prevent adding non integer busses
                 self.talk2buslist.append(busnumber)
                 self.talk2destmap = self.talk2destmap + 2 ** (busnumber - 1)
-            elif busnumber[i] is '':
+            elif busnumber is '':
                 pass
             else:
-                print "Warning, illegal busnumbers are being used. Use only integer values or empty fields"
+                raise ValueError("Busnumbers must be given in the range of 1-16.\n "
+                                 "Leave the field blank in the x32ChannelSheet.csv if you do not want to use the bus")
 
     def removetalk2bus(self, busnumber):
         self.talk2destmap = self.talk2destmap - 2 ** (busnumber - 1)
