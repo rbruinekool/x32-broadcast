@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0ef4897f-b889-43bb-a3d6-b51e9c535ab5" name="Default" comment="Variable listening works">
-      <change beforePath="$PROJECT_DIR$/.idea/https---github.com-rbruinekool-x32-broadcast.git.iml" afterPath="$PROJECT_DIR$/.idea/https---github.com-rbruinekool-x32-broadcast.git.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+    <list default="true" id="0ef4897f-b889-43bb-a3d6-b51e9c535ab5" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/ProducerServer.py" afterPath="$PROJECT_DIR$/ProducerServer.py" />
-      <change beforePath="$PROJECT_DIR$/x32ChannelSheet.csv" afterPath="$PROJECT_DIR$/x32ChannelSheet.csv" />
-      <change beforePath="$PROJECT_DIR$/x32broadcast.py" afterPath="$PROJECT_DIR$/x32broadcast.py" />
     </list>
     <ignored path="https---github.com-rbruinekool-x32-broadcast.git.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,56 +20,52 @@
     <favorites_list name="https---github.com-rbruinekool-x32-broadcast.git" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5796825">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="ProducerServer.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/ProducerServer.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="373">
-                  <caret line="229" column="31" lean-forward="false" selection-start-line="229" selection-start-column="31" selection-end-line="229" selection-end-column="31" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="x32broadcast.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/x32broadcast.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-715">
-                  <caret line="251" column="41" lean-forward="true" selection-start-line="251" selection-start-column="41" selection-end-line="251" selection-end-column="41" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="x32ChannelSheet.csv" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/x32ChannelSheet.csv">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="272">
-                  <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="x32ChannelSheet.csv" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/x32ChannelSheet.csv">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="85">
-                  <caret line="5" column="60" lean-forward="false" selection-start-line="5" selection-start-column="60" selection-end-line="5" selection-end-column="60" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="ProducerServer.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ProducerServer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3740">
+              <caret line="220" column="20" lean-forward="false" selection-start-line="220" selection-start-column="20" selection-end-line="220" selection-end-column="20" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UrlTest.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/UrlTest.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="x32broadcast.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/x32broadcast.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2468">
+              <caret line="251" column="41" lean-forward="true" selection-start-line="251" selection-start-column="41" selection-end-line="251" selection-end-column="41" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="x32ChannelSheet.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/x32ChannelSheet.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -86,8 +77,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>addtalk2</find>
-      <find>midi</find>
       <find>x32address</find>
+      <find>midi</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -110,6 +101,7 @@
         <option value="$PROJECT_DIR$/ButtonServerCasters.py" />
         <option value="$PROJECT_DIR$/x32ChannelSheet.csv" />
         <option value="$PROJECT_DIR$/ProducerServer.py" />
+        <option value="$PROJECT_DIR$/UrlTest.py" />
       </list>
     </option>
   </component>
@@ -184,7 +176,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.ProducerServer">
+  <component name="RunManager" selected="Python.UrlTest">
     <configuration name="ButtonServerCasters" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -239,6 +231,24 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="UrlTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="https---github.com-rbruinekool-x32-broadcast.git" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/UrlTest.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="testscript" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -252,24 +262,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="https---github.com-rbruinekool-x32-broadcast.git" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/testscript.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="x32OSCServer" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="https---github.com-rbruinekool-x32-broadcast.git" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/x32OSCServer.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -411,18 +403,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.testscript" />
-      <item index="1" class="java.lang.String" itemvalue="Python.x32OSCServer" />
-      <item index="2" class="java.lang.String" itemvalue="Python.ProducerServer" />
-      <item index="3" class="java.lang.String" itemvalue="Python.ButtonServerCasters" />
-      <item index="4" class="java.lang.String" itemvalue="Python.ButtonServerPanel" />
+      <item index="1" class="java.lang.String" itemvalue="Python.ProducerServer" />
+      <item index="2" class="java.lang.String" itemvalue="Python.ButtonServerCasters" />
+      <item index="3" class="java.lang.String" itemvalue="Python.ButtonServerPanel" />
+      <item index="4" class="java.lang.String" itemvalue="Python.UrlTest" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.ProducerServer" />
-        <item index="1" class="java.lang.String" itemvalue="Python.ButtonServerCasters" />
-        <item index="2" class="java.lang.String" itemvalue="Python.ButtonServerPanel" />
-        <item index="3" class="java.lang.String" itemvalue="Python.testscript" />
-        <item index="4" class="java.lang.String" itemvalue="Python.x32OSCServer" />
+        <item index="0" class="java.lang.String" itemvalue="Python.UrlTest" />
+        <item index="1" class="java.lang.String" itemvalue="Python.ProducerServer" />
+        <item index="2" class="java.lang.String" itemvalue="Python.ButtonServerCasters" />
+        <item index="3" class="java.lang.String" itemvalue="Python.ButtonServerPanel" />
+        <item index="4" class="java.lang.String" itemvalue="Python.testscript" />
       </list>
     </recent_temporary>
   </component>
@@ -439,20 +431,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1476358789554</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Started writing the OSC callback functions into the MixerChannel object - at this commit it works for Channel Mutes">
-      <created>1476825744851</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1476825744851</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Integration of OSC Callback functions">
-      <created>1476825772382</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1476825772382</updated>
     </task>
     <task id="LOCAL-00010" summary="Integration of OSC Callback functions">
       <created>1476825779660</created>
@@ -783,7 +761,21 @@
       <option name="project" value="LOCAL" />
       <updated>1492860290399</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Added protection against wrong bus numbers. When the server is starting&#10;it will throw an error when someone selects bus numbers that are not&#10;in the range of 1-16. Furthermore the buttons now ignore double bus numbers&#10;(i.e. if there is only a single caster bus rather than 2, pressing the &#10;'talk to both casters' button will still only talk to a single bus). This&#10;feauture prevents bus numbers adding up to completely different talk2&#10;destmaps, which could cause the intercom to be sent to stream or PA.">
+      <created>1517235436818</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1517235436818</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Started on a method for getting the x32Channel settings from a google sheet">
+      <created>1517244754764</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1517244754764</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -801,12 +793,12 @@
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17017913" sideWeight="0.6429675" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35217392" sideWeight="0.5105374" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3097826" sideWeight="0.48946258" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3097826" sideWeight="0.48946258" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32717392" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29673913" sideWeight="0.4915701" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32717392" sideWeight="0.49367756" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4347826" sideWeight="0.5869336" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4347826" sideWeight="0.5869336" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12223393" sideWeight="0.35703245" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -876,8 +868,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="The OSC server and classes now work for a DCA as well. Some work must be done to clean up lists to be less specific and more easily expanded" />
-    <MESSAGE value="Started writing the OSC callback functions into the MixerChannel object - at this commit it works for Channel Mutes" />
     <MESSAGE value="Integration of OSC Callback functions" />
     <MESSAGE value="Further Integration of OSC Callbacks" />
     <MESSAGE value="DCA integration" />
@@ -901,26 +891,79 @@
     <MESSAGE value="Adding the feature that whether the producer hears whomever he/she is talking to can be defined the .csv sheet" />
     <MESSAGE value="First test of the variable listen to features" />
     <MESSAGE value="Variable listening works" />
-    <option name="LAST_COMMIT_MESSAGE" value="Variable listening works" />
+    <MESSAGE value="Added protection against wrong bus numbers. When the server is starting&#10;it will throw an error when someone selects bus numbers that are not&#10;in the range of 1-16. Furthermore the buttons now ignore double bus numbers&#10;(i.e. if there is only a single caster bus rather than 2, pressing the &#10;'talk to both casters' button will still only talk to a single bus). This&#10;feauture prevents bus numbers adding up to completely different talk2&#10;destmaps, which could cause the intercom to be sent to stream or PA." />
+    <MESSAGE value="Started on a method for getting the x32Channel settings from a google sheet" />
+    <option name="LAST_COMMIT_MESSAGE" value="Started on a method for getting the x32Channel settings from a google sheet" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="110" />
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/UrlTest.py</url>
+          <line>15</line>
+          <option name="timeStamp" value="119" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="120" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>len(talk2BusListCandidate)</expression-string>
+        <expression-string>responseDict[&quot;table&quot;]['rows'][2]['c']</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>responseDict[&quot;table&quot;]['rows'][1]['c']</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>responseDict[&quot;table&quot;]['rows'][0]['c']</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>responseDict[&quot;table&quot;]['rows'][0][c]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>responseDict[&quot;table&quot;]['rows'][0]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>responseDict[&quot;table&quot;]['rows']</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>responseDict[&quot;table&quot;]['cols']</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>responseDict[&quot;table&quot;]['cols'][0][&quot;label&quot;]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>responseDict[&quot;table&quot;]['cols'][0]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>responseDict[&quot;table&quot;]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///Library/Python/2.6/site-packages/OSC.py" />
     <entry file="file://$PROJECT_DIR$/readme">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -932,7 +975,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="22" lean-forward="false" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
-          <folding />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -949,7 +994,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="22" lean-forward="false" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
-          <folding />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -966,7 +1013,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -974,7 +1023,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -982,7 +1033,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="870">
           <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1000,7 +1053,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="870">
           <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1018,7 +1073,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1800">
           <caret line="122" column="10" lean-forward="false" selection-start-line="121" selection-start-column="0" selection-end-line="127" selection-end-column="29" />
-          <folding />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1034,7 +1091,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="26" column="41" lean-forward="false" selection-start-line="26" selection-start-column="41" selection-end-line="26" selection-end-column="41" />
-          <folding />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1043,7 +1102,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="900">
           <caret line="62" column="13" lean-forward="false" selection-start-line="62" selection-start-column="13" selection-end-line="62" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1052,7 +1113,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="720">
           <caret line="48" column="21" lean-forward="false" selection-start-line="48" selection-start-column="21" selection-end-line="48" selection-end-column="21" />
-          <folding />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1061,7 +1124,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1070,7 +1135,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1157,18 +1224,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/x32broadcast.py">
+    <entry file="file://$PROJECT_DIR$/ProducerServer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-715">
-          <caret line="251" column="41" lean-forward="true" selection-start-line="251" selection-start-column="41" selection-end-line="251" selection-end-column="41" />
-          <folding />
+        <state relative-caret-position="3740">
+          <caret line="220" column="20" lean-forward="false" selection-start-line="220" selection-start-column="20" selection-end-line="220" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ProducerServer.py">
+    <entry file="file://$PROJECT_DIR$/x32broadcast.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="229" column="31" lean-forward="false" selection-start-line="229" selection-start-column="31" selection-end-line="229" selection-end-column="31" />
+        <state relative-caret-position="-2468">
+          <caret line="251" column="41" lean-forward="true" selection-start-line="251" selection-start-column="41" selection-end-line="251" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UrlTest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding />
         </state>
       </provider>
