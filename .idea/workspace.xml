@@ -28,8 +28,8 @@
       <file leaf-file-name="ProducerServer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ProducerServer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="274">
-              <caret line="241" column="115" lean-forward="false" selection-start-line="241" selection-start-column="115" selection-end-line="241" selection-end-column="115" />
+            <state relative-caret-position="147">
+              <caret line="234" column="78" lean-forward="false" selection-start-line="234" selection-start-column="38" selection-end-line="234" selection-end-column="78" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -425,13 +425,6 @@
       <option name="presentableId" value="Default" />
       <updated>1476358789554</updated>
     </task>
-    <task id="LOCAL-00013" summary="DCA integration">
-      <created>1477504117662</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1477504117662</updated>
-    </task>
     <task id="LOCAL-00014" summary="DCA integration">
       <created>1477504958680</created>
       <option name="number" value="00014" />
@@ -768,7 +761,14 @@
       <option name="project" value="LOCAL" />
       <updated>1517495652986</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="Online sheet reading fully implemented">
+      <created>1517495699508</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1517495699508</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -782,13 +782,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17017913" sideWeight="0.6429675" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35217392" sideWeight="0.5105374" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3597826" sideWeight="0.48946258" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3597826" sideWeight="0.48946258" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32717392" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29673913" sideWeight="0.4915701" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -903,11 +902,11 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ProducerServer.py</url>
-          <line>146</line>
-          <option name="timeStamp" value="141" />
+          <line>234</line>
+          <option name="timeStamp" value="143" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="143" />
+      <option name="time" value="147" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -927,6 +926,26 @@
       </expression>
     </expressions>
     <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>currentMIDIdevice[1]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>currentMIDIdevice[1] == MIDIDeviceNamePC</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>currentMIDIdevice[2] == 1</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>(currentMIDIdevice[1] == MIDIDeviceNamePC or currentMIDIdevice[1] == MIDIDeviceNamePi)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>ProducerHearsOnPress_Panel1 == 'no'</expression-string>
         <language-id>Python</language-id>
@@ -954,26 +973,6 @@
       </expression>
       <expression>
         <expression-string>response</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>allRows[5]['c'][8].values()[0]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>allRows[5]['c'][7].values()[0]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>allRows[5]['c'][6].values()[0]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>allRows[5]['c'][5].values()[0]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -1215,8 +1214,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ProducerServer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="241" column="115" lean-forward="false" selection-start-line="241" selection-start-column="115" selection-end-line="241" selection-end-column="115" />
+        <state relative-caret-position="147">
+          <caret line="234" column="78" lean-forward="false" selection-start-line="234" selection-start-column="38" selection-end-line="234" selection-end-column="78" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>

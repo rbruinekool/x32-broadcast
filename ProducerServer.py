@@ -220,26 +220,27 @@ pygame.init()
 pygame.midi.init()
 
 # list all midi devices
-#for x in range( 0, pygame.midi.get_count()):
-#    print pygame.midi.get_device_info(x)
+for x in range( 0, pygame.midi.get_count()):
+    print pygame.midi.get_device_info(x)
 
 # open a specific midi device
 
-MIDIDeviceName = 'LPD8'    #The name of the midi Device as detected by pygame.midi.get_device_info()
+MIDIDeviceNamePC = 'LPD8'    #The name of the midi Device as detected by pygame.midi.get_device_info()
+MIDIDeviceNamePi = 'LPD8 MIDI 1'  #The name on a raspberry Pi
 
 # list all midi devices
 for x in range( 0, pygame.midi.get_count()):
     currentMIDIdevice = pygame.midi.get_device_info(x)
     #print x,': ', currentMIDIdevice
-    if currentMIDIdevice[2] == 1 and currentMIDIdevice[1] == MIDIDeviceName:
+    if currentMIDIdevice[2] == 1 and (currentMIDIdevice[1] == MIDIDeviceNamePC or currentMIDIdevice[1] == MIDIDeviceNamePi):
         device = x
 
 # open a specific midi device
 
 try:
-    print 'Found and selected %s as device number %d' %(MIDIDeviceName, device)
+    print 'Found and selected %s as device number %d' %(MIDIDeviceNamePC, device)
 except NameError:
-    print("The MIDI device (with name %s) has not been found. Make sure it plugged in with USB and rerun the script") % MIDIDeviceName
+    print("The MIDI device (with name %s) has not been found. Make sure it plugged in with USB and rerun the script") % MIDIDeviceNamePC
     sys.exit(1)
 
 # device = 2#input('Please type MIDI input device number: ')
