@@ -239,7 +239,7 @@ for x in range( 0, pygame.midi.get_count()):
 try:
     print 'Found and selected %s as device number %d' %(MIDIDeviceName, device)
 except NameError:
-    print("The MIDI device (with name %s) has not been found. Make sure it plugged in with USB") % MIDIDeviceName
+    print("The MIDI device (with name %s) has not been found. Make sure it plugged in with USB and rerun the script") % MIDIDeviceName
     sys.exit(1)
 
 # device = 2#input('Please type MIDI input device number: ')

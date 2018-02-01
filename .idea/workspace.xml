@@ -29,7 +29,7 @@
         <entry file="file://$PROJECT_DIR$/ProducerServer.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="274">
-              <caret line="241" column="41" lean-forward="false" selection-start-line="241" selection-start-column="41" selection-end-line="241" selection-end-column="41" />
+              <caret line="241" column="115" lean-forward="false" selection-start-line="241" selection-start-column="115" selection-end-line="241" selection-end-column="115" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -425,13 +425,6 @@
       <option name="presentableId" value="Default" />
       <updated>1476358789554</updated>
     </task>
-    <task id="LOCAL-00012" summary="DCA integration">
-      <created>1476998532215</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1476998532216</updated>
-    </task>
     <task id="LOCAL-00013" summary="DCA integration">
       <created>1477504117662</created>
       <option name="number" value="00013" />
@@ -768,7 +761,14 @@
       <option name="project" value="LOCAL" />
       <updated>1517492775403</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="Online sheet reading fully implemented">
+      <created>1517495652986</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1517495652986</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -1216,7 +1216,7 @@
     <entry file="file://$PROJECT_DIR$/ProducerServer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="274">
-          <caret line="241" column="41" lean-forward="false" selection-start-line="241" selection-start-column="41" selection-end-line="241" selection-end-column="41" />
+          <caret line="241" column="115" lean-forward="false" selection-start-line="241" selection-start-column="115" selection-end-line="241" selection-end-column="115" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
