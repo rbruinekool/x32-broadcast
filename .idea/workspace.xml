@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ef4897f-b889-43bb-a3d6-b51e9c535ab5" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/https---github.com-rbruinekool-x32-broadcast.git.iml" afterPath="$PROJECT_DIR$/.idea/https---github.com-rbruinekool-x32-broadcast.git.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/ProducerServer.py" afterPath="$PROJECT_DIR$/ProducerServer.py" />
-      <change beforePath="$PROJECT_DIR$/x32ChannelSheet.csv" afterPath="$PROJECT_DIR$/x32ChannelSheet.csv" />
-      <change beforePath="$PROJECT_DIR$/x32broadcast.py" afterPath="$PROJECT_DIR$/x32broadcast.py" />
     </list>
     <ignored path="https---github.com-rbruinekool-x32-broadcast.git.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,8 +28,8 @@
       <file leaf-file-name="ProducerServer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ProducerServer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="26" column="81" lean-forward="false" selection-start-line="26" selection-start-column="81" selection-end-line="26" selection-end-column="81" />
+            <state relative-caret-position="274">
+              <caret line="241" column="41" lean-forward="false" selection-start-line="241" selection-start-column="41" selection-end-line="241" selection-end-column="41" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -429,13 +425,6 @@
       <option name="presentableId" value="Default" />
       <updated>1476358789554</updated>
     </task>
-    <task id="LOCAL-00011" summary="Further Integration of OSC Callbacks">
-      <created>1476912135170</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1476912135170</updated>
-    </task>
     <task id="LOCAL-00012" summary="DCA integration">
       <created>1476998532215</created>
       <option name="number" value="00012" />
@@ -772,7 +761,14 @@
       <option name="project" value="LOCAL" />
       <updated>1517415045890</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="Online sheet reading fully implemented">
+      <created>1517492775403</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1517492775403</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -786,12 +782,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17017913" sideWeight="0.6429675" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35217392" sideWeight="0.5105374" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3597826" sideWeight="0.48946258" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3597826" sideWeight="0.48946258" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32717392" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29673913" sideWeight="0.4915701" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -868,7 +865,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Further Integration of OSC Callbacks" />
     <MESSAGE value="DCA integration" />
     <MESSAGE value="Changed module name" />
     <MESSAGE value="Minor" />
@@ -893,7 +889,8 @@
     <MESSAGE value="Added protection against wrong bus numbers. When the server is starting&#10;it will throw an error when someone selects bus numbers that are not&#10;in the range of 1-16. Furthermore the buttons now ignore double bus numbers&#10;(i.e. if there is only a single caster bus rather than 2, pressing the &#10;'talk to both casters' button will still only talk to a single bus). This&#10;feauture prevents bus numbers adding up to completely different talk2&#10;destmaps, which could cause the intercom to be sent to stream or PA." />
     <MESSAGE value="Started on a method for getting the x32Channel settings from a google sheet" />
     <MESSAGE value="Implemented a new function called getChannelData(userName) that reads the channeldata from a google spreadsheet rather then a local csv file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented a new function called getChannelData(userName) that reads the channeldata from a google spreadsheet rather then a local csv file" />
+    <MESSAGE value="Online sheet reading fully implemented" />
+    <option name="LAST_COMMIT_MESSAGE" value="Online sheet reading fully implemented" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1218,8 +1215,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ProducerServer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="26" column="81" lean-forward="false" selection-start-line="26" selection-start-column="81" selection-end-line="26" selection-end-column="81" />
+        <state relative-caret-position="274">
+          <caret line="241" column="41" lean-forward="false" selection-start-line="241" selection-start-column="41" selection-end-line="241" selection-end-column="41" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>

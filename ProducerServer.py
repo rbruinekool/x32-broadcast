@@ -236,7 +236,12 @@ for x in range( 0, pygame.midi.get_count()):
 
 # open a specific midi device
 
-print 'Found and selected %s as device number %d' %(MIDIDeviceName, device)
+try:
+    print 'Found and selected %s as device number %d' %(MIDIDeviceName, device)
+except NameError:
+    print("The MIDI device (with name %s) has not been found. Make sure it plugged in with USB") % MIDIDeviceName
+    sys.exit(1)
+
 # device = 2#input('Please type MIDI input device number: ')
 
 inp = pygame.midi.Input(device)
