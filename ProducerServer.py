@@ -1,7 +1,7 @@
 import logging
 import sys
 
-from x32broadcast import PhysicalButton, getChannelData
+from x32broadcast import read_variables_from_csv, PhysicalButton, getChannelData
 
 try:
     import pygame.midi
@@ -15,9 +15,16 @@ except ImportError:
     print "prettytable module not installed"
 
 # Variables
-
-#ChannelDict = read_variables_from_csv("x32ChannelSheet.csv")
-ChannelDict = getChannelData("thomas")
+dataMode = raw_input("Do you want me to read channel data from the local x32ChannelSheet.csv or from the google spreadsheet? "
+                     "\nType 'local' for using the x32ChannelSheet.csv or type 'online' for the google spreadsheet\n")
+if dataMode == 'local':
+    ChannelDict = read_variables_from_csv("x32ChannelSheet.csv")
+elif dataMode == 'online':
+    userName = raw_input("please input your username in lower case letters. Contact Bob if you have not beein given a sheet yet\n")
+    ChannelDict = getChannelData(userName)
+else:
+    print "I did not understand that. Please type 'online' or 'local'"
+    sys.exit()
 
 ChannelNames = ChannelDict["Label"]
 ChannelLabels = ChannelDict["Channel"]
