@@ -14,7 +14,7 @@ try:
     GPIOActive = True
     print "GPIO set to Board-Mode"
 except:
-    print "WARNING: No GPIO functionality found on this device"
+    print "WARNING: No GPIO functionality found on this device\n"
 
 
 class MixerChannel(object):
@@ -270,10 +270,13 @@ class PhysicalButton(object):
         except KeyError:
             destbus = ''
 
-        if destbus is '':
-            mutemsg = "/ch/%02d/mix/on" % sourcechannel
+        if 0 < sourcechannel < 33:  #Checking if the channel is actually in the legal range of 1-32
+            if destbus is '':
+                mutemsg = "/ch/%02d/mix/on" % sourcechannel
+            else:
+                mutemsg = "/ch/%02d/mix/%02d/on" % (sourcechannel, destbus)
         else:
-            mutemsg = "/ch/%02d/mix/%02d/on" % (sourcechannel, destbus)
+            return
 
         self.mutemsglist.append(mutemsg)
 
@@ -444,7 +447,8 @@ def getChannelData(userName):
     url = "http://spreadsheets.google.com/tq?tqx=responseHandler:callbackdata&key=" + sheetId + "&sheet=" + userName
 
     rawResponse = urllib2.urlopen(url).read()
-    response = rawResponse.splitlines()[1].replace(';','').replace('null','{}').replace('true','"true"')
+    response = rawResponse.splitlines()[1].replace(';','').replace('null','{}')
+    response = response.replace('"v":{}', '') #This one is put on a separate row because it might be a bit risky
     responseDict = eval(response)
     allRows = responseDict["table"]['rows'];
 

@@ -1,9 +1,9 @@
 Label,Host,Panel 1,Panel 2,Panel 3,Stagehost,Reporter,Caster 1,Caster 2
-Channel,1,2,3,4,5,6,7,8
+Channel,1,2,3,4,7,,5,6
 DCA Group,,,,,,,5,5
 PAChannel,,,,,,,,
 LED Channels,,,,,,,7,11
-ProducerHearsOnPress,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE
+ProducerHearsOnPress,yes,TRUE,TRUE,TRUE,TRUE,TRUE,yes,yes
 X32 IP,10.76.2.15,,,,,,,
 LOCAL IP,10.75.1.3,,,,,,,
 Host Bus,1,,,,,,,

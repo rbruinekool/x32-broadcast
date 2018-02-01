@@ -15,16 +15,20 @@ except ImportError:
     print "prettytable module not installed"
 
 # Variables
-dataMode = raw_input("Do you want me to read channel data from the local x32ChannelSheet.csv or from the google spreadsheet? "
-                     "\nType 'local' for using the x32ChannelSheet.csv or type 'online' for the google spreadsheet\n")
-if dataMode == 'local':
-    ChannelDict = read_variables_from_csv("x32ChannelSheet.csv")
-elif dataMode == 'online':
-    userName = raw_input("please input your username in lower case letters. Contact Bob if you have not beein given a sheet yet\n")
-    ChannelDict = getChannelData(userName)
-else:
-    print "I did not understand that. Please type 'online' or 'local'"
-    sys.exit()
+userInputPhase = True;
+print "Do you want me to read channel data from the local x32ChannelSheet.csv?"
+while userInputPhase:
+    dataMode = raw_input("Type 'local' or 'l' if you want me to read the x32ChannelSheet.csv\n"
+                         "Type 'online' or 'o' if you want me to read from the google spreadsheet\n")
+    if dataMode == 'local' or dataMode == 'l':
+        ChannelDict = read_variables_from_csv("x32ChannelSheet.csv")
+        userInputPhase = False
+    elif dataMode == 'online' or dataMode == 'o':
+        userName = raw_input("please input your username in lower case letters.\n")
+        ChannelDict = getChannelData(userName)
+        userInputPhase = False
+    else:
+        print "%s is not a recognized command" % dataMode
 
 ChannelNames = ChannelDict["Label"]
 ChannelLabels = ChannelDict["Channel"]
@@ -57,7 +61,8 @@ try:
     stagehost_index = ChannelNames.index("Stagehost")
     reporter_index = ChannelNames.index("Reporter")
 except ValueError:
-    print "The channelnames are not in the correct format. Use Host, Panel 1, Panel 2, Caster 1, Caster 2, Stagehost and Reporter"
+    print "The channelnames are not in the correct format. " \
+          "Use Host, Panel 1, Panel 2, Caster 1, Caster 2, Stagehost and Reporter"
 
 hostchannel = ChannelLabels[host_index]
 panel1channel = ChannelLabels[panel1_index]
@@ -68,18 +73,18 @@ caster2channel = ChannelLabels[caster2_index]
 stagehostchannel = ChannelLabels[stagehost_index]
 reporterchannel = ChannelLabels[reporter_index]
 
-#  If any of the below statements are filled in with anything other then '' it will cause a press of the button by the
+#  If any of the below statements are filled in with anything other than '' it will cause a press of the button by the
 #  to also hear the person(s) he is talking to as long as he holds the button (useful if the talent does not have
 #  talkback buttons. Filling any value in the 'ProducerHearsOnPress' row in x32ChannelSheet.csv file will cause this
 #  to happen.
-ProducerHearsOnPress_Host = ProducerHearsOnPress[host_index]
-ProducerHearsOnPress_Panel1 = ProducerHearsOnPress[panel1_index]
-ProducerHearsOnPress_Panel2 = ProducerHearsOnPress[panel2_index]
-ProducerHearsOnPress_Panel3 = ProducerHearsOnPress[panel3_index]
-ProducerHearsOnPress_Caster1 = ProducerHearsOnPress[caster1_index]
-ProducerHearsOnPress_Caster2 = ProducerHearsOnPress[caster2_index]
-ProducerHearsOnPress_Stagehost = ProducerHearsOnPress[stagehost_index]
-ProducerHearsOnPress_Reporter = ProducerHearsOnPress[reporter_index]
+ProducerHearsOnPress_Host = ProducerHearsOnPress[host_index].lower()
+ProducerHearsOnPress_Panel1 = ProducerHearsOnPress[panel1_index].lower()
+ProducerHearsOnPress_Panel2 = ProducerHearsOnPress[panel2_index].lower()
+ProducerHearsOnPress_Panel3 = ProducerHearsOnPress[panel3_index].lower()
+ProducerHearsOnPress_Caster1 = ProducerHearsOnPress[caster1_index].lower()
+ProducerHearsOnPress_Caster2 = ProducerHearsOnPress[caster2_index].lower()
+ProducerHearsOnPress_Stagehost = ProducerHearsOnPress[stagehost_index].lower()
+ProducerHearsOnPress_Reporter = ProducerHearsOnPress[reporter_index].lower()
 
 ###########################################################
 # Reporting of the subscribed OSC handles in a pretty way #
@@ -105,7 +110,7 @@ ChannelReport.add_column("Producer Hears on Press", ChannelDict["ProducerHearsOn
 
 print"\nOverview of selected channels, and whether producer hears them whilst talking to them:"
 print ChannelReport
-print "Communicating with x32 at %s:%d" % x32address
+print "Communicating with x32 at %s:%d\n" % x32address
 
 def create_MIDI_button(MIDIcc, ipaddress):
         MIDIbutton = PhysicalButton()
@@ -133,47 +138,46 @@ for i in range(0, 8):
 
 # Pad 5 - Talk to Host
 MIDIbuttonlist[4].addtalk2bus(hostbus)
-if ProducerHearsOnPress_Host:
+if ProducerHearsOnPress_Host == 'yes':
     MIDIbuttonlist[4].addmutemsg(hostchannel, mutemode="mute_on_release", destinationbus=producerHB)
                              
 # Pad 6 - Talk to Panel
+
 MIDIbuttonlist[5].addtalk2bus([hostbus, panelbus])
-if ProducerHearsOnPress_Host:
+if ProducerHearsOnPress_Host == 'yes':
     MIDIbuttonlist[5].addmutemsg(hostchannel, mutemode="mute_on_release", destinationbus=producerHB)
-if ProducerHearsOnPress_Panel1:
+if ProducerHearsOnPress_Panel1 == 'yes':
     MIDIbuttonlist[5].addmutemsg(panel1channel, mutemode="mute_on_release", destinationbus=producerHB)
-if ProducerHearsOnPress_Panel2:
+if ProducerHearsOnPress_Panel2 == 'yes':
     MIDIbuttonlist[5].addmutemsg(panel2channel, mutemode="mute_on_release", destinationbus=producerHB)
-if ProducerHearsOnPress_Panel3:
+if ProducerHearsOnPress_Panel3 == 'yes':
     MIDIbuttonlist[5].addmutemsg(panel3channel, mutemode="mute_on_release", destinationbus=producerHB)
 
 # Pad 1 - Talk to Caster 1
 MIDIbuttonlist[0].addtalk2bus(caster1bus)
-if ProducerHearsOnPress_Caster1:
+if ProducerHearsOnPress_Caster1 == 'yes':
     MIDIbuttonlist[0].addmutemsg(caster1channel, mutemode="mute_on_release", destinationbus=producerHB)
 
 # Pad 3 - Talk to Caster 2
 MIDIbuttonlist[2].addtalk2bus(caster2bus)
-if ProducerHearsOnPress_Caster2:
+if ProducerHearsOnPress_Caster2 == 'yes':
     MIDIbuttonlist[2].addmutemsg(caster2channel, mutemode="mute_on_release", destinationbus=producerHB)
 
 # Pad 2 - Talk to Caster 1 and Caster 2
 MIDIbuttonlist[1].addtalk2bus([caster1bus, caster2bus])
-if ProducerHearsOnPress_Caster1:
+if ProducerHearsOnPress_Caster1 == 'yes':
     MIDIbuttonlist[1].addmutemsg(caster1channel, mutemode="mute_on_release", destinationbus=producerHB)
-if ProducerHearsOnPress_Caster2:
+if ProducerHearsOnPress_Caster2 == 'yes':
     MIDIbuttonlist[1].addmutemsg(caster2channel, mutemode="mute_on_release", destinationbus=producerHB)
 
 # Pad 7 - Talk to Reporter
-if reporterchannel is not '':
-    MIDIbuttonlist[6].addtalk2bus(reporterbus)
-if ProducerHearsOnPress_Reporter:
+MIDIbuttonlist[6].addtalk2bus(reporterbus)
+if ProducerHearsOnPress_Reporter == 'yes':
     MIDIbuttonlist[6].addmutemsg(reporterchannel, mutemode="mute_on_release", destinationbus=producerHB)
 
 # Pad 8 - Talk to Stagehost
-if stagehostchannel is not '':
-    MIDIbuttonlist[7].addtalk2bus(stagehostbus)
-if ProducerHearsOnPress_Stagehost:
+MIDIbuttonlist[7].addtalk2bus(stagehostbus)
+if ProducerHearsOnPress_Stagehost == 'yes':
     MIDIbuttonlist[7].addmutemsg(stagehostchannel, mutemode="mute_on_release", destinationbus=producerHB)
 
 # Pad 4 - Talk to ALL
@@ -185,8 +189,7 @@ MIDIbuttonlist[3].addmutemsg(panel2channel, mutemode="mute_on_release", destinat
 MIDIbuttonlist[3].addmutemsg(panel3channel, mutemode="mute_on_release", destinationbus=producerHB)
 MIDIbuttonlist[3].addmutemsg(caster1channel, mutemode="mute_on_release", destinationbus=producerHB)
 MIDIbuttonlist[3].addmutemsg(caster2channel, mutemode="mute_on_release", destinationbus=producerHB)
-if stagehostchannel is not '':
-    MIDIbuttonlist[3].addmutemsg(stagehostchannel, mutemode="mute_on_release", destinationbus=producerHB)
+MIDIbuttonlist[3].addmutemsg(stagehostchannel, mutemode="mute_on_release", destinationbus=producerHB)
 
 #########################################################################################
 ##                            Change encoder functions here                            ##
@@ -227,13 +230,13 @@ MIDIDeviceName = 'LPD8'    #The name of the midi Device as detected by pygame.mi
 # list all midi devices
 for x in range( 0, pygame.midi.get_count()):
     currentMIDIdevice = pygame.midi.get_device_info(x)
-    print x,': ', currentMIDIdevice
+    #print x,': ', currentMIDIdevice
     if currentMIDIdevice[2] == 1 and currentMIDIdevice[1] == MIDIDeviceName:
         device = x
 
 # open a specific midi device
 
-print '\nFound and selected %s as device number %d' %(MIDIDeviceName, device)
+print 'Found and selected %s as device number %d' %(MIDIDeviceName, device)
 # device = 2#input('Please type MIDI input device number: ')
 
 inp = pygame.midi.Input(device)
