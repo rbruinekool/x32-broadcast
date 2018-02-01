@@ -1,6 +1,6 @@
 """
 This script is to be run at the caster desk.
-It enables the on-air LEDS and mute/talkback buttons
+It enables the mute/talkback buttons
 
 
 """
@@ -16,7 +16,7 @@ except ImportError:
     logging.warning("No GPIO or Pygame found - running in diagnostic mode")
     DiagnosticMode = True
 
-from x32broadcast import PhysicalButton, read_variables_from_csv, sendondetect
+from x32broadcast import PhysicalButton, read_variables_from_csv, sendondetect, getChannelData
 
 ButtonMode = "GPI" # Fill in "MIDI" if a MIDI pad is used and "GPI" if GPI's are used
 
@@ -30,7 +30,19 @@ except ImportError:
 # Make sure that the correct CSV file is pointed to below #
 ###########################################################
 
-ChannelDict = read_variables_from_csv("x32ChannelSheet.csv")
+userInputPhase = True
+while userInputPhase:
+    dataMode = raw_input("Type 'local' or 'l' if you want me to read the x32ChannelSheet.csv\n"
+                         "Type 'online' or 'o' if you want me to read from the google spreadsheet\n")
+    if dataMode == 'local' or dataMode == 'l':
+        ChannelDict = read_variables_from_csv("x32ChannelSheet.csv")
+        userInputPhase = False
+    elif dataMode == 'online' or dataMode == 'o':
+        userName = raw_input("please input your username in lower case letters.\n")
+        ChannelDict = getChannelData(userName)
+        userInputPhase = False
+    else:
+        print "%s is not a recognized command" % dataMode
 
 ChannelNames = ChannelDict["Label"]
 ChannelLabels = ChannelDict["Channel"]

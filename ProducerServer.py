@@ -220,8 +220,8 @@ pygame.init()
 pygame.midi.init()
 
 # list all midi devices
-for x in range( 0, pygame.midi.get_count()):
-    print pygame.midi.get_device_info(x)
+#for x in range( 0, pygame.midi.get_count()):
+#    print pygame.midi.get_device_info(x)
 
 # open a specific midi device
 
