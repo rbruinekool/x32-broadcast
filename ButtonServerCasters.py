@@ -62,6 +62,7 @@ try:
     caster2_index = ChannelNames.index("Caster 2")
 except ValueError:
     print "The channelnames are not in the correct format. Use Host, Caster 1 and Caster 2"
+    sys.exit(1)
 
 #### PhysicalButton stuff
 

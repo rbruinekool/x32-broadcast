@@ -15,20 +15,29 @@ except ImportError:
     print "prettytable module not installed"
 
 # Variables
-userInputPhase = True;
-print "Do you want me to read channel data from the local x32ChannelSheet.csv?"
-while userInputPhase:
-    dataMode = raw_input("Type 'local' or 'l' if you want me to read the x32ChannelSheet.csv\n"
-                         "Type 'online' or 'o' if you want me to read from the google spreadsheet\n")
-    if dataMode == 'local' or dataMode == 'l':
-        ChannelDict = read_variables_from_csv("x32ChannelSheet.csv")
-        userInputPhase = False
-    elif dataMode == 'online' or dataMode == 'o':
-        userName = raw_input("please input your username in lower case letters.\n")
-        ChannelDict = getChannelData(userName)
-        userInputPhase = False
-    else:
-        print "%s is not a recognized command" % dataMode
+
+try:
+    print sys.argv
+    dataMode = sys.argv[1]
+    userName = sys.argv[2]
+    ChannelDict = getChannelData(userName)
+    print "Datamode set to %s\nUsername set to %s" %(dataMode, userName)
+except IndexError:
+    userInputPhase = True;
+    print "Do you want me to read channel data from the local x32ChannelSheet.csv?"
+    while userInputPhase:
+        dataMode = raw_input("Type 'local' or 'l' if you want me to read the x32ChannelSheet.csv\n"
+                             "Type 'online' or 'o' if you want me to read from the google spreadsheet\n")
+        if dataMode == 'local' or dataMode == 'l':
+            ChannelDict = read_variables_from_csv("x32ChannelSheet.csv")
+            userInputPhase = False
+        elif dataMode == 'online' or dataMode == 'o':
+            userName = raw_input("please input your username in lower case letters.\n")
+            ChannelDict = getChannelData(userName)
+            userInputPhase = False
+        else:
+            print "%s is not a recognized command" % dataMode
+
 
 ChannelNames = ChannelDict["Label"]
 ChannelLabels = ChannelDict["Channel"]
@@ -296,6 +305,3 @@ while run:
                 MIDIencoderlist[currentencoderindex].sendfaderoscmessages(velocity)
             except ValueError:
                 print "MIDI Note %d is not registered" % note_number
-
-
-
