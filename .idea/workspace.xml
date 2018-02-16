@@ -29,8 +29,8 @@
       <file leaf-file-name="MuteBoxServer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MuteBoxServer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="42" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
+            <state relative-caret-position="176">
+              <caret line="41" column="18" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="18" />
               <folding>
                 <element signature="e#108#122#0" expanded="true" />
               </folding>
@@ -445,13 +445,6 @@
       <option name="presentableId" value="Default" />
       <updated>1476358789554</updated>
     </task>
-    <task id="LOCAL-00028" summary="Refined the sent message in the panelbuttonserver">
-      <created>1492438644025</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1492438644025</updated>
-    </task>
     <task id="LOCAL-00029" summary="Added reading of PA channels from csv file to buttonservercasters.py">
       <created>1492450362189</created>
       <option name="number" value="00029" />
@@ -788,7 +781,14 @@
       <option name="project" value="LOCAL" />
       <updated>1518793425523</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="Mutebox server works, now debugging and making sure the mutebox can handle loss of network and internet">
+      <created>1518794700066</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1518794700066</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -907,7 +907,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/MuteBoxServer.py</url>
-          <line>131</line>
+          <line>133</line>
           <option name="timeStamp" value="163" />
         </line-breakpoint>
       </breakpoints>
@@ -1227,8 +1227,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MuteBoxServer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="42" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
+        <state relative-caret-position="176">
+          <caret line="41" column="18" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="18" />
           <folding>
             <element signature="e#108#122#0" expanded="true" />
           </folding>

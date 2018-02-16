@@ -18,7 +18,7 @@ except ImportError:
     logging.warning("No GPIO or Pygame found - running in diagnostic mode")
     DiagnosticMode = True
 
-from x32broadcast import PhysicalButton, sendondetect, getChannelData, getMuteBoxData
+from x32broadcast import PhysicalButton, sendondetect, getChannelData
 
 ButtonMode = "GPI"  # Fill in "MIDI" if a MIDI pad is used and "GPI" if GPI's are used
 
@@ -40,10 +40,12 @@ while not(internetActive):
     except urllib2.URLError as err:
         print "No connection to internet, trying again in 5 seconds"
         time.sleep(5)
-        
-print([l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1], [[(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]]) if l][0][0])
 
-muteBoxData = getMuteBoxData();
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect(("8.8.8.8", 80))
+myIp = s.getsockname()[0]
+print(myIp)
+s.close()
 
 hostName = socket.gethostname()
 if hostName.split("-")[0] == "mutebox":
