@@ -361,8 +361,16 @@ class PhysicalButton(object):
 
     def setButtonTemplate(self, channelNumbers, buttonTemplate):
 
-        channelName = buttonTemplate.split(":")[0]
-        actionType = buttonTemplate.split(":")[1]
+        if buttonTemplate:
+            splitTemplate = buttonTemplate.split(":")
+
+            if len(splitTemplate) == 2:
+                channelName = buttonTemplate.split(":")[0]
+                actionType = buttonTemplate.split(":")[1]
+            else:
+                raise ValueError("The button template (e.g. Host:mute) is not being provided in the correct format")
+        else:
+            return
 
         if actionType == "mute":
             self.addmutemsg(channelNumbers[channelName])
