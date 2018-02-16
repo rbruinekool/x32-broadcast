@@ -8,6 +8,7 @@ import logging
 import socket
 import sys
 import time
+import urllib2
 
 try:
     DiagnosticMode = False
@@ -31,10 +32,18 @@ except ImportError:
 # Make sure that the correct CSV file is pointed to below #
 ###########################################################
 
+internetActive = False
+while not(internetActive):
+    try:
+        urllib2.urlopen('http://google.com', timeout=1)
+        internetActive = True
+    except urllib2.URLError as err:
+        print "No connection to internet, trying again in 5 seconds"
+        time.sleep(5)
+
 muteBoxData = getMuteBoxData();
 
 hostName = socket.gethostname()
-
 if hostName.split("-")[0] == "mutebox":
     thisPi = hostName.split("-")[1]
     print "\nRunning script as " + hostName + " which is currently registered to " + muteBoxData[thisPi][0]
