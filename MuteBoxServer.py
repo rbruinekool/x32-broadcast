@@ -5,7 +5,6 @@ It enables the on-air LEDS and mute/talkback buttons
 
 """
 import logging
-import socket
 import sys
 import time
 import urllib2
@@ -18,7 +17,7 @@ except ImportError:
     logging.warning("No GPIO or Pygame found - running in diagnostic mode")
     DiagnosticMode = True
 
-from x32broadcast import PhysicalButton, sendondetect, getChannelData
+from x32broadcast import PhysicalButton, sendondetect, getChannelData, getMuteBoxData
 
 ButtonMode = "GPI"  # Fill in "MIDI" if a MIDI pad is used and "GPI" if GPI's are used
 
@@ -41,11 +40,13 @@ while not(internetActive):
         print "No connection to internet, trying again in 5 seconds"
         time.sleep(5)
 
+import socket
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("8.8.8.8", 80))
 myIp = s.getsockname()[0]
 print(myIp)
 s.close()
+muteBoxData = getMuteBoxData()
 
 hostName = socket.gethostname()
 if hostName.split("-")[0] == "mutebox":
