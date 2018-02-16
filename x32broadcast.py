@@ -368,7 +368,7 @@ class PhysicalButton(object):
             if len(splitTemplate) == 2:
                 channelName = buttonTemplate.split(":")[0]
                 actionType = buttonTemplate.split(":")[1]
-                self.description = channelName + actionType
+                self.description = channelName + " " + actionType
             else:
                 raise ValueError("The button template (e.g. Host:mute) is not being provided in the correct format")
         else:
