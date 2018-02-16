@@ -118,22 +118,22 @@ print "\nOverview of selected channels which are being subscribed to"
 print ChannelReport
 print "Communicating with x32 at %s:%d" % x32address
 
-print "\nCaster 1 Mute button set to GPI pin %d. It has the following registered OSC Paths:" % leftRedButton.gpichannel
+print "\nLeft red button is registered as %s. It has the following registered OSC Paths:" % leftRedButton.description
 for i in range(0, len(leftRedButton.mutemsglist)):
     print "\t", leftRedButton.mutemsglist[i]
 for i in range(0, len(leftRedButton.fadermsglist)):
     print "\t", leftRedButton.fadermsglist[i]
-print "Caster 1 Talkback button set to GPI pin %d. It has the following registered OSC Paths:" % leftBlackButton.gpichannel
+print "Left black button is registered as %s. It has the following registered OSC Paths:" % leftBlackButton.description
 for i in range(0, len(leftBlackButton.mutemsglist)):
     print "\t", leftBlackButton.mutemsglist[i]
 for i in range(0, len(leftBlackButton.fadermsglist)):
     print "\t", leftBlackButton.fadermsglist[i]
-print "\nCaster 2 Mute button set to GPI pin %d. It has the following registered OSC Paths:" % rightRedButton.gpichannel
+print "\nRight red button is registered to %s. It has the following registered OSC Paths:" % rightRedButton.description
 for i in range(0, len(rightRedButton.mutemsglist)):
     print "\t", rightRedButton.mutemsglist[i]
 for i in range(0, len(rightRedButton.fadermsglist)):
     print "\t", rightRedButton.fadermsglist[i]
-print "Caster 2 Talkback button set to GPI pin %d. It has the following registered OSC Paths:" % rightBlackButton.gpichannel
+print "Right black button is registered to %s. It has the following registered OSC Paths:" % rightBlackButton.description
 for i in range(0, len(rightBlackButton.mutemsglist)):
     print "\t", rightBlackButton.mutemsglist[i]
 for i in range(0, len(rightBlackButton.fadermsglist)):

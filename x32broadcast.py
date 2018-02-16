@@ -240,6 +240,7 @@ class PhysicalButton(object):
         self.talk2destmap = None
         self.fadermsglist = []
         self.oscmsg = OSC.OSCMessage()
+        self.description = ""
 
     def setx32address(self, x32address):
         """
@@ -367,6 +368,7 @@ class PhysicalButton(object):
             if len(splitTemplate) == 2:
                 channelName = buttonTemplate.split(":")[0]
                 actionType = buttonTemplate.split(":")[1]
+                self.description = channelName + actionType
             else:
                 raise ValueError("The button template (e.g. Host:mute) is not being provided in the correct format")
         else:
@@ -458,7 +460,7 @@ def sendondetect(button, **kwargs):
     else:
         button.sendfaderoscmessages(98)
     time.sleep(0.02)
-    print "sent messages for pin %d. Pin state = %d " % (button.gpichannel, pinstatus)
+    print "sent messages for %s. Pin state = %d " % (button.description, pinstatus)
 
 def callbackdata(data):
     return data
