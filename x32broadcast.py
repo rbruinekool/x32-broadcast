@@ -359,6 +359,19 @@ class PhysicalButton(object):
     def removetalk2bus(self, busnumber):
         self.talk2destmap = self.talk2destmap - 2 ** (busnumber - 1)
 
+    def setButtonTemplate(self, channelNumbers, buttonTemplate):
+
+        channelName = buttonTemplate.split(":")[0]
+        actionType = buttonTemplate.split(":")[1]
+
+        if actionType == "mute":
+            self.addmutemsg(channelNumbers[channelName])
+            self.addmutemsg(channelNumbers[channelName + "_PA"])
+        elif actionType == "talk":
+            self.addfadermsg(channelNumbers[channelName])
+            self.addmutemsg(channelNumbers[channelName + "_PA"])
+            self.addmutemsg(channelNumbers[channelName], "mute_on_release", destinationbus=channelNumbers["Producer HB Bus"])
+
     def sendoscmessages(self, buttonstate):
 
         # Mutemessages will be sent here
@@ -473,7 +486,35 @@ def getChannelData(userName):
     return channelDict
 
 
+def getMuteBoxData():
+    sheetId = "1xCvYdmH13sQg41dOZfgAiYZLI1JzmML7IhTW7QzNktg"
+    url = "http://spreadsheets.google.com/tq?tqx=responseHandler:callbackdata&key=" + sheetId + "&sheet=muteboxes"
 
+    rawResponse = urllib2.urlopen(url).read()
+    response = rawResponse.splitlines()[1].replace(';','').replace('null','{}')
+    response = response.replace('"v":{}', '') #This one is put on a separate row because it might be a bit risky
+    responseDict = eval(response)
+    allRows = responseDict["table"]['rows'];
+
+    currentRow = []
+    channelDict = {}
+
+    for i in range(0, len(allRows)):
+        for j in range(1, len(allRows[i]['c'])):
+            if len(allRows[i]['c'][j].values()) > 0:
+                if type(allRows[i]['c'][j].values()[0]) == str:
+                    currentRow.append(allRows[i]['c'][j].values()[0])
+                    try:
+                        currentRow[j - 1] = int(currentRow[j - 1])
+                    except ValueError:
+                        pass
+            else:
+                currentRow.append("")
+
+        channelDict[allRows[i]['c'][0]['v']] = currentRow
+        currentRow = []
+
+    return channelDict
 #For easy programming of the osc messages all the messages will be compiled with these functions
 #to import them use the import function (e.g. 'from X32OSCFunctions import MuteChannel2Bus')
 
