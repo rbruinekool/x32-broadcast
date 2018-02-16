@@ -5,6 +5,7 @@ It enables the on-air LEDS and mute/talkback buttons
 
 """
 import logging
+import socket
 import sys
 import time
 
@@ -32,8 +33,13 @@ except ImportError:
 
 muteBoxData = getMuteBoxData();
 
-# TODO Code to find which pi this is with hostname() goes here
-thisPi = "A"
+hostName = socket.gethostname()
+
+if hostName.split("-")[0] == "mutebox":
+    thisPi = hostName.split("-")[1]
+else:
+    thisPi = "testBox"
+    print "\nDevice hostname is not set to mutebox, running script as " + thisPi
 
 ChannelDict = getChannelData("test");
 
