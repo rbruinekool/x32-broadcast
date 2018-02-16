@@ -411,15 +411,18 @@ class PhysicalButton(object):
                     self.oscmsg.append(0)
                     self.x32.send(self.oscmsg)
         except OSC.OSCClientError:
-            print ("Network connection lost, waiting for network")
+            print ("Couldnt send mute message because the network connection is lost, waiting for network")
 
     def sendfaderoscmessages(self, encoderMIDIvalue):
-        oscvalue = float(encoderMIDIvalue) / 127.0  # Convert 127 step msg into msg from 0 to 1
-        for i in range(0, len(self.fadermsglist)):
-            self.oscmsg.clear()
-            self.oscmsg.setAddress(self.fadermsglist[i])
-            self.oscmsg.append(oscvalue)
-            self.x32.send(self.oscmsg)
+        try:
+            oscvalue = float(encoderMIDIvalue) / 127.0  # Convert 127 step msg into msg from 0 to 1
+            for i in range(0, len(self.fadermsglist)):
+                self.oscmsg.clear()
+                self.oscmsg.setAddress(self.fadermsglist[i])
+                self.oscmsg.append(oscvalue)
+                self.x32.send(self.oscmsg)
+        except OSC.OSCClientError:
+            print ("Couldnt send fader message because the network connection is lost, waiting for network")
 
 
 #########################################################################

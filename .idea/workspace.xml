@@ -41,8 +41,8 @@
       <file leaf-file-name="x32broadcast.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/x32broadcast.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="413" column="66" selection-start-line="413" selection-start-column="66" selection-end-line="413" selection-end-column="66" />
+            <state relative-caret-position="2130">
+              <caret line="424" column="38" selection-start-line="424" selection-start-column="38" selection-end-line="424" selection-end-column="38" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -447,13 +447,6 @@
       <option name="presentableId" value="Default" />
       <updated>1476358789554</updated>
     </task>
-    <task id="LOCAL-00026" summary="Set the self.talk2busdestmap to be an empty list by default. Added an if statement to prevent sending talkbus messages if there have been no talk2busses defined">
-      <created>1492438437002</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1492438437002</updated>
-    </task>
     <task id="LOCAL-00027" summary="Set the self.talk2busdestmap to be an empty list by default. Added an if statement to prevent sending talkbus messages if there have been no talk2busses defined">
       <created>1492438441101</created>
       <option name="number" value="00027" />
@@ -790,7 +783,14 @@
       <option name="project" value="LOCAL" />
       <updated>1518791661169</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="Mutebox server works, now debugging and making sure the mutebox can handle loss of network and internet">
+      <created>1518793217529</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1518793217529</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -876,7 +876,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Minor" />
     <MESSAGE value="DCA Generation&#10;&#10;All DCA's and subsequent channels in their groups are now automatically added to the message handlers. At this stage only editing of the dictionary is necessary. Also added some error handling for imports" />
     <MESSAGE value="CSV Reading&#10;&#10;Added a x32CSGO.csv file which is read from to generate the ChannelDict variable rather than defining it inside the server script." />
     <MESSAGE value="DCA Fixed&#10;&#10;Script now works properly for channels that have no assigned DCA Group" />
@@ -901,7 +900,8 @@
     <MESSAGE value="Online sheet reading fully implemented" />
     <MESSAGE value="Online sheet reading fully implemented, now also in buttonservers" />
     <MESSAGE value="First step of the mutebox server" />
-    <option name="LAST_COMMIT_MESSAGE" value="First step of the mutebox server" />
+    <MESSAGE value="Mutebox server works, now debugging and making sure the mutebox can handle loss of network and internet" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mutebox server works, now debugging and making sure the mutebox can handle loss of network and internet" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1253,8 +1253,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/x32broadcast.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="413" column="66" selection-start-line="413" selection-start-column="66" selection-end-line="413" selection-end-column="66" />
+        <state relative-caret-position="2130">
+          <caret line="424" column="38" selection-start-line="424" selection-start-column="38" selection-end-line="424" selection-end-column="38" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
