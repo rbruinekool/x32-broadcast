@@ -12,7 +12,7 @@ try:
     import RPi.GPIO as GPIO
     GPIO.setmode(GPIO.BOARD)
     GPIOActive = True
-    print "GPIO set to Board-Mode"
+    #print "GPIO set to Board-Mode"
 except:
     print "WARNING: No GPIO functionality found on this device\n"
 

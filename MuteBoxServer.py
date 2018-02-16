@@ -37,7 +37,7 @@ hostName = socket.gethostname()
 
 if hostName.split("-")[0] == "mutebox":
     thisPi = hostName.split("-")[1]
-    print "\nRunning script as " + hostName
+    print "\nRunning script as " + hostName + " which is currently registered to " + muteBoxData[thisPi][1]
 else:
     thisPi = "testBox"
     print "\nDevice hostname is not set to mutebox, running script as " + thisPi
