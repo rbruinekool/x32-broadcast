@@ -5,9 +5,12 @@ It enables the on-air LEDS and mute/talkback buttons
 
 """
 import logging
+import socket
 import sys
 import time
 import urllib2
+
+import requests
 
 try:
     DiagnosticMode = False
@@ -17,7 +20,7 @@ except ImportError:
     logging.warning("No GPIO or Pygame found - running in diagnostic mode")
     DiagnosticMode = True
 
-from x32broadcast import PhysicalButton, sendondetect, getChannelData, getMuteBoxData
+from x32broadcast import PhysicalButton, sendondetect, getChannelData, getMuteBoxData, getMyIp
 
 ButtonMode = "GPI"  # Fill in "MIDI" if a MIDI pad is used and "GPI" if GPI's are used
 
@@ -26,11 +29,7 @@ try:
 except ImportError:
     print "prettytable module not installed"
 
-###########################################################
-#     Reading channels and ip adress from a CSV file      #
-# Make sure that the correct CSV file is pointed to below #
-###########################################################
-
+# Checking for an internet connection
 internetActive = False
 while not(internetActive):
     try:
@@ -40,23 +39,32 @@ while not(internetActive):
         print "No connection to internet, trying again in 5 seconds"
         time.sleep(5)
 
-import socket
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.connect(("8.8.8.8", 80))
-myIp = s.getsockname()[0]
-print(myIp)
-s.close()
+myIp = getMyIp()
+
+# Getting info about all muteboxes from google sheets
 muteBoxData = getMuteBoxData()
 
 hostName = socket.gethostname()
 if hostName.split("-")[0] == "mutebox":
-    thisPi = hostName.split("-")[1]
+    thisPi = hostName
+    #thisPi = hostName.split("-")[1]
     print "\nRunning script as " + hostName + " which is currently registered to " + muteBoxData[thisPi][0]
 else:
     thisPi = "testBox"
-    print "\nDevice hostname is not set to mutebox, running script as " + thisPi
+    print "\nDevice hostname is not set to mutebox, running script in testmode as " + thisPi
 
-ChannelDict = getChannelData("test");
+
+#############################################################
+#     Reading channels and ip adress from the google sheet  #
+# Make sure that the correct CSV file is pointed to below   #
+#############################################################
+try:
+    ChannelDict = getChannelData(muteBoxData[thisPi][0])
+except KeyError:
+    r = requests.post("https://script.google.com/macros/s/AKfycbzB3Tig-5MJp3eLhVInG-IGOx7cwVqvfDBjdByuVfHBKkxMvpw/exec",
+                      data={"muteboxName": thisPi, "muteboxIp": myIp})
+    raise ValueError("This mutebox is not registered in the online X32ChannelSheets. A report has been emailed to bob.bruinekool@dreamhack.se")
+
 
 ChannelNames = ChannelDict["Label"]
 Channels = ChannelDict["Channel"]
@@ -75,6 +83,7 @@ channelNumbers["Producer HB Bus"] = producerHB
 
 x32address = (x32ipaddress, 10023)
 
+#TODO remove these statements here or make them more rugged to the newest updates
 if x32ipaddress is '':
     print "ip adress field in csv is empty make sure the ip adress is located in the right spot"
 try:
@@ -87,6 +96,7 @@ except ValueError:
 
 #### PhysicalButton stuff
 
+#TODO remove all the seperate variables, the channelNumbers dict should be handling all this now
 hostChannel = Channels[host_index]
 caster1Channel = Channels[caster1_index]
 caster2Channel = Channels[caster2_index]
@@ -153,6 +163,9 @@ for i in range(0, len(rightBlackButton.mutemsglist)):
 for i in range(0, len(rightBlackButton.fadermsglist)):
     print "\t", rightBlackButton.fadermsglist[i]
 
+# Check in with google apps scripts
+r = requests.post("https://script.google.com/macros/s/AKfycbzB3Tig-5MJp3eLhVInG-IGOx7cwVqvfDBjdByuVfHBKkxMvpw/exec",
+                  data = {"muteboxName": thisPi, "muteboxIp": myIp})
 
 #################################################################
 #                       Diagnostic Mode                         #
