@@ -15,7 +15,7 @@ import requests
 try:
     DiagnosticMode = False
     import RPi.GPIO as GPIO
-    import pygame.midi
+    # import pygame.midi
 except ImportError:
     logging.warning("No GPIO or Pygame found - running in diagnostic mode")
     DiagnosticMode = True
@@ -83,28 +83,10 @@ channelNumbers["Producer HB Bus"] = producerHB
 
 x32address = (x32ipaddress, 10023)
 
-#TODO remove these statements here or make them more rugged to the newest updates
 if x32ipaddress is '':
     print "ip adress field in csv is empty make sure the ip adress is located in the right spot"
-try:
-    host_index = ChannelNames.index("Host")
-    caster1_index = ChannelNames.index("Caster 1")
-    caster2_index = ChannelNames.index("Caster 2")
-except ValueError:
-    print "The channelnames are not in the correct format. Use Host, Caster 1 and Caster 2"
-    sys.exit(1)
 
-#### PhysicalButton stuff
-
-#TODO remove all the seperate variables, the channelNumbers dict should be handling all this now
-hostChannel = Channels[host_index]
-caster1Channel = Channels[caster1_index]
-caster2Channel = Channels[caster2_index]
-
-caster1Channel_PA = PAChannels[caster1_index]            # PA Channels Here
-caster2Channel_PA = PAChannels[caster2_index]
-hostChannel_PA = PAChannels[host_index]
-
+# PhysicalButton stuff
 leftRedButton = PhysicalButton()
 leftBlackButton = PhysicalButton()
 rightRedButton = PhysicalButton()
@@ -172,7 +154,8 @@ r = requests.post("https://script.google.com/macros/s/AKfycbzB3Tig-5MJp3eLhVInG-
 #################################################################
 
 if DiagnosticMode is True:
-    print "\nDiagnostic Mode started\nPossible buttons to choose from are: c1mutebutton, c1talkbutton, c2mutebutton, c2talkbutton, exit"
+    print "\nDiagnostic Mode started\nPossible buttons to choose from are: "
+    "leftRedButton, leftBlackButton, rightRedButton, rightBlackButton, exit"
 
 while DiagnosticMode is True:
     ChosenButton = raw_input("Please enter the name of the button you wish to simulate a press on: ")
@@ -190,70 +173,70 @@ while DiagnosticMode is True:
     except NameError:
         logging.warning("invalid button name or status")
 
-if ButtonMode is "MIDI":
-    """
-    MIDI Stuff
-    """
-    verbose = False  # Verbose being true allows you to see what MIDI messages are being registered
-    pygame.init()
-    pygame.midi.init()
-
-    # list all midi devices
-    for x in range(0, pygame.midi.get_count()):
-       print pygame.midi.get_device_info(x)
-
-    # open a specific midi device
-    MIDIdevice = 3
-    inp = pygame.midi.Input(MIDIdevice)
-
-    try:
-        while 1:
-            if inp.poll():
-                # no way to find number of messages in queue
-                # so we just specify a high max value
-
-                MIDIeventlist = inp.read(1000)
-
-                # 144 is note on, 128 is note off, 176 is a CC
-                status_byte = MIDIeventlist[0][0][0]
-
-                # pad 1 - 8 are note numbers 36-44
-                # encoder 1 - 8 are note numbers 1 through 8
-                note_number = MIDIeventlist[0][0][1]
-
-                velocity = MIDIeventlist[0][0][2]
-
-                # print MIDIeventlist
-                if verbose:
-                    print "Status Byte= %d" % status_byte
-                    print "Note Number= %d" % note_number
-                    print "Velocity= %d" % velocity
-
-                # CC Note ON (activate when a MIDI pad is pressed)
-                if status_byte == 144:
-                    if note_number == 36:  # Mute button for caster 2
-                        rightRedButton.sendoscmessages(1)
-                    elif note_number == 37:  # Talkback button for caster 2
-                        rightBlackButton.sendoscmessages(1)
-                    elif note_number == 39:  # Mute button for caster 1
-                        leftRedButton.sendoscmessages(1)
-                    elif note_number == 38:  # Talkback button for caster 1
-                        leftBlackButton.sendoscmessages(1)
-
-                # CC Note OFF (activate when a MIDI pad is released)
-                elif status_byte == 128:
-                    if note_number == 36:
-                        rightRedButton.sendoscmessages(0)
-                    elif note_number == 37:
-                        rightBlackButton.sendoscmessages(0)
-                    elif note_number == 39:
-                        leftRedButton.sendoscmessages(0)
-                    elif note_number == 38:
-                        leftBlackButton.sendoscmessages(0)
-
-    except KeyboardInterrupt:
-        print "\nClosing MIDI Listening Loop."
-        print "Done"
+# if ButtonMode is "MIDI":
+#     """
+#     MIDI Stuff
+#     """
+#     verbose = False  # Verbose being true allows you to see what MIDI messages are being registered
+#     pygame.init()
+#     pygame.midi.init()
+#
+#     # list all midi devices
+#     for x in range(0, pygame.midi.get_count()):
+#        print pygame.midi.get_device_info(x)
+#
+#     # open a specific midi device
+#     MIDIdevice = 3
+#     inp = pygame.midi.Input(MIDIdevice)
+#
+#     try:
+#         while 1:
+#             if inp.poll():
+#                 # no way to find number of messages in queue
+#                 # so we just specify a high max value
+#
+#                 MIDIeventlist = inp.read(1000)
+#
+#                 # 144 is note on, 128 is note off, 176 is a CC
+#                 status_byte = MIDIeventlist[0][0][0]
+#
+#                 # pad 1 - 8 are note numbers 36-44
+#                 # encoder 1 - 8 are note numbers 1 through 8
+#                 note_number = MIDIeventlist[0][0][1]
+#
+#                 velocity = MIDIeventlist[0][0][2]
+#
+#                 # print MIDIeventlist
+#                 if verbose:
+#                     print "Status Byte= %d" % status_byte
+#                     print "Note Number= %d" % note_number
+#                     print "Velocity= %d" % velocity
+#
+#                 # CC Note ON (activate when a MIDI pad is pressed)
+#                 if status_byte == 144:
+#                     if note_number == 36:  # Mute button for caster 2
+#                         rightRedButton.sendoscmessages(1)
+#                     elif note_number == 37:  # Talkback button for caster 2
+#                         rightBlackButton.sendoscmessages(1)
+#                     elif note_number == 39:  # Mute button for caster 1
+#                         leftRedButton.sendoscmessages(1)
+#                     elif note_number == 38:  # Talkback button for caster 1
+#                         leftBlackButton.sendoscmessages(1)
+#
+#                 # CC Note OFF (activate when a MIDI pad is released)
+#                 elif status_byte == 128:
+#                     if note_number == 36:
+#                         rightRedButton.sendoscmessages(0)
+#                     elif note_number == 37:
+#                         rightBlackButton.sendoscmessages(0)
+#                     elif note_number == 39:
+#                         leftRedButton.sendoscmessages(0)
+#                     elif note_number == 38:
+#                         leftBlackButton.sendoscmessages(0)
+#
+#     except KeyboardInterrupt:
+#         print "\nClosing MIDI Listening Loop."
+#         print "Done"
 
 if ButtonMode is "GPI":
     GPIO.setmode(GPIO.BOARD)
