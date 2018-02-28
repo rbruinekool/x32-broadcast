@@ -4,9 +4,9 @@
     <bookmark url="file://$PROJECT_DIR$/ProducerServer.py" line="28" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ef4897f-b889-43bb-a3d6-b51e9c535ab5" name="Default" comment="Added a section to the mutebox server that reports its own name and ip address to a google apps script that then sets this data in the online X32ChannelSheets">
+    <list default="true" id="0ef4897f-b889-43bb-a3d6-b51e9c535ab5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MuteBoxServer.py" afterPath="$PROJECT_DIR$/MuteBoxServer.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProducerServer.py" afterPath="$PROJECT_DIR$/ProducerServer.py" />
     </list>
     <ignored path="https---github.com-rbruinekool-x32-broadcast.git.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,20 +29,28 @@
       <file leaf-file-name="MuteBoxServer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MuteBoxServer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2355">
+            <state relative-caret-position="474">
               <caret line="157" column="71" selection-start-line="157" selection-start-column="71" selection-end-line="157" selection-end-column="71" />
-              <folding>
-                <element signature="e#108#122#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="x32broadcast.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="x32broadcast.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/x32broadcast.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1080">
-              <caret line="78" column="11" selection-start-line="78" selection-start-column="11" selection-end-line="78" selection-end-column="11" />
+            <state relative-caret-position="114">
+              <caret line="334" column="16" selection-start-line="334" selection-start-column="8" selection-end-line="334" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProducerServer.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ProducerServer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="309">
+              <caret line="207" column="4" selection-start-line="207" selection-start-column="4" selection-end-line="207" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -97,10 +105,10 @@
         <option value="$PROJECT_DIR$/x32ChannelSheet.csv" />
         <option value="$PROJECT_DIR$/ButtonServerPanel.py" />
         <option value="$PROJECT_DIR$/ButtonServerCasters.py" />
-        <option value="$PROJECT_DIR$/ProducerServer.py" />
         <option value="$PROJECT_DIR$/talkbacktest.py" />
         <option value="$PROJECT_DIR$/MuteBoxServer.py" />
         <option value="$PROJECT_DIR$/x32broadcast.py" />
+        <option value="$PROJECT_DIR$/ProducerServer.py" />
       </list>
     </option>
   </component>
@@ -194,7 +202,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.MuteBoxServer">
+  <component name="RunManager" selected="Python.ProducerServer">
     <configuration default="false" name="ProducerServer" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -423,9 +431,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.MuteBoxServer" />
-        <item index="1" class="java.lang.String" itemvalue="Python.talkbacktest" />
-        <item index="2" class="java.lang.String" itemvalue="Python.ProducerServer" />
+        <item index="0" class="java.lang.String" itemvalue="Python.ProducerServer" />
+        <item index="1" class="java.lang.String" itemvalue="Python.MuteBoxServer" />
+        <item index="2" class="java.lang.String" itemvalue="Python.talkbacktest" />
         <item index="3" class="java.lang.String" itemvalue="Python.ButtonServerCasters" />
         <item index="4" class="java.lang.String" itemvalue="Python.ButtonServerPanel" />
       </list>
@@ -444,13 +452,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1476358789554</updated>
-    </task>
-    <task id="LOCAL-00032" summary="Added reading of PA channels from csv file to buttonservercasters.py">
-      <created>1492451018396</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1492451018396</updated>
     </task>
     <task id="LOCAL-00033" summary="Added reading of PA channels from csv file to buttonservercasters.py">
       <created>1492451423734</created>
@@ -788,7 +789,14 @@
       <option name="project" value="LOCAL" />
       <updated>1518880155780</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081" summary="Added a section to the mutebox server that reports its own name and ip address to a google apps script that then sets this data in the online X32ChannelSheets">
+      <created>1519827326143</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1519827326144</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -802,18 +810,18 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14164905" sideWeight="0.6429675" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35217392" sideWeight="0.5105374" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32650602" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29638556" sideWeight="0.4915701" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30963856" sideWeight="0.48946258" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30963856" sideWeight="0.48946258" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32650602" sideWeight="0.49367756" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12223393" sideWeight="0.35703245" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35903615" sideWeight="0.5869336" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35903615" sideWeight="0.5869336" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -910,6 +918,11 @@
           <line>240</line>
           <option name="timeStamp" value="168" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ProducerServer.py</url>
+          <line>157</line>
+          <option name="timeStamp" value="173" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -918,7 +931,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="173" />
+      <option name="time" value="174" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1187,16 +1200,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/talkbacktest.py" />
-    <entry file="file://$PROJECT_DIR$/ProducerServer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2220">
-          <caret line="234" column="29" selection-start-line="234" selection-start-column="29" selection-end-line="234" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#14#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/x32ChannelSheet.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -1207,18 +1210,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MuteBoxServer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2355">
+        <state relative-caret-position="474">
           <caret line="157" column="71" selection-start-line="157" selection-start-column="71" selection-end-line="157" selection-end-column="71" />
-          <folding>
-            <element signature="e#108#122#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/x32broadcast.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="78" column="11" selection-start-line="78" selection-start-column="11" selection-end-line="78" selection-end-column="11" />
+        <state relative-caret-position="114">
+          <caret line="334" column="16" selection-start-line="334" selection-start-column="8" selection-end-line="334" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProducerServer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="207" column="4" selection-start-line="207" selection-start-column="4" selection-end-line="207" selection-end-column="4" />
           <folding />
         </state>
       </provider>

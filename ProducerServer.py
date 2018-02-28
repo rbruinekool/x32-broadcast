@@ -192,13 +192,20 @@ if ProducerHearsOnPress_Stagehost == 'yes':
 # Pad 4 - Talk to ALL
 talk2BusList = [hostbus, panelbus, caster1bus, caster2bus, stagehostbus, reporterbus]
 MIDIbuttonlist[3].addtalk2bus(talk2BusList)
-MIDIbuttonlist[3].addmutemsg(hostchannel, mutemode="mute_on_release", destinationbus=producerHB)
-MIDIbuttonlist[3].addmutemsg(panel1channel, mutemode="mute_on_release", destinationbus=producerHB)
-MIDIbuttonlist[3].addmutemsg(panel2channel, mutemode="mute_on_release", destinationbus=producerHB)
-MIDIbuttonlist[3].addmutemsg(panel3channel, mutemode="mute_on_release", destinationbus=producerHB)
-MIDIbuttonlist[3].addmutemsg(caster1channel, mutemode="mute_on_release", destinationbus=producerHB)
-MIDIbuttonlist[3].addmutemsg(caster2channel, mutemode="mute_on_release", destinationbus=producerHB)
-MIDIbuttonlist[3].addmutemsg(stagehostchannel, mutemode="mute_on_release", destinationbus=producerHB)
+if ProducerHearsOnPress_Host == 'yes':
+    MIDIbuttonlist[3].addmutemsg(hostchannel, mutemode="mute_on_release", destinationbus=producerHB)
+if ProducerHearsOnPress_Panel1 == 'yes':
+    MIDIbuttonlist[3].addmutemsg(panel1channel, mutemode="mute_on_release", destinationbus=producerHB)
+if ProducerHearsOnPress_Panel2 == 'yes':
+    MIDIbuttonlist[3].addmutemsg(panel2channel, mutemode="mute_on_release", destinationbus=producerHB)
+if ProducerHearsOnPress_Panel3 == 'yes':
+    MIDIbuttonlist[3].addmutemsg(panel3channel, mutemode="mute_on_release", destinationbus=producerHB)
+if ProducerHearsOnPress_Caster1 == 'yes':
+    MIDIbuttonlist[3].addmutemsg(caster1channel, mutemode="mute_on_release", destinationbus=producerHB)
+if ProducerHearsOnPress_Caster2 == 'yes':
+    MIDIbuttonlist[3].addmutemsg(caster2channel, mutemode="mute_on_release", destinationbus=producerHB)
+if ProducerHearsOnPress_Stagehost == 'yes':
+    MIDIbuttonlist[3].addmutemsg(stagehostchannel, mutemode="mute_on_release", destinationbus=producerHB)
 
 #########################################################################################
 ##                            Change encoder functions here                            ##
