@@ -8,7 +8,6 @@ import logging
 import socket
 import sys
 import time
-import urllib2
 
 import requests
 
@@ -29,15 +28,15 @@ try:
 except ImportError:
     print "prettytable module not installed"
 
-# Checking for an internet connection
-internetActive = False
-while not(internetActive):
-    try:
-        urllib2.urlopen('http://google.com', timeout=1)
-        internetActive = True
-    except urllib2.URLError as err:
-        print "No connection to internet, trying again in 5 seconds"
-        time.sleep(5)
+# # Checking for an internet connection
+# internetActive = False
+# while not(internetActive):
+#     try:
+#         urllib2.urlopen('http://google.com', timeout=1)
+#         internetActive = True
+#     except urllib2.URLError as err:
+#         print "No connection to internet, trying again in 5 seconds"
+#         time.sleep(5)
 
 myIp = getMyIp()
 
@@ -50,7 +49,7 @@ if hostName.split("-")[0] == "mutebox":
     #thisPi = hostName.split("-")[1]
     print "\nRunning script as " + hostName + " which is currently registered to " + muteBoxData[thisPi][0]
 else:
-    thisPi = "testBox"
+    thisPi = "mutebox-test"
     print "\nDevice hostname is not set to mutebox, running script in testmode as " + thisPi
 
 
@@ -147,7 +146,8 @@ for i in range(0, len(rightBlackButton.fadermsglist)):
 
 # Check in with google apps scripts
 r = requests.post("https://script.google.com/macros/s/AKfycbzB3Tig-5MJp3eLhVInG-IGOx7cwVqvfDBjdByuVfHBKkxMvpw/exec",
-                  data = {"muteboxName": thisPi, "muteboxIp": myIp})
+                  data = {"deviceType": "mutebox","deviceName": thisPi, "muteboxIp": myIp})
+
 
 #################################################################
 #                       Diagnostic Mode                         #

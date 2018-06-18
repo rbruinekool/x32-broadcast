@@ -92,3 +92,4 @@ ENV/
 # Rope project settings
 .ropeproject
 /testscript.py
+/x32ChannelSheet.csv
