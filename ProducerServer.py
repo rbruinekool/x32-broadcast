@@ -152,15 +152,16 @@ if ProducerHearsOnPress_Host == 'yes':
                              
 # Pad 6 - Talk to Panel
 
-MIDIbuttonlist[5].addtalk2bus([hostbus, panelbus])
+#MIDIbuttonlist[5].addtalk2bus([hostbus, panelbus])
+MIDIbuttonlist[5].addtalk2bus([panelbus])
 if ProducerHearsOnPress_Host == 'yes':
     MIDIbuttonlist[5].addmutemsg(hostchannel, mutemode="mute_on_release", destinationbus=producerHB)
-if ProducerHearsOnPress_Panel1 == 'yes':
-    MIDIbuttonlist[5].addmutemsg(panel1channel, mutemode="mute_on_release", destinationbus=producerHB)
-if ProducerHearsOnPress_Panel2 == 'yes':
-    MIDIbuttonlist[5].addmutemsg(panel2channel, mutemode="mute_on_release", destinationbus=producerHB)
-if ProducerHearsOnPress_Panel3 == 'yes':
-    MIDIbuttonlist[5].addmutemsg(panel3channel, mutemode="mute_on_release", destinationbus=producerHB)
+#if ProducerHearsOnPress_Panel1 == 'yes':
+#    MIDIbuttonlist[5].addmutemsg(panel1channel, mutemode="mute_on_release", destinationbus=producerHB)
+#if ProducerHearsOnPress_Panel2 == 'yes':
+#    MIDIbuttonlist[5].addmutemsg(panel2channel, mutemode="mute_on_release", destinationbus=producerHB)
+#if ProducerHearsOnPress_Panel3 == 'yes':
+#    MIDIbuttonlist[5].addmutemsg(panel3channel, mutemode="mute_on_release", destinationbus=producerHB)
 
 # Pad 1 - Talk to Caster 1
 MIDIbuttonlist[0].addtalk2bus(caster1bus)
