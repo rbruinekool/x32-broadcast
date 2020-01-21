@@ -5,11 +5,10 @@ It enables the on-air LEDS and mute/talkback buttons
 
 """
 import logging
+import requests
 import socket
 import sys
 import time
-
-import requests
 
 try:
     DiagnosticMode = False
@@ -71,6 +70,7 @@ PAChannels = ChannelDict["PAChannel"]
 DCALabels = ChannelDict["DCA Group"]
 LEDChannels = ChannelDict["LED Channels"]
 x32ipaddress = ChannelDict["X32 IP"][0]
+#x32fohipaddress = ChannelDict["X32 FOH IP"][0]
 producerHB = ChannelDict["Producer HB Bus"][0]
 
 channelNumbers = {}.fromkeys(ChannelNames, "")
