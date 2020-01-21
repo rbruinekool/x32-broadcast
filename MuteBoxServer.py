@@ -5,10 +5,11 @@ It enables the on-air LEDS and mute/talkback buttons
 
 """
 import logging
-import requests
 import socket
 import sys
 import time
+
+import requests
 
 try:
     DiagnosticMode = False
@@ -38,6 +39,7 @@ except ImportError:
 #         time.sleep(5)
 
 myIp = getMyIp()
+fohExist = False
 
 # Getting info about all muteboxes from google sheets
 muteBoxData = getMuteBoxData()
@@ -70,7 +72,7 @@ PAChannels = ChannelDict["PAChannel"]
 DCALabels = ChannelDict["DCA Group"]
 LEDChannels = ChannelDict["LED Channels"]
 x32ipaddress = ChannelDict["X32 IP"][0]
-#x32fohipaddress = ChannelDict["X32 FOH IP"][0]
+x32fohipaddress = ChannelDict["X32 FOH IP"][0]
 producerHB = ChannelDict["Producer HB Bus"][0]
 
 channelNumbers = {}.fromkeys(ChannelNames, "")
@@ -83,7 +85,14 @@ channelNumbers["Producer HB Bus"] = producerHB
 x32address = (x32ipaddress, 10023)
 
 if x32ipaddress is '':
-    print "ip adress field in csv is empty make sure the ip adress is located in the right spot"
+    print "ip adress field in sheet is empty make sure the ip adress is located in the right spot"
+
+try:
+    socket.inet_aton(x32fohipaddress)
+    x32fohaddress = (x32fohipaddress, 10023)
+    fohExist=True
+except socket.error:
+    print "No FOH ip address available, running only with stream mixer"
 
 # PhysicalButton stuff
 leftRedButton = PhysicalButton()
@@ -96,19 +105,31 @@ leftBlackButton.setgpichannel(37)
 rightRedButton.setgpichannel(38)
 rightBlackButton.setgpichannel(40)
 
-leftRedButton.setx32address(x32address)
-leftBlackButton.setx32address(x32address)
-rightRedButton.setx32address(x32address)
-rightBlackButton.setx32address(x32address)
+if fohExist:
+    leftRedButton.setx32address(x32address, fohipaddress=x32fohaddress)
+    leftBlackButton.setx32address(x32address, fohipaddress=x32fohaddress)
+    rightRedButton.setx32address(x32address, fohipaddress=x32fohaddress)
+    rightBlackButton.setx32address(x32address, fohipaddress=x32fohaddress)
+else:
+    leftRedButton.setx32address(x32address)
+    leftBlackButton.setx32address(x32address)
+    rightRedButton.setx32address(x32address)
+    rightBlackButton.setx32address(x32address)
 
 ####################################################################################
 #                      Set button osc messages here                                #
 ####################################################################################
 
-leftRedButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][1])
-leftBlackButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][2])
-rightRedButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][3])
-rightBlackButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][4])
+if fohExist:
+    leftRedButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][1], sendToFoh=True)
+    leftBlackButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][2], sendToFoh=True)
+    rightRedButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][3], sendToFoh=True)
+    rightBlackButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][4], sendToFoh=True)
+else:
+    leftRedButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][1])
+    leftBlackButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][2])
+    rightRedButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][3])
+    rightBlackButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][4])
 
 ###########################################################
 # Reporting of the subscribed OSC handles in a pretty way #
@@ -122,6 +143,8 @@ ChannelReport.add_column("GPO LED Pin", ChannelDict["LED Channels"])
 print "\nOverview of selected channels which are being subscribed to"
 print ChannelReport
 print "Communicating with x32 at %s:%d" % x32address
+if fohExist:
+    print "Communicating with x32 FOH at %s:%d" % x32fohaddress
 
 print "\nLeft red button is registered as %s. It has the following registered OSC Paths:" % leftRedButton.description
 for i in range(0, len(leftRedButton.mutemsglist)):

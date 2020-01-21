@@ -1,7 +1,14 @@
 import csv
+import os
 import socket
+import ssl
 import time
 import urllib2
+
+if (not os.environ.get('PYTHONHTTPSVERIFY', '') and
+getattr(ssl, '_create_unverified_context', None)):
+    ssl._create_default_https_context = ssl._create_unverified_context
+
 from itertools import count
 
 import OSC
@@ -235,7 +242,8 @@ class PhysicalButton(object):
     def __init__(self):
         self.gpichannel = ''
         self.MIDIcc = ''
-        self.mutemsglist = []
+        self.mutemsglist = [] #This list will be sent to X32 production.
+        self.mutemsglistFoh = [] #This list will be sent to X32 FOH if available
         self.mutemsgmodelist = []
         self.talk2buslist = []
         self.talk2destmap = None
@@ -243,14 +251,21 @@ class PhysicalButton(object):
         self.oscmsg = OSC.OSCMessage()
         self.description = ""
 
-    def setx32address(self, x32address):
+    def setx32address(self, x32address, **kwargs):
         """
         Connects a MixerChannel instance to an X32 in the network, this must be done if the MixerChannel is to send
         messags to an X32 (e.g. setting mutes using the below set_mute method)
         :param x32address: The network adress of the x32 as a tuple, e.g. ('10.75.10.75', 10023)
         :return: Nothing
         """
+
+        try:
+            x32fohaddress = kwargs['fohipaddress']
+        except KeyError:
+            x32fohaddress = ''
+
         self.x32address = x32address
+        self.x32fohaddress = x32fohaddress
         self.x32 = OSC.OSCClient()
         self.x32.connect(self.x32address)
 
@@ -262,7 +277,7 @@ class PhysicalButton(object):
 
     def addmutemsg(self, sourcechannel, mutemode='mute_on_press', **kwargs):
         """
-        Adds an OSC mute message to the list that will be sent when the button is pressed
+        Adds an OSC mute message to the list that will be sent to the production X32 when the button is pressed
         :param sourcechannel: The channel that will be the main focus of the mute message
         :param mutemode: decides whether the channel is muted on press ('mute_on_press') or on release ("mute_on_release")
         :param kwargs: a destination bus can be added to change the mute message to a bus mute
@@ -280,7 +295,15 @@ class PhysicalButton(object):
         else:
             return
 
-        self.mutemsglist.append(mutemsg)
+        try:
+            destx32 = kwargs['sendToFoh']
+        except KeyError:
+            destx32 = False
+
+        if destx32 is False:
+            self.mutemsglist.append(mutemsg)
+        else:
+            self.mutemsglistFoh.append(mutemsg)
 
         if mutemode is 'mute_on_press':
             self.mutemsgmodelist.append(0)
@@ -361,7 +384,7 @@ class PhysicalButton(object):
     def removetalk2bus(self, busnumber):
         self.talk2destmap = self.talk2destmap - 2 ** (busnumber - 1)
 
-    def setButtonTemplate(self, channelNumbers, buttonTemplate):
+    def setButtonTemplate(self, channelNumbers, buttonTemplate, **kwargs):
 
         if buttonTemplate:
             splitTemplate = buttonTemplate.split(":")
@@ -375,13 +398,18 @@ class PhysicalButton(object):
         else:
             return
 
-        if actionType == "mute":
-            self.addmutemsg(channelNumbers[channelName])
-            self.addmutemsg(channelNumbers[channelName + "_PA"])
-        elif actionType == "talk":
-            self.addfadermsg(channelNumbers[channelName])
-            self.addmutemsg(channelNumbers[channelName + "_PA"])
-            self.addmutemsg(channelNumbers[channelName], "mute_on_release", destinationbus=channelNumbers["Producer HB Bus"])
+        try:
+            kwargs['sendToFoh']
+            self.addmutemsg(channelNumbers[channelName], mutemode='mute_on_press', sendToFoh=True)
+
+        except KeyError:
+            if actionType == "mute":
+                self.addmutemsg(channelNumbers[channelName])
+                self.addmutemsg(channelNumbers[channelName + "_PA"])
+            elif actionType == "talk":
+                self.addfadermsg(channelNumbers[channelName])
+                self.addmutemsg(channelNumbers[channelName + "_PA"])
+                self.addmutemsg(channelNumbers[channelName], "mute_on_release", destinationbus=channelNumbers["Producer HB Bus"])
 
     def sendoscmessages(self, buttonstate):
 
