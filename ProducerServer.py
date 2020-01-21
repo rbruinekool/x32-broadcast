@@ -152,9 +152,10 @@ if ProducerHearsOnPress_Host == 'yes':
                              
 # Pad 6 - Talk to Panel
 
-MIDIbuttonlist[5].addtalk2bus([hostbus, panelbus])
-if ProducerHearsOnPress_Host == 'yes':
-    MIDIbuttonlist[5].addmutemsg(hostchannel, mutemode="mute_on_release", destinationbus=producerHB)
+#MIDIbuttonlist[5].addtalk2bus([hostbus, panelbus])
+MIDIbuttonlist[5].addtalk2bus([panelbus])
+#if ProducerHearsOnPress_Host == 'yes':
+#    MIDIbuttonlist[5].addmutemsg(hostchannel, mutemode="mute_on_release", destinationbus=producerHB)
 if ProducerHearsOnPress_Panel1 == 'yes':
     MIDIbuttonlist[5].addmutemsg(panel1channel, mutemode="mute_on_release", destinationbus=producerHB)
 if ProducerHearsOnPress_Panel2 == 'yes':
