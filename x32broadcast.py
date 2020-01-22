@@ -237,6 +237,16 @@ class PhysicalButton(object):
         self.MIDIcc = ''
         self.mutemsglist = []
         self.mutemsgmodelist = []
+        self.muteMsgs = {
+            'streamX32': {
+                'muteMsgs': [],
+                'muteModes': []
+            },
+            'fohX32':{
+                'muteMsgs': [],
+                'muteModes': []
+            }
+        }
         self.talk2buslist = []
         self.talk2destmap = None
         self.fadermsglist = []
@@ -281,11 +291,14 @@ class PhysicalButton(object):
             return
 
         self.mutemsglist.append(mutemsg)
+        self.muteMsgs['streamX32']['muteMsgs'].append(mutemsg)
 
         if mutemode is 'mute_on_press':
             self.mutemsgmodelist.append(0)
+            self.muteMsgs['streamX32']['muteModes'].append(0)
         elif mutemode is 'mute_on_release':
             self.mutemsgmodelist.append(1)
+            self.muteMsgs['streamX32']['muteModes'].append(1)
         else:
             raise NameError("mutemode must be either 'mute_on_press' or 'mute_on_release'")
 
@@ -389,13 +402,15 @@ class PhysicalButton(object):
                 # Mutemessages will be sent here
             mutestatus = []
             if buttonstate is 1:
-                mutestatus = self.mutemsgmodelist
+                #mutestatus = self.mutemsgmodelist
+                mutestatus = self.muteMsgs['streamX32']['muteModes']
             elif buttonstate is 0:
-                mutestatus = [not i for i in self.mutemsgmodelist]
+                #mutestatus = [not i for i in self.mutemsgmodelist]
+                mutestatus = [not i for i in self.muteMsgs['streamX32']['muteModes']]
 
-            for i in range(0, len(self.mutemsglist)):
+            for i in range(0, len(self.muteMsgs['streamX32']['muteMsgs'])):
                 self.oscmsg.clear()
-                self.oscmsg.setAddress(self.mutemsglist[i])
+                self.oscmsg.setAddress(self.muteMsgs['streamX32']['muteMsgs'][i])
                 self.oscmsg.append(int(mutestatus[i]))
                 self.x32.send(self.oscmsg)
 
