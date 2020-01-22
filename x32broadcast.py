@@ -77,7 +77,7 @@ class MixerChannel(object):
         except ValueError:
             pass
 
-    def setx32address(self, x32address):
+    def setx32address(self, x32address, **kwargs):
         """
         Connects a MixerChannel instance to an X32 in the network, this must be done if the MixerChannel is to send
         messags to an X32 (e.g. setting mutes using the below set_mute method)
@@ -243,7 +243,7 @@ class PhysicalButton(object):
         self.gpichannel = ''
         self.MIDIcc = ''
         self.mutemsglist = [] #This list will be sent to X32 production.
-        self.mutemsglistFoh = [] #This list will be sent to X32 FOH if available
+        self.mutemsglistPa = [] #This list will be sent to X32 FOH if available
         self.mutemsgmodelist = []
         self.talk2buslist = []
         self.talk2destmap = None
@@ -268,6 +268,7 @@ class PhysicalButton(object):
         self.x32fohaddress = x32fohaddress
         self.x32 = OSC.OSCClient()
         self.x32.connect(self.x32address)
+        #self.x32.connect(self.x32fohaddress)
 
     def setgpichannel(self, gpichannel):
         self.gpichannel = gpichannel
@@ -275,7 +276,7 @@ class PhysicalButton(object):
     def setMIDIcc(self, MIDIcc):
         self.MIDIcc = MIDIcc
 
-    def addmutemsg(self, sourcechannel, mutemode='mute_on_press', **kwargs):
+    def addmutemsg(self, sourcechannel, mutemode='mute_on_press', tofoh=False, **kwargs):
         """
         Adds an OSC mute message to the list that will be sent to the production X32 when the button is pressed
         :param sourcechannel: The channel that will be the main focus of the mute message
@@ -295,15 +296,10 @@ class PhysicalButton(object):
         else:
             return
 
-        try:
-            destx32 = kwargs['sendToFoh']
-        except KeyError:
-            destx32 = False
-
-        if destx32 is False:
-            self.mutemsglist.append(mutemsg)
+        if tofoh:
+            self.mutemsglistPa.append(mutemsg)
         else:
-            self.mutemsglistFoh.append(mutemsg)
+            self.mutemsglist.append(mutemsg)
 
         if mutemode is 'mute_on_press':
             self.mutemsgmodelist.append(0)
@@ -384,7 +380,7 @@ class PhysicalButton(object):
     def removetalk2bus(self, busnumber):
         self.talk2destmap = self.talk2destmap - 2 ** (busnumber - 1)
 
-    def setButtonTemplate(self, channelNumbers, buttonTemplate, **kwargs):
+    def setButtonTemplate(self, channelNumbers, buttonTemplate, tofoh=False, **kwargs):
 
         if buttonTemplate:
             splitTemplate = buttonTemplate.split(":")
@@ -398,18 +394,13 @@ class PhysicalButton(object):
         else:
             return
 
-        try:
-            kwargs['sendToFoh']
-            self.addmutemsg(channelNumbers[channelName], mutemode='mute_on_press', sendToFoh=True)
-
-        except KeyError:
-            if actionType == "mute":
-                self.addmutemsg(channelNumbers[channelName])
-                self.addmutemsg(channelNumbers[channelName + "_PA"])
-            elif actionType == "talk":
-                self.addfadermsg(channelNumbers[channelName])
-                self.addmutemsg(channelNumbers[channelName + "_PA"])
-                self.addmutemsg(channelNumbers[channelName], "mute_on_release", destinationbus=channelNumbers["Producer HB Bus"])
+        if actionType == "mute":
+            self.addmutemsg(channelNumbers[channelName])
+            self.addmutemsg(channelNumbers[channelName + "_PA"], tofoh=True)
+        elif actionType == "talk":
+            self.addfadermsg(channelNumbers[channelName])
+            self.addmutemsg(channelNumbers[channelName], "mute_on_release", destinationbus=channelNumbers["Producer HB Bus"])
+            self.addmutemsg(channelNumbers[channelName + "_PA"], tofoh=True)
 
     def sendoscmessages(self, buttonstate):
 
@@ -424,6 +415,12 @@ class PhysicalButton(object):
             for i in range(0, len(self.mutemsglist)):
                 self.oscmsg.clear()
                 self.oscmsg.setAddress(self.mutemsglist[i])
+                self.oscmsg.append(int(mutestatus[i]))
+                self.x32.send(self.oscmsg)
+
+            for i in range(0, len(self.mutemsglistPa)):
+                self.oscmsg.clear()
+                self.oscmsg.setAddress(self.mutemsglistPa[i])
                 self.oscmsg.append(int(mutestatus[i]))
                 self.x32.send(self.oscmsg)
 

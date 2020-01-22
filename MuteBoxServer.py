@@ -83,13 +83,13 @@ for x in range(0, len(Channels)):
 channelNumbers["Producer HB Bus"] = producerHB
 
 x32address = (x32ipaddress, 10023)
+x32fohaddress = (x32fohipaddress, 10023)
 
 if x32ipaddress is '':
     print "ip adress field in sheet is empty make sure the ip adress is located in the right spot"
 
 try:
-    socket.inet_aton(x32fohipaddress)
-    x32fohaddress = (x32fohipaddress, 10023)
+    x32fohipaddress != ''
     fohExist=True
 except socket.error:
     print "No FOH ip address available, running only with stream mixer"
@@ -105,31 +105,32 @@ leftBlackButton.setgpichannel(37)
 rightRedButton.setgpichannel(38)
 rightBlackButton.setgpichannel(40)
 
+leftRedButton.setx32address(x32address)
+leftBlackButton.setx32address(x32address)
+rightRedButton.setx32address(x32address)
+rightBlackButton.setx32address(x32address)
+
 if fohExist:
     leftRedButton.setx32address(x32address, fohipaddress=x32fohaddress)
     leftBlackButton.setx32address(x32address, fohipaddress=x32fohaddress)
     rightRedButton.setx32address(x32address, fohipaddress=x32fohaddress)
     rightBlackButton.setx32address(x32address, fohipaddress=x32fohaddress)
-else:
-    leftRedButton.setx32address(x32address)
-    leftBlackButton.setx32address(x32address)
-    rightRedButton.setx32address(x32address)
-    rightBlackButton.setx32address(x32address)
 
 ####################################################################################
 #                      Set button osc messages here                                #
 ####################################################################################
 
+leftRedButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][1])
+leftBlackButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][2])
+rightRedButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][3])
+rightBlackButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][4])
+
 if fohExist:
-    leftRedButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][1], sendToFoh=True)
-    leftBlackButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][2], sendToFoh=True)
-    rightRedButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][3], sendToFoh=True)
-    rightBlackButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][4], sendToFoh=True)
-else:
-    leftRedButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][1])
-    leftBlackButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][2])
-    rightRedButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][3])
-    rightBlackButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][4])
+    leftRedButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][1], tofoh=True)
+    leftBlackButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][2], tofoh=True)
+    rightRedButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][3], tofoh=True)
+    rightBlackButton.setButtonTemplate(channelNumbers, muteBoxData[thisPi][4], tofoh=True)
+
 
 ###########################################################
 # Reporting of the subscribed OSC handles in a pretty way #
@@ -178,7 +179,7 @@ r = requests.post("https://script.google.com/macros/s/AKfycbzB3Tig-5MJp3eLhVInG-
 
 if DiagnosticMode is True:
     print "\nDiagnostic Mode started\nPossible buttons to choose from are: "
-    "leftRedButton, leftBlackButton, rightRedButton, rightBlackButton, exit"
+    print "leftRedButton, leftBlackButton, rightRedButton, rightBlackButton, exit"
 
 while DiagnosticMode is True:
     ChosenButton = raw_input("Please enter the name of the button you wish to simulate a press on: ")

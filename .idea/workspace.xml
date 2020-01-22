@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0ef4897f-b889-43bb-a3d6-b51e9c535ab5" name="Default" comment="Added a pa variable">
-      <change beforePath="$PROJECT_DIR$/.idea/https---github.com-rbruinekool-x32-broadcast.git.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/https---github.com-rbruinekool-x32-broadcast.git.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="0ef4897f-b889-43bb-a3d6-b51e9c535ab5" name="Default" comment="modified physical button methods for PA">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MuteBoxServer.py" beforeDir="false" afterPath="$PROJECT_DIR$/MuteBoxServer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/x32broadcast.py" beforeDir="false" afterPath="$PROJECT_DIR$/x32broadcast.py" afterDir="false" />
@@ -225,13 +223,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1476358789554</updated>
-    </task>
-    <task id="LOCAL-00035" summary="Adding reporting of fadermessages">
-      <created>1492451550355</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1492451550355</updated>
     </task>
     <task id="LOCAL-00036" summary="Adding reporting of fadermessages">
       <created>1492451630599</created>
@@ -569,7 +560,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579623686266</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="modified physical button methods for PA">
+      <created>1579639246386</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1579639246387</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -603,7 +601,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="DCA Fixed&#10;&#10;Script now works properly for channels that have no assigned DCA Group" />
     <MESSAGE value="Methods&#10;&#10;Turning most intiliasation variables into methods instead of clarity of reading" />
     <MESSAGE value="PhysicalButton&#10;&#10;The PhysicalButton class now works" />
     <MESSAGE value="PhysicalButton&#10;&#10;Added functionality to add certain busses to talk to when a  button is pressed" />
@@ -628,58 +625,75 @@
     <MESSAGE value="Mutebox server works, now debugging and making sure the mutebox can handle loss of network and internet" />
     <MESSAGE value="Added a section to the mutebox server that reports its own name and ip address to a google apps script that then sets this data in the online X32ChannelSheets" />
     <MESSAGE value="Added a pa variable" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a pa variable" />
+    <MESSAGE value="modified physical button methods for PA" />
+    <option name="LAST_COMMIT_MESSAGE" value="modified physical button methods for PA" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="239" y="77" key="#Notifications" timestamp="1579639472783">
+      <screen x="0" y="23" width="1280" height="777" />
+    </state>
+    <state x="239" y="77" key="#Notifications/0.23.1280.777@0.23.1280.777" timestamp="1579639472783" />
     <state x="789" y="63" key="#xdebugger.evaluate" timestamp="1579637018958">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
     <state x="789" y="63" key="#xdebugger.evaluate/0.23.1280.777@0.23.1280.777" timestamp="1579637018958" />
-    <state x="0" y="23" key="CommitChangelistDialog2" timestamp="1579623685644">
+    <state x="0" y="23" width="746" height="777" key="CommitChangelistDialog2" timestamp="1579647810812">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state x="0" y="23" key="CommitChangelistDialog2/0.23.1280.777@0.23.1280.777" timestamp="1579623685644" />
+    <state x="0" y="23" width="746" height="777" key="CommitChangelistDialog2/0.23.1280.777@0.23.1280.777" timestamp="1579647810812" />
+    <state width="573" height="466" key="DebuggerActiveHint" timestamp="1579685816001">
+      <screen x="0" y="23" width="1280" height="777" />
+    </state>
+    <state width="573" height="466" key="DebuggerActiveHint/0.23.1280.777@0.23.1280.777" timestamp="1579685816001" />
     <state x="428" y="172" key="FileChooserDialogImpl" timestamp="1579629988257">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
     <state x="428" y="172" key="FileChooserDialogImpl/0.23.1280.777@0.23.1280.777" timestamp="1579629988257" />
-    <state width="1259" height="299" key="GridCell.Tab.0.bottom" timestamp="1579635568521">
+    <state width="616" height="182" key="GridCell.Tab.0.bottom" timestamp="1579688001078">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state width="1259" height="299" key="GridCell.Tab.0.bottom/0.23.1280.777@0.23.1280.777" timestamp="1579635568521" />
-    <state width="1259" height="299" key="GridCell.Tab.0.center" timestamp="1579635568520">
+    <state width="616" height="182" key="GridCell.Tab.0.bottom/0.23.1280.777@0.23.1280.777" timestamp="1579688001078" />
+    <state width="616" height="182" key="GridCell.Tab.0.center" timestamp="1579688001077">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state width="1259" height="299" key="GridCell.Tab.0.center/0.23.1280.777@0.23.1280.777" timestamp="1579635568520" />
-    <state width="1259" height="299" key="GridCell.Tab.0.left" timestamp="1579635568518">
+    <state width="616" height="182" key="GridCell.Tab.0.center/0.23.1280.777@0.23.1280.777" timestamp="1579688001077" />
+    <state width="616" height="182" key="GridCell.Tab.0.left" timestamp="1579688001077">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state width="1259" height="299" key="GridCell.Tab.0.left/0.23.1280.777@0.23.1280.777" timestamp="1579635568518" />
-    <state width="1259" height="299" key="GridCell.Tab.0.right" timestamp="1579635568520">
+    <state width="616" height="182" key="GridCell.Tab.0.left/0.23.1280.777@0.23.1280.777" timestamp="1579688001077" />
+    <state width="616" height="182" key="GridCell.Tab.0.right" timestamp="1579688001077">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state width="1259" height="299" key="GridCell.Tab.0.right/0.23.1280.777@0.23.1280.777" timestamp="1579635568520" />
-    <state width="1259" height="299" key="GridCell.Tab.1.bottom" timestamp="1579635570737">
+    <state width="616" height="182" key="GridCell.Tab.0.right/0.23.1280.777@0.23.1280.777" timestamp="1579688001077" />
+    <state width="672" height="227" key="GridCell.Tab.1.bottom" timestamp="1579687997704">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state width="1259" height="299" key="GridCell.Tab.1.bottom/0.23.1280.777@0.23.1280.777" timestamp="1579635570737" />
-    <state width="1259" height="299" key="GridCell.Tab.1.center" timestamp="1579635570736">
+    <state width="672" height="227" key="GridCell.Tab.1.bottom/0.23.1280.777@0.23.1280.777" timestamp="1579687997704" />
+    <state width="672" height="227" key="GridCell.Tab.1.center" timestamp="1579687997703">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state width="1259" height="299" key="GridCell.Tab.1.center/0.23.1280.777@0.23.1280.777" timestamp="1579635570736" />
-    <state width="1259" height="299" key="GridCell.Tab.1.left" timestamp="1579635570735">
+    <state width="672" height="227" key="GridCell.Tab.1.center/0.23.1280.777@0.23.1280.777" timestamp="1579687997703" />
+    <state width="672" height="227" key="GridCell.Tab.1.left" timestamp="1579687997703">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state width="1259" height="299" key="GridCell.Tab.1.left/0.23.1280.777@0.23.1280.777" timestamp="1579635570735" />
-    <state width="1259" height="299" key="GridCell.Tab.1.right" timestamp="1579635570736">
+    <state width="672" height="227" key="GridCell.Tab.1.left/0.23.1280.777@0.23.1280.777" timestamp="1579687997703" />
+    <state width="672" height="227" key="GridCell.Tab.1.right" timestamp="1579687997703">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
-    <state width="1259" height="299" key="GridCell.Tab.1.right/0.23.1280.777@0.23.1280.777" timestamp="1579635570736" />
+    <state width="672" height="227" key="GridCell.Tab.1.right/0.23.1280.777@0.23.1280.777" timestamp="1579687997703" />
     <state x="298" y="78" key="SettingsEditor" timestamp="1579632979394">
       <screen x="0" y="23" width="1280" height="777" />
     </state>
     <state x="298" y="78" key="SettingsEditor/0.23.1280.777@0.23.1280.777" timestamp="1579632979394" />
+    <state x="239" y="140" key="Vcs.Push.Dialog.v2" timestamp="1579639839045">
+      <screen x="0" y="23" width="1280" height="777" />
+    </state>
+    <state x="239" y="140" key="Vcs.Push.Dialog.v2/0.23.1280.777@0.23.1280.777" timestamp="1579639839045" />
+    <state x="204" y="154" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1579683826281">
+      <screen x="0" y="23" width="1280" height="777" />
+    </state>
+    <state x="204" y="154" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.23.1280.777@0.23.1280.777" timestamp="1579683826281" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -688,11 +702,6 @@
           <url>file://$PROJECT_DIR$/ProducerServer.py</url>
           <line>157</line>
           <option name="timeStamp" value="173" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MuteBoxServer.py</url>
-          <line>127</line>
-          <option name="timeStamp" value="181" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
